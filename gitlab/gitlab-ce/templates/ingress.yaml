@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ template "fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/tls-acme: 'true'
+spec:
+  rules:
+  - host: gitlab.{{ .Values.externalHostname }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: {{ template "fullname" . }}
+          servicePort: {{ .Values.workhorsePort }}
+  - host: registry.{{ .Values.externalHostname }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: {{ template "fullname" . }}
+          servicePort: {{ .Values.registryPort }}
+  - host: mattermost.{{ .Values.externalHostname }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: {{ template "fullname" . }}
+          servicePort: {{ .Values.mattermostPort }}
+  - host: prometheus.{{ .Values.externalHostname }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: {{ template "fullname" . }}
+          servicePort: {{ .Values.prometheusPort }}
+  tls:
+    - hosts:
+        - "gitlab.{{ .Values.externalHostname }}"
+        - "registry.{{ .Values.externalHostname }}"
+        - "mattermost.{{ .Values.externalHostname }}"
+        - "prometheus.{{ .Values.externalHostname }}"
+      secretName: {{ template "fullname" . }}-tls
