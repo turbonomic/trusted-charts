@@ -9,6 +9,12 @@ metadata:
     release: {{ .Release.Name }}
   name: {{ template "controller.fullname" . }}
 data:
+  proxy-connect-timeout: "15"
+  proxy-read-timeout: "600"
+  proxy-send-imeout: "600"
+  hsts-include-subinstance_ids: "false"
+  body-size: "512m"
+  server-name-hash-bucket-size: "256"
   enable-vts-status: "{{ .Values.controller.stats.enabled }}"
 {{- if .Values.controller.config }}
 {{ toYaml .Values.controller.config | indent 2 }}
