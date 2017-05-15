@@ -1,7 +1,28 @@
 apiVersion: v1
 entries:
   gitlab-ce:
-  - created: 2017-05-15T14:32:05.373339798+01:00
+  - created: 2017-05-15T15:20:53.65864496+01:00
+    description: GitLab Community Edition
+    digest: 4cb65080ea6eb33a377db5920ca41ed5a7686e28f440226ef010c5b8faf289b8
+    home: https://about.gitlab.com
+    keywords:
+    - git
+    - ci
+    - deploy
+    - issue tracker
+    - code review
+    - wiki
+    maintainers:
+    - email: rimas@stackpointcloud.com
+      name: StackPointCloud
+    name: gitlab-ce
+    sources:
+    - https://hub.docker.com/r/gitlab/gitlab-ce/
+    - https://docs.gitlab.com/omnibus/
+    urls:
+    - https://stackpointcloud.github.io/spc-solutions/gitlab-ce-0.1.2.tgz
+    version: 0.1.2
+  - created: 2017-05-15T15:20:53.65768514+01:00
     description: GitLab Community Edition
     digest: 616f8db117706a43f98d039f4f80f45d07086a901869970deb55a9af304325d2
     home: https://about.gitlab.com
@@ -23,7 +44,7 @@ entries:
     - https://stackpointcloud.github.io/spc-solutions/gitlab-ce-0.1.1.tgz
     version: 0.1.1
   gitlab-runner:
-  - created: 2017-05-15T14:32:05.373687182+01:00
+  - created: 2017-05-15T15:20:53.658986783+01:00
     description: GitLab Runner is the open source project that is used to run your
       jobs and send the results back to GitLab.
     digest: 66979a246c65ab88c5d8bcdf5b5e74e3a4d52546b0cc5238e05232192b0032a7
@@ -46,7 +67,7 @@ entries:
     version: 0.1.0
   gitlab-runner-simple:
   - apiVersion: v1
-    created: 2017-05-15T14:32:05.373909369+01:00
+    created: 2017-05-15T15:20:53.659199969+01:00
     description: GitLab Runner chart
     digest: b76438c8a282dcfd7fbeb78a09f158a4413f789e02d0d17b3e664e444e89296b
     name: gitlab-runner-simple
@@ -55,7 +76,7 @@ entries:
     version: 0.1.0
   kube-lego:
   - apiVersion: v1
-    created: 2017-05-15T14:32:05.374183168+01:00
+    created: 2017-05-15T15:20:53.659585623+01:00
     description: Automatically requests certificates from Let's Encrypt
     digest: 3dccc796fe2eb46348cc0939360b157dc12283d258b91166f10ff4cc5f4244a0
     engine: gotpl
@@ -74,7 +95,7 @@ entries:
     - https://stackpointcloud.github.io/spc-solutions/kube-lego-0.1.8.tgz
     version: 0.1.8
   nginx-ingress:
-  - created: 2017-05-15T14:32:05.374763568+01:00
+  - created: 2017-05-15T15:20:53.660405879+01:00
     description: An nginx Ingress controller that uses ConfigMap to store the nginx
       configuration.
     digest: 6686e18f68920007a4f91b821734533bbde9f5e9f2c7150896522b8d57c3c826
@@ -96,4 +117,4 @@ entries:
     urls:
     - https://stackpointcloud.github.io/spc-solutions/nginx-ingress-0.3.2.tgz
     version: 0.3.2
-generated: 2017-05-15T14:32:05.372223538+01:00
+generated: 2017-05-15T15:20:53.608711466+01:00
