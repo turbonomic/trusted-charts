@@ -1,7 +1,7 @@
 apiVersion: v1
 entries:
   gitlab-ce:
-  - created: 2017-05-15T14:10:17.122900191+01:00
+  - created: 2017-05-15T14:18:37.155923126+01:00
     description: GitLab Community Edition
     digest: 616f8db117706a43f98d039f4f80f45d07086a901869970deb55a9af304325d2
     home: https://about.gitlab.com
@@ -20,10 +20,10 @@ entries:
     - https://hub.docker.com/r/gitlab/gitlab-ce/
     - https://docs.gitlab.com/omnibus/
     urls:
-    - https://StackPointCloud.gitlab.io/charts/gitlab-ce-0.1.1.tgz
+    - https://StackPointCloud.gitlab.io/docs/gitlab-ce-0.1.1.tgz
     version: 0.1.1
   gitlab-runner:
-  - created: 2017-05-15T14:10:17.123227244+01:00
+  - created: 2017-05-15T14:18:37.156269381+01:00
     description: GitLab Runner is the open source project that is used to run your
       jobs and send the results back to GitLab.
     digest: 66979a246c65ab88c5d8bcdf5b5e74e3a4d52546b0cc5238e05232192b0032a7
@@ -42,20 +42,20 @@ entries:
     - https://hub.docker.com/r/gitlab/gitlab-runner/
     - https://docs.gitlab.com/runner/
     urls:
-    - https://StackPointCloud.gitlab.io/charts/gitlab-runner-0.1.0.tgz
+    - https://StackPointCloud.gitlab.io/docs/gitlab-runner-0.1.0.tgz
     version: 0.1.0
   gitlab-runner-simple:
   - apiVersion: v1
-    created: 2017-05-15T14:10:17.123424921+01:00
+    created: 2017-05-15T14:18:37.1565282+01:00
     description: GitLab Runner chart
     digest: b76438c8a282dcfd7fbeb78a09f158a4413f789e02d0d17b3e664e444e89296b
     name: gitlab-runner-simple
     urls:
-    - https://StackPointCloud.gitlab.io/charts/gitlab-runner-simple-0.1.0.tgz
+    - https://StackPointCloud.gitlab.io/docs/gitlab-runner-simple-0.1.0.tgz
     version: 0.1.0
   kube-lego:
   - apiVersion: v1
-    created: 2017-05-15T14:10:17.123710395+01:00
+    created: 2017-05-15T14:18:37.156795877+01:00
     description: Automatically requests certificates from Let's Encrypt
     digest: 3dccc796fe2eb46348cc0939360b157dc12283d258b91166f10ff4cc5f4244a0
     engine: gotpl
@@ -71,10 +71,10 @@ entries:
     sources:
     - https://github.com/jetstack/kube-lego/tree/master/examples/nginx
     urls:
-    - https://StackPointCloud.gitlab.io/charts/kube-lego-0.1.8.tgz
+    - https://StackPointCloud.gitlab.io/docs/kube-lego-0.1.8.tgz
     version: 0.1.8
   nginx-ingress:
-  - created: 2017-05-15T14:10:17.124296851+01:00
+  - created: 2017-05-15T14:18:37.15729736+01:00
     description: An nginx Ingress controller that uses ConfigMap to store the nginx
       configuration.
     digest: 6686e18f68920007a4f91b821734533bbde9f5e9f2c7150896522b8d57c3c826
@@ -94,6 +94,6 @@ entries:
     sources:
     - https://github.com/kubernetes/contrib/tree/master/ingress/controllers/nginx
     urls:
-    - https://StackPointCloud.gitlab.io/charts/nginx-ingress-0.3.2.tgz
+    - https://StackPointCloud.gitlab.io/docs/nginx-ingress-0.3.2.tgz
     version: 0.3.2
-generated: 2017-05-15T14:10:17.121872802+01:00
+generated: 2017-05-15T14:18:37.154840715+01:00
