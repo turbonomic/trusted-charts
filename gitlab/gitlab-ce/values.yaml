@@ -1,7 +1,7 @@
 ## GitLab CE image
 ## ref: https://hub.docker.com/r/gitlab/gitlab-ce/tags/
 ##
-image: gitlab/gitlab-ce:9.1.3-ce.0
+image: gitlab/gitlab-ce:9.1.4-ce.0
 
 ## Specify a imagePullPolicy
 ## 'Always' if imageTag is 'latest', else set to 'IfNotPresent'
@@ -12,7 +12,15 @@ image: gitlab/gitlab-ce:9.1.3-ce.0
 ## The URL (with protocol) that your users will use to reach the install.
 ## ref: https://docs.gitlab.com/omnibus/settings/configuration.html#configuring-the-external-url-for-gitlab
 ##
-#externalHostname: your-domain.com
+# externalHostname: your-domain.com
+##
+## SPC instance ID
+##
+# instanceId:
+##
+## set enviroment as .development - dot is required
+## leave as it is for the production deployment
+env: ""
 
 ## Change the initial default admin password if set. If not set, you'll be
 ## able to set it when you first visit your install.

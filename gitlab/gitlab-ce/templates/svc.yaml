@@ -18,7 +18,7 @@ spec:
     targetPort: registry
   - name: mattermost
     port: {{ .Values.mattermostPort | int }}
-    targetPort: wmattermost
+    targetPort: mattermost
   - name: workhorse
     port: {{ .Values.workhorsePort | int }}
     targetPort: workhorse

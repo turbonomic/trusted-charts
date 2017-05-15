@@ -1,6 +1,5 @@
 description: GitLab Community Edition
 home: https://about.gitlab.com
-icon: https://gitlab.com/uploads/group/avatar/6543/gitlab-logo-square.png
 keywords:
 - git
 - ci
@@ -9,10 +8,10 @@ keywords:
 - code review
 - wiki
 maintainers:
-- email: gtaylor@gc-taylor.com
-  name: Greg Taylor
+- email: rimas@stackpointcloud.com
+  name: StackPointCloud
 name: gitlab-ce
 sources:
 - https://hub.docker.com/r/gitlab/gitlab-ce/
 - https://docs.gitlab.com/omnibus/
-version: 0.1.7
+version: 0.1.1

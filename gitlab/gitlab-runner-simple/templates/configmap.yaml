@@ -18,7 +18,8 @@ data:
     # Register the runner
     /entrypoint register --non-interactive \
       --url $GITLAB_URL \
-      --executor kubernetes
+      --executor kubernetes \
+      --kubernetes-privileged=true
 
     # Start the runner
     /entrypoint run --user=gitlab-runner \
@@ -26,4 +27,3 @@ data:
   config.toml: |
     concurrent = {{ .Values.concurrent }}
     check_interval = {{ .Values.checkInterval }}
-    metrics_server = '0.0.0.0:9090'

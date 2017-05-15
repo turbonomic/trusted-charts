@@ -9,11 +9,11 @@ metadata:
     heritage: "{{ .Release.Service }}"
 data:
   external_scheme: https
-  external_hostname: gitlab.{{ .Values.externalHostname }}
+  external_hostname: gitlab.gl.{{ .Values.instanceId }}{{ .Values.env }}.stackpoint.io
   registry_external_scheme: https
-  registry_external_hostname: registry.{{ .Values.externalHostname }}
+  registry_external_hostname: registry.gl.{{ .Values.instanceId }}{{ .Values.env }}.stackpoint.io
   mattermost_external_scheme: https
-  mattermost_external_hostname: mattermost.{{ .Values.externalHostname }}
+  mattermost_external_hostname: mattermost.gl.{{ .Values.instanceId }}{{ .Values.env }}.stackpoint.io
   mattermost_app_uid: aadas
   ## This is used by GitLab Omnibus as the primary means of configuration.
   ## ref: https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/files/gitlab-config-template/gitlab.rb.template
@@ -71,6 +71,7 @@ data:
     gitlab_rails['trusted_proxies'] = ["10.0.0.0/8","172.16.0.0/12","192.168.0.0/16"]
 
     prometheus['listen_address'] = '0.0.0.0:9090'
+    
     postgres_exporter['enable'] = true
     postgres_exporter['env'] = {
       'DATA_SOURCE_NAME' => "user=#{ENV['DB_USER']} host=#{ENV['DB_HOST']} port=5432 dbname=#{ENV['DB_DATABASE']} password=#{ENV['DB_PASSWORD']} sslmode=disable"

@@ -1,4 +1,4 @@
-{{- if default "" .Values.externalHostname }}
+{{- if default "" .Values.instanceId }}
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -156,7 +156,7 @@ spec:
           successThreshold: 1
           failureThreshold: 3
         volumeMounts:
-        - name: gitlab-etc
+        - name: gitlab-config
           mountPath: /etc/gitlab
         - name: gitlab-data
           mountPath: /gitlab-data
@@ -165,7 +165,7 @@ spec:
         resources:
 {{ toYaml .Values.resources | indent 10 }}
       volumes:
-      - name: gitlab-etc
+      - name: gitlab-config
       {{- if .Values.persistence.gitlabConfig.enabled }}
         persistentVolumeClaim:
           claimName: {{ template "fullname" . }}-config

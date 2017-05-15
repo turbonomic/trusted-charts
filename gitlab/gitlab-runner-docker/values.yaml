@@ -20,16 +20,6 @@ gitlabUrl: https://gitlab.example.com/
 ##
 runnerRegistrationToken: ""
 
-## Configure the maximum number of concurrent jobs
-## ref: https://docs.gitlab.com/runner/configuration/advanced-configuration.html#the-global-section
-##
-concurrent: 10
-
-## Defines in seconds how often to check GitLab for a new builds
-## ref: https://docs.gitlab.com/runner/configuration/advanced-configuration.html#the-global-section
-##
-checkInterval: 1
-
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
 ##
