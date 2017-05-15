@@ -5,6 +5,5 @@ do
     # Will generate a helm package per chart folder
     echo $d
     helm package $d
-    mv *.tgz public/
+    mv *.tgz docs/
 done
-
