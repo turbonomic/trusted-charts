@@ -1,5 +1,5 @@
 # the filepath to this repository
-REPO_PATH := https://StackPointCloud.gitlab.io/
+REPO_PATH := https://stackpointcloud.github.io/spc-solutions/
 
 # generare helm chart archives
 gen:
