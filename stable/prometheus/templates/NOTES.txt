@@ -1,0 +1,4 @@
+Prometheus and Alertmanager instances have been configured with
+the prometheus operator.
+
+...

@@ -1,0 +1,43 @@
+# Default values for haddock.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+
+image:
+  repository: quay.io/stackpoint/haproxy-ingress-controller
+  tag: 0.1.7
+  pullPolicy: IfNotPresent
+
+deployment:
+  # Whether to expose the service ports 80/443 on the host
+  hostNetwork: true
+  nodeSelector:
+    master: "true"
+  # if bound to the master and hostNetwork=true, replicas must be < master count
+  replicas: 1
+  resources:
+    limits:
+      cpu: 400m
+      memory: 256Mi
+    requests:
+      cpu: 200m
+      memory: 128Mi
+
+
+# If service.enabled == false, no service will be defined, and the ingressController
+# will only be available on the pod hostPorts
+service:
+  enabled: true
+  name: spc-balancer
+  type: NodePort
+  nodePort: 30080
+  nodeTlsPort: 30443
+
+# Install prometheus metrics service
+metrics:
+  enabled: true
+  image: quay.io/prometheus/haproxy-exporter
+  tag: v0.7.1
+  servicemonitor:
+    label: metrics
+    value: enabled

@@ -1,7 +1,7 @@
 apiVersion: v1
 entries:
   gitlab-ce:
-  - created: 2017-05-15T15:20:53.65864496+01:00
+  - created: 2017-05-18T13:36:51.342410945+01:00
     description: GitLab Community Edition
     digest: 4cb65080ea6eb33a377db5920ca41ed5a7686e28f440226ef010c5b8faf289b8
     home: https://about.gitlab.com
@@ -22,29 +22,8 @@ entries:
     urls:
     - https://stackpointcloud.github.io/spc-solutions/gitlab-ce-0.1.2.tgz
     version: 0.1.2
-  - created: 2017-05-15T15:20:53.65768514+01:00
-    description: GitLab Community Edition
-    digest: 616f8db117706a43f98d039f4f80f45d07086a901869970deb55a9af304325d2
-    home: https://about.gitlab.com
-    keywords:
-    - git
-    - ci
-    - deploy
-    - issue tracker
-    - code review
-    - wiki
-    maintainers:
-    - email: rimas@stackpointcloud.com
-      name: StackPointCloud
-    name: gitlab-ce
-    sources:
-    - https://hub.docker.com/r/gitlab/gitlab-ce/
-    - https://docs.gitlab.com/omnibus/
-    urls:
-    - https://stackpointcloud.github.io/spc-solutions/gitlab-ce-0.1.1.tgz
-    version: 0.1.1
   gitlab-runner:
-  - created: 2017-05-15T15:20:53.658986783+01:00
+  - created: 2017-05-18T13:36:51.342884519+01:00
     description: GitLab Runner is the open source project that is used to run your
       jobs and send the results back to GitLab.
     digest: 66979a246c65ab88c5d8bcdf5b5e74e3a4d52546b0cc5238e05232192b0032a7
@@ -67,16 +46,25 @@ entries:
     version: 0.1.0
   gitlab-runner-simple:
   - apiVersion: v1
-    created: 2017-05-15T15:20:53.659199969+01:00
+    created: 2017-05-18T13:36:51.343092604+01:00
     description: GitLab Runner chart
     digest: b76438c8a282dcfd7fbeb78a09f158a4413f789e02d0d17b3e664e444e89296b
     name: gitlab-runner-simple
     urls:
     - https://stackpointcloud.github.io/spc-solutions/gitlab-runner-simple-0.1.0.tgz
     version: 0.1.0
+  grafana:
+  - apiVersion: v1
+    created: 2017-05-18T13:36:51.344076021+01:00
+    description: Installs grafana with dashboards for prometheus
+    digest: 066bfeef76463e829f1aadfdf26cadcdfd86711d1d87e66f769b4f22a26b72ce
+    name: grafana
+    urls:
+    - https://stackpointcloud.github.io/spc-solutions/grafana-0.1.5.tgz
+    version: 0.1.5
   kube-lego:
   - apiVersion: v1
-    created: 2017-05-15T15:20:53.659585623+01:00
+    created: 2017-05-18T13:36:51.344357919+01:00
     description: Automatically requests certificates from Let's Encrypt
     digest: 3dccc796fe2eb46348cc0939360b157dc12283d258b91166f10ff4cc5f4244a0
     engine: gotpl
@@ -95,7 +83,7 @@ entries:
     - https://stackpointcloud.github.io/spc-solutions/kube-lego-0.1.8.tgz
     version: 0.1.8
   nginx-ingress:
-  - created: 2017-05-15T15:20:53.660405879+01:00
+  - created: 2017-05-18T13:36:51.344929511+01:00
     description: An nginx Ingress controller that uses ConfigMap to store the nginx
       configuration.
     digest: 6686e18f68920007a4f91b821734533bbde9f5e9f2c7150896522b8d57c3c826
@@ -117,4 +105,43 @@ entries:
     urls:
     - https://stackpointcloud.github.io/spc-solutions/nginx-ingress-0.3.2.tgz
     version: 0.3.2
-generated: 2017-05-15T15:20:53.608711466+01:00
+  prometheus:
+  - apiVersion: v1
+    created: 2017-05-18T13:36:51.345471448+01:00
+    description: Sets up prometheus to monitor kubernetes.  Requires a prometheus-operator
+    digest: 2cf5a132742862c6674de5ce58af8821277c96fb318a43e2f96cd238a959bceb
+    name: prometheus
+    urls:
+    - https://stackpointcloud.github.io/spc-solutions/prometheus-0.1.1.tgz
+    version: 0.1.1
+  prometheus-operator:
+  - apiVersion: v1
+    created: 2017-05-18T13:36:51.345806221+01:00
+    description: Forked from coreos/prometheus-operator.  Provides easy monitoring
+      definitions for Kubernetes services, and deployment and management of Prometheus
+      instances.
+    digest: 8bef2279d4b4bb1517b4751dbf4e300bf3c88c48b97cda5994e2bc47193ca74f
+    engine: gotpl
+    maintainers:
+    - email: nate@stackpointcloud.com
+      name: Nate Franzen
+    name: prometheus-operator
+    sources:
+    - https://github.com/coreos/prometheus-operator
+    urls:
+    - https://stackpointcloud.github.io/spc-solutions/prometheus-operator-0.0.3.tgz
+    version: 0.0.3
+  spc-haproxy-ingress:
+  - apiVersion: v1
+    created: 2017-05-18T13:36:51.346438526+01:00
+    description: Installs the StackPointCloud ingress controller
+    digest: ece22c2f5571f33a96d788f936b9f0cbe28351f8926c8331b0ec99f6a734585a
+    home: https://quay.io/application/stackpoint/spc-haproxy-ingress
+    name: spc-haproxy-ingress
+    sources:
+    - https://github.com/StackPointCloud/haddock
+    - quay.io/stackpoint/haproxy-ingress-controller
+    urls:
+    - https://stackpointcloud.github.io/spc-solutions/spc-haproxy-ingress-0.1.7.tgz
+    version: 0.1.7
+generated: 2017-05-18T13:36:51.340823024+01:00
