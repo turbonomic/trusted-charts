@@ -1,0 +1,87 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "fullname" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+    spec:
+      nodeSelector:
+{{ toYaml .Values.deployment.nodeSelector | indent 8 }}
+      hostNetwork: {{ .Values.deployment.hostNetwork }}
+      containers:
+      - name: {{ .Chart.Name }}
+        securityContext:
+          privileged: true
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: CONFIG_MAP_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: CONFIG_MAP_NAME
+          value: haproxy-config
+        - name: BALANCER_IP
+          value: 0.0.0.0
+        - name: BALANCER_API_PORT
+          value: "8207"
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+{{- if .Values.deployment.hostNetwork }}
+          hostPort: 80
+{{- end }}
+        - containerPort: 443
+          name: https
+          protocol: TCP
+{{- if .Values.deployment.hostNetwork }}
+          hostPort: 443
+{{- end }}
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: 8207
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
+        resources:
+{{ toYaml .Values.deployment.resources | indent 10 -}}
+{{- if .Values.metrics.enabled }}
+      - name: {{ .Chart.Name }}-metrics
+        image: quay.io/prometheus/haproxy-exporter
+        ports:
+        - containerPort: 9101
+          name: metrics
+          protocol: TCP
+        command:
+          - /bin/haproxy_exporter
+          - --haproxy.scrape-uri=http://localhost:1936/admin?stats;csv
+        resources:
+          requests:
+            cpu: 10m
+            memory: 8Mi
+{{ end }}

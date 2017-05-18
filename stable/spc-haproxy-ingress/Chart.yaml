@@ -1,0 +1,8 @@
+apiVersion: v1
+description: Installs the StackPointCloud ingress controller
+name: spc-haproxy-ingress
+home: https://quay.io/application/stackpoint/spc-haproxy-ingress
+sources:
+  - https://github.com/StackPointCloud/haddock
+  - quay.io/stackpoint/haproxy-ingress-controller
+version: 0.1.7

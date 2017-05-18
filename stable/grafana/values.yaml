@@ -1,0 +1,27 @@
+# Default values for grafana.
+
+
+image:
+  repository: grafana/grafana
+  tag: 4.1.1
+  pullPolicy: IfNotPresent
+
+prometheus:
+  name: pk8s-prometheus
+
+# enable ingress to expose at [name].[namespace].[domain]
+ingress:
+  enabled: true
+  domain: spcj5v0ey8.staging.stackpoint.io
+
+# set type to NodePort in order to expose through kube-proxy
+service:
+  type: NodePort
+  nodePort: 30902
+
+
+# full admin credentials
+auth:
+  allowAnonAccess: true
+  adminUser: admin
+  adminPassword: admin

@@ -1,0 +1,51 @@
+# Default values for prometheus.
+
+rbac:
+  enabled: false
+
+prometheus:
+  baseImage: quay.io/prometheus/prometheus
+  version: v1.6.2
+  replicas: 2
+  retention: 24h
+  ## (1) storage can be set to use local emptyDir
+  useEmptyDirStorage: true
+  ## (2) storage can be acquired by labels on persistent volumes
+  # storage:
+  #   selector:
+  #     matchLabels:
+  #       prom-storage: "yes"
+  #   resources:
+  #     requests:
+  #       storage: 100Gi
+  ## (3) storage can be dyanmically provisioned from a storageclas
+  # storage:
+  #   class: ssd
+  #   resources:
+  #     requests:
+  #       storage: 100Gi
+  storage:
+  resources:
+    requests:
+      cpu: 200m
+      memory: 2Gi
+    limits:
+      cpu: 1500m
+      memory: 6Gi
+
+# enable ingress to expose at [name].[namespace].[domain]
+ingress:
+  enabled: true
+  domain: spc0fe0ae6.staging.stackpoint.io
+
+# set type to NodePort in order to expose through kube-proxy
+service:
+  type: NodePort
+  nodePort: 30900
+
+# a service monitor that will enable scrapting on the "metrics" port for any
+# service with labels that match
+serviceMonitor:
+  metricsAnyNamespace:
+    matchLabel: metrics
+    matchValue: enabled
