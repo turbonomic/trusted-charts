@@ -1,0 +1,55 @@
+{{- if and .Values.aws.accessKeyId .Values.aws.secretAccessKey .Values.aws.bucket .Values.aws.region }}
+apiVersion: batch/v2alpha1
+kind: CronJob
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  schedule: "{{ .Values.schedule }}"
+  concurrencyPolicy: {{ .Values.concurrencyPolicy }}
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: {{ .Values.restartPolicy }}
+          dnsPolicy: ClusterFirst
+          terminationGracePeriodSeconds: 30
+          serviceAccountName: {{ template "fullname" . }}
+          containers:
+          - name: backup
+            image: "{{ .Values.image }}:{{ .Values.imageTag }}"
+            imagePullPolicy: {{ default "" .Values.imagePullPolicy | quote }}
+            env:
+            - name: GLOBALRESOURCES
+              value: "{{ .Values.kubeState.globalResources }}"
+            - name: RESOURCETYPES
+              value: "{{ .Values.kubeState.resourceTypes }}"
+            - name: REGION
+              value: "{{ .Values.aws.region }}"
+            - name: BUCKET
+              value: "{{ .Values.aws.bucket }}"
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "fullname" . }}
+                  key: accessKeyId
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "fullname" . }}
+                  key: secretAccessKey
+            resources:
+{{ toYaml .Values.resources | indent 14 }}
+            volumeMounts:
+            - name: cache
+              mountPath: /backup/
+          volumes:
+          - name: cache
+            emptyDir: {}
+{{- end }}
