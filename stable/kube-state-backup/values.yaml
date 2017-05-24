@@ -1,7 +1,7 @@
 ##  Docker image and tag version
 ##
 image: quay.io/stackpoint/kube-state-backup
-imageTag: 0.1.3
+imageTag: 0.1.7
 
 ## Specify a imagePullPolicy
 ## 'Always' if imageTag is 'latest', else set to 'IfNotPresent'
@@ -26,9 +26,23 @@ restartPolicy: OnFailure
 ## Backup to AWS S3 bucket
 ##
 aws:
+  enabled: false
   accessKeyId: ""
   secretAccessKey: ""
   bucket: ""
+  region: ""
+
+## Backup to GCS bucket
+## check the URL below how to obtain HMAC authentication keys
+## ref: https://cloud.google.com/storage/docs/migrating#keys
+##
+gcs:
+  enabled: false
+  projectId: ""
+  accessKeyId: ""
+  secretAccessKey: ""
+  bucket: ""
+  # multi-regional storage class: us/eu/asia
   region: ""
 
 ## Kubernetes resources type
@@ -52,7 +66,7 @@ resources:
 ##
 jobCleanup:
   ## Enable old jobs clean up
-  enabled: true
+  enabled: false
   ##  Docker image and tag version
   ##
   image: quay.io/coreos/hyperkube

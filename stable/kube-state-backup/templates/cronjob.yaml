@@ -1,4 +1,3 @@
-{{- if and .Values.aws.accessKeyId .Values.aws.secretAccessKey .Values.aws.bucket .Values.aws.region }}
 apiVersion: batch/v2alpha1
 kind: CronJob
 metadata:
@@ -11,8 +10,8 @@ metadata:
 spec:
   schedule: "{{ .Values.schedule }}"
   concurrencyPolicy: {{ .Values.concurrencyPolicy }}
-  successfulJobsHistoryLimit: 3
-  failedJobsHistoryLimit: 3
+  successfulJobsHistoryLimit: 5
+  failedJobsHistoryLimit: 5
   jobTemplate:
     spec:
       template:
@@ -30,6 +29,9 @@ spec:
               value: "{{ .Values.kubeState.globalResources }}"
             - name: RESOURCETYPES
               value: "{{ .Values.kubeState.resourceTypes }}"
+{{- if .Values.aws.enabled }}
+            - name: STORAGE
+              value: "aws"
             - name: REGION
               value: "{{ .Values.aws.region }}"
             - name: BUCKET
@@ -44,12 +46,29 @@ spec:
                 secretKeyRef:
                   name: {{ template "fullname" . }}
                   key: secretAccessKey
+{{- end }}
+{{- if .Values.gcs.enabled }}
+            - name: STORAGE
+              value: "gcs"
+            - name: REGION
+              value: "{{ .Values.gcs.region }}"
+            - name: BUCKET
+              value: "{{ .Values.gcs.bucket }}"
+{{- end }}
             resources:
 {{ toYaml .Values.resources | indent 14 }}
             volumeMounts:
             - name: cache
-              mountPath: /backup/
+              mountPath: /tmp/backup
+{{- if .Values.gcs.enabled }}
+            - name: boto
+              mountPath: /backup
+{{- end }}
           volumes:
           - name: cache
             emptyDir: {}
+{{- if .Values.gcs.enabled }}
+          - name: boto
+            configMap:
+              name: {{ template "fullname" . }}-gcs
 {{- end }}
