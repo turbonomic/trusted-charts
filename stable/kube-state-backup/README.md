@@ -6,7 +6,7 @@ This chart will schedule [Kubernetes Cron Job](https://kubernetes.io/docs/user-g
 
 ```bash
 $ helm upgrade --install kube-backup kube-state-backup --namespace kube-backup \
-    --set schedule="*/50 * * * *" \
+    --set schedule="*/50 * * * *", \
     --set aws.accessKeyId="accessKeyId",aws.secretAccessKey="secretAccessKey" \
     --set aws.bucket="my-kube-state-backup",aws.region="eu-west-2"
 ```
