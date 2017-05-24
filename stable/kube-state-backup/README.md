@@ -21,7 +21,7 @@ helm upgrade --install kube-backup kube-state-backup --namespace stackpoint-syst
     --set jobCleanup.enabled="true"
 ```
 
-## run upgrades e.g. for schedule or docker image change
+### Run upgrades e.g. for schedule or docker image change
 ```bash
 helm upgrade kube-backup spc/kube-state-backup --reuse-values --set schedule="*/30 * * * *"
 helm upgrade kube-backup spc/kube-state-backup --reuse-values --set imageTag="0.1.8"
