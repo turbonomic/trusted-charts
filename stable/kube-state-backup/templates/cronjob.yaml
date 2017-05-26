@@ -69,6 +69,6 @@ spec:
             emptyDir: {}
 {{- if .Values.gcs.enabled }}
           - name: boto
-            configMap:
-              name: {{ template "fullname" . }}-gcs
+            secret:
+              secretName: {{ template "fullname" . }}-gcs
 {{- end }}

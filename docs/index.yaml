@@ -1,7 +1,7 @@
 apiVersion: v1
 entries:
   gitlab-ce:
-  - created: 2017-05-24T19:47:17.044846466+01:00
+  - created: 2017-05-26T18:44:49.853277906+01:00
     description: GitLab Community Edition
     digest: 4cb65080ea6eb33a377db5920ca41ed5a7686e28f440226ef010c5b8faf289b8
     home: https://about.gitlab.com
@@ -23,7 +23,7 @@ entries:
     - https://stackpointcloud.github.io/spc-solutions/gitlab-ce-0.1.2.tgz
     version: 0.1.2
   gitlab-runner:
-  - created: 2017-05-24T19:47:17.04517763+01:00
+  - created: 2017-05-26T18:44:49.853651794+01:00
     description: GitLab Runner is the open source project that is used to run your
       jobs and send the results back to GitLab.
     digest: 66979a246c65ab88c5d8bcdf5b5e74e3a4d52546b0cc5238e05232192b0032a7
@@ -46,7 +46,7 @@ entries:
     version: 0.1.0
   gitlab-runner-simple:
   - apiVersion: v1
-    created: 2017-05-24T19:47:17.045392735+01:00
+    created: 2017-05-26T18:44:49.853856114+01:00
     description: GitLab Runner chart
     digest: b76438c8a282dcfd7fbeb78a09f158a4413f789e02d0d17b3e664e444e89296b
     name: gitlab-runner-simple
@@ -55,7 +55,7 @@ entries:
     version: 0.1.0
   grafana:
   - apiVersion: v1
-    created: 2017-05-24T19:47:17.046234082+01:00
+    created: 2017-05-26T18:44:49.854728094+01:00
     description: Installs grafana with dashboards for prometheus
     digest: 066bfeef76463e829f1aadfdf26cadcdfd86711d1d87e66f769b4f22a26b72ce
     name: grafana
@@ -64,7 +64,7 @@ entries:
     version: 0.1.5
   kube-lego:
   - apiVersion: v1
-    created: 2017-05-24T19:47:17.046528555+01:00
+    created: 2017-05-26T18:44:49.855005377+01:00
     description: Automatically requests certificates from Let's Encrypt
     digest: 3dccc796fe2eb46348cc0939360b157dc12283d258b91166f10ff4cc5f4244a0
     engine: gotpl
@@ -84,15 +84,23 @@ entries:
     version: 0.1.8
   kube-state-backup:
   - apiVersion: v1
-    created: 2017-05-24T19:47:17.047026432+01:00
+    created: 2017-05-26T18:44:49.855764742+01:00
     description: A Helm chart for Kubernetes state backup
-    digest: d97956144af39f6bd2bf9de87d692e3bf4a1ac3e99434667bc3f80d27ac3c92c
+    digest: 1aeb43568f37d5421b579d067afe7f8aeff2873bcf95c20150992c20192ed205
+    name: kube-state-backup
+    urls:
+    - https://stackpointcloud.github.io/spc-solutions/kube-state-backup-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v1
+    created: 2017-05-26T18:44:49.85551037+01:00
+    description: A Helm chart for Kubernetes state backup
+    digest: ba2ffc1111cdee96c9c65029d36b71e9e50f2ed7afd1bed2e07a5918d809c45c
     name: kube-state-backup
     urls:
     - https://stackpointcloud.github.io/spc-solutions/kube-state-backup-0.1.3.tgz
     version: 0.1.3
   - apiVersion: v1
-    created: 2017-05-24T19:47:17.046778544+01:00
+    created: 2017-05-26T18:44:49.855251186+01:00
     description: A Helm chart for Kubernetes state backup
     digest: 6fb3666ed0c6a88964f41743f091b873d059008599d347df70af3a4f500ac81a
     name: kube-state-backup
@@ -100,7 +108,7 @@ entries:
     - https://stackpointcloud.github.io/spc-solutions/kube-state-backup-0.1.1.tgz
     version: 0.1.1
   nginx-ingress:
-  - created: 2017-05-24T19:47:17.047581362+01:00
+  - created: 2017-05-26T18:44:49.856289095+01:00
     description: An nginx Ingress controller that uses ConfigMap to store the nginx
       configuration.
     digest: 6686e18f68920007a4f91b821734533bbde9f5e9f2c7150896522b8d57c3c826
@@ -124,7 +132,7 @@ entries:
     version: 0.3.2
   prometheus:
   - apiVersion: v1
-    created: 2017-05-24T19:47:17.048144057+01:00
+    created: 2017-05-26T18:44:49.856836146+01:00
     description: Sets up prometheus to monitor kubernetes.  Requires a prometheus-operator
     digest: 2cf5a132742862c6674de5ce58af8821277c96fb318a43e2f96cd238a959bceb
     name: prometheus
@@ -133,7 +141,7 @@ entries:
     version: 0.1.1
   prometheus-operator:
   - apiVersion: v1
-    created: 2017-05-24T19:47:17.048466897+01:00
+    created: 2017-05-26T18:44:49.857160721+01:00
     description: Forked from coreos/prometheus-operator.  Provides easy monitoring
       definitions for Kubernetes services, and deployment and management of Prometheus
       instances.
@@ -150,7 +158,7 @@ entries:
     version: 0.0.3
   spc-haproxy-ingress:
   - apiVersion: v1
-    created: 2017-05-24T19:47:17.049072724+01:00
+    created: 2017-05-26T18:44:49.85781369+01:00
     description: Installs the StackPointCloud ingress controller
     digest: ece22c2f5571f33a96d788f936b9f0cbe28351f8926c8331b0ec99f6a734585a
     home: https://quay.io/application/stackpoint/spc-haproxy-ingress
@@ -161,4 +169,4 @@ entries:
     urls:
     - https://stackpointcloud.github.io/spc-solutions/spc-haproxy-ingress-0.1.7.tgz
     version: 0.1.7
-generated: 2017-05-24T19:47:17.043784734+01:00
+generated: 2017-05-26T18:44:49.85223434+01:00
