@@ -1,6 +1,6 @@
 ##  Docker image and tag version
 ##
-image: quay.io/stackpoint/kube-state-backup
+image: quay.io/stackpoint/spc-state-backup
 imageTag: 0.1.7
 
 ## Specify a imagePullPolicy
