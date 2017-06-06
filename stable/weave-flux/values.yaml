@@ -1,0 +1,35 @@
+## Weave Flux agent image
+## ref: quay.io/weaveworks/fluxd
+##
+image:
+  agentRepository: quay.io/weaveworks/fluxd
+  ## only needs to be set if using the standalone setup
+  serverRepository: quay.io/weaveworks/fluxsvc
+  tag: 0.2.0
+  pullPolicy: IfNotPresent
+
+## Replicas count
+replicaCount: 1
+
+## Configure resource requests and limits
+## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+##
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+## Enable RBAC roles and bindings
+##
+rbac:
+  enabled: false
+  apiVersion: v1beta1
+
+## Weave Cloud
+## You will need a service token which you can get from [cloud.weave.works](https://cloud.weave.works/)
+cloud:
+  enabled: true
+  serviceToken: ""
