@@ -1,0 +1,13 @@
+You have installed Weave Flux agent chart!
+
+Verify all Pods are running:
+
+  kubectl get pods -n {{ .Release.Namespace }} -l {{ template "fullname" . }}-agent
+
+{{ if .Values.cloud.enabled }}
+Next, login to Weave Cloud (https://cloud.weave.works) and verify your agents are connect to the instance.
+{{ end }}
+
+If you need help or have any question, you can join our Slack to chat to us – https://slack.weave.works.
+
+Happy hacking!

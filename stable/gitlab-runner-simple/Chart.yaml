@@ -1,4 +1,0 @@
-apiVersion: v1
-description: GitLab Runner chart
-name: gitlab-runner-simple
-version: 0.1.0
