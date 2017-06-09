@@ -21,7 +21,7 @@ To install the chart with the release name `my-release` run:
 ```bash
 $ helm install --name my-release \
     --set gitlabUrl=http://gitlab.your-domain.com/,runnerRegistrationToken=your-token \
-    stable/gitlab-runner
+    spc/gitlab-runner
 ```
 
 Note that you _must_ pass in gitlabUrl and runnerRegistrationToken, or you'll end up with a non-functioning release.
