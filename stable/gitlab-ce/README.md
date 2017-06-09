@@ -23,7 +23,7 @@ To install the chart with the release name `my-release` run:
 
 ```bash
 $ helm install --name my-release \
-    --set externalUrl=http://your-domain.com/ stable/gitlab-ce
+    --set externalUrl=http://your-domain.com/ spc/gitlab-ce
 ```
 
 Note that you _must_ pass in externalUrl, or you'll end up with a non-functioning release.

@@ -15,7 +15,7 @@ You will need a service token which you can get from [cloud.weave.works](https:/
 To install the chart:
 
 ```console
-$ helm install --name weave-flux --namespace kube-system --set cloud.serviceToken=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN> stable/weave-flux
+$ helm install --name weave-flux --namespace kube-system --set cloud.serviceToken=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN> spc/weave-flux
 ```
 
 To view the pods installed:
