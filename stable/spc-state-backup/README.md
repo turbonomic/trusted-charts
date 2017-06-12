@@ -26,3 +26,7 @@ helm upgrade --install kube-backup spc/spc-state-backup --namespace stackpoint-s
 helm upgrade kube-backup spc/spc-state-backup --reuse-values --set schedule="*/30 * * * *"
 helm upgrade kube-backup spc/spc-state-backup --reuse-values --set imageTag="0.1.8"
 ```
+
+### Restore state
+Each backup has `restore_state.sh` (uses kubectl create -f ...), just run that shell script
+on the fresly created cluster to get state restored from backed cluster backup.
