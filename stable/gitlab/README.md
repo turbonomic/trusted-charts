@@ -1,10 +1,10 @@
-# GitLab Community Edition
+# GitLab Community/Enterprise Edition
 
-[GitLab Community Edition](https://about.gitlab.com/) is an application to code, test, and deploy code together. It provides Git repository management with fine grained access controls, code reviews, issue tracking, activity feeds, wikis, and continuous integration. 
+[GitLab](https://about.gitlab.com/) is an application to code, test, and deploy code together. It provides Git repository management with fine grained access controls, code reviews, issue tracking, activity feeds, wikis, and continuous integration. 
 
 ## Introduction
 
-This chart stands up a GitLab Community Edition install. This includes:
+This chart stands up a GitLab Community Edition install by default. This includes:
 
 - A [GitLab Omnibus](https://docs.gitlab.com/omnibus/) Pod
 - Redis
@@ -23,7 +23,7 @@ To install the chart with the release name `my-release` run:
 
 ```bash
 $ helm install --name my-release \
-    --set externalUrl=http://your-domain.com/ spc/gitlab-ce
+    --set externalUrl=http://your-domain.com/ spc/gitlab
 ```
 
 Note that you _must_ pass in externalUrl, or you'll end up with a non-functioning release.
@@ -49,7 +49,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```bash
 $ helm install --name my-release \
     --set externalUrl=http://your-domain.com/,gitlabRootPassword=pass1234 \
-    stable/gitlab-ce
+    stable/gitlab
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
