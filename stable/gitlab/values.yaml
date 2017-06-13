@@ -1,7 +1,11 @@
 ## GitLab CE image
 ## ref: https://hub.docker.com/r/gitlab/gitlab-ce/tags/
 ##
+## CE
 image: gitlab/gitlab-ce:9.2.2-ce.0
+
+## EE
+##image: gitlab/gitlab-ce:9.2.2-ee.0
 
 ## Specify a imagePullPolicy
 ## 'Always' if imageTag is 'latest', else set to 'IfNotPresent'
@@ -18,9 +22,8 @@ image: gitlab/gitlab-ce:9.2.2-ce.0
 ##
 # instanceId:
 ##
-## set enviroment as .development - dot is required
-## leave as it is for the production deployment
-env: ""
+## set enviroment as .development or .staging - dot is required
+#env: ""
 
 ## Change the initial default admin password if set. If not set, you'll be
 ## able to set it when you first visit your install.
