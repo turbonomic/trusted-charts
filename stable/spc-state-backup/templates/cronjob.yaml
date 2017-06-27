@@ -39,12 +39,12 @@ spec:
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
-                  name: {{ template "fullname" . }}
+                  name: {{ template "fullname" . }}-aws
                   key: accessKeyId
             - name: AWS_SECRET_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ template "fullname" . }}
+                  name: {{ template "fullname" . }}-aws
                   key: secretAccessKey
 {{- end }}
 {{- if .Values.gcs.enabled }}
