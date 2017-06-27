@@ -6,14 +6,14 @@ metadata:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     prometheus: {{ template "fullname" . }}
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.prometheus.service.type }}
   ports:
   - name: web
     port: 9090
     protocol: TCP
     targetPort: web
-{{- if eq .Values.service.type "NodePort" }}
-    nodePort: {{ .Values.service.nodePort }}
+{{- if eq .Values.prometheus.service.type "NodePort" }}
+    nodePort: {{ .Values.prometheus.service.nodePort }}
 {{- end }}
   selector:
       prometheus: {{ template "fullname" . }}

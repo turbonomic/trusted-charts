@@ -5,9 +5,17 @@ rbac:
 
 prometheus:
   baseImage: quay.io/prometheus/prometheus
-  version: v1.6.2
+  version: v1.7.1
   replicas: 2
   retention: 24h
+  # enable ingress to expose promethues at [name].[namespace].[domain]
+  ingress:
+    enabled: false
+    domain: prometheus.example.com
+  # set type to NodePort in order to expose prometheus through kube-proxy
+  service:
+    type: NodePort
+    nodePort: 30900
   ## (1) storage can be set to use local emptyDir
   useEmptyDirStorage: true
   ## (2) storage can be acquired by labels on persistent volumes
@@ -28,22 +36,41 @@ prometheus:
   resources:
     requests:
       cpu: 200m
-      memory: 2Gi
+      memory: 1500Mi
     limits:
       cpu: 1500m
-      memory: 6Gi
+      memory: 3000Mi
 
-# enable ingress to expose at [name].[namespace].[domain]
-ingress:
-  enabled: true
-  domain: spc0fe0ae6.staging.stackpoint.io
+alertmanager:
+  version: v0.7.1
+  replicas: 2
+  # full contents of the alertmanager.yml configuration packaged into a secret
+  config:
+    global:
+      # set as a default value here for all slack notifications
+      slack_api_url: https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+      # resolve alerts if they stop firing
+      resolve_timeout: 5m
+    route:
+      group_by: ['job']
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 12h
+      receiver: 'slack_notification'
+      routes:
+      - match:
+          severity: critical
+        receiver: slack_notification
+    receivers:
+    - name: slack_notification
+      slack_configs:
+      - channel: "#kubernetes"
+        text: "cluster: stackpointcloud\ndescription: {{ .CommonAnnotations.description }}\nsummary: {{ .CommonAnnotations.summary }}"
+        send_resolved: True
+        icon_emoji: ':lantern:'
+    - name: email
 
-# set type to NodePort in order to expose through kube-proxy
-service:
-  type: NodePort
-  nodePort: 30900
-
-# a service monitor that will enable scrapting on the "metrics" port for any
+# a service monitor that will enable scraping on the "metrics" port for any
 # service with labels that match
 serviceMonitor:
   metricsAnyNamespace:
