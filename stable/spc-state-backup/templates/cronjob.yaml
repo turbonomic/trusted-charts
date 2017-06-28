@@ -10,8 +10,10 @@ metadata:
 spec:
   schedule: "{{ .Values.schedule }}"
   concurrencyPolicy: {{ .Values.concurrencyPolicy }}
+{{- if not .Values.jobCleanup.enabled }}
   successfulJobsHistoryLimit: 5
   failedJobsHistoryLimit: 5
+{{- end }}
   jobTemplate:
     spec:
       template:
