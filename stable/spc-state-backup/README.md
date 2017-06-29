@@ -5,7 +5,7 @@ This chart will schedule [Kubernetes Cron Job](https://kubernetes.io/docs/user-g
 ## Install for the first time
 ### AWS S3
 ```bash
-helm upgrade --install kube-backup spc/spc-state-backup --namespace stackpoint-system \
+helm upgrade --install spc-kube-backup spc/spc-state-backup --namespace stackpoint-system \
     --set schedule="*/50 * * * *",aws.enabled="true" \
     --set aws.accessKeyId="UNF37N93MG374B27",aws.secretAccessKey="AvgjbYndf9TMF8Y3F3J993TMTJ2309T" \
     --set aws.bucket="my-kube-state-backup-bucket",aws.region="eu-west-2"
@@ -13,16 +13,16 @@ helm upgrade --install kube-backup spc/spc-state-backup --namespace stackpoint-s
 
 ### GCS
 ```bash
-helm upgrade --install kube-backup spc/spc-state-backup --namespace stackpoint-system \
+helm upgrade --install spc-kube-backup spc/spc-state-backup --namespace stackpoint-system \
     --set schedule="*/50 * * * *",gcs.enabled="true",gcs.projectId="project-123" \
     --set gcs.serviceAccountKey="$(cat sa.json | base64)" \
-    --set gcs.bucket="my-kube-state-backup",gcs.region="eu"
+    --set gcs.bucket="my-kube-state-backup",gcs.region="europe-west1"
 ```
 
 ### Run upgrades e.g. for schedule or docker image change
 ```bash
-helm upgrade kube-backup spc/spc-state-backup --reuse-values --set schedule="*/30 * * * *"
-helm upgrade kube-backup spc/spc-state-backup --reuse-values --set imageTag="0.1.8"
+helm upgrade spc-kube-backup spc/spc-state-backup --reuse-values --set schedule="*/30 * * * *"
+helm upgrade spc-kube-backup spc/spc-state-backup --reuse-values --set imageTag="0.1.8"
 ```
 
 ### Restore state
