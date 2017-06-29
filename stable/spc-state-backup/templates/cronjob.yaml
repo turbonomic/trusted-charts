@@ -11,8 +11,8 @@ spec:
   schedule: "{{ .Values.schedule }}"
   concurrencyPolicy: {{ .Values.concurrencyPolicy }}
 {{- if not .Values.jobCleanup.enabled }}
-  successfulJobsHistoryLimit: 5
-  failedJobsHistoryLimit: 5
+  successfulJobsHistoryLimit: 10
+  failedJobsHistoryLimit: 10
 {{- end }}
   jobTemplate:
     spec:
