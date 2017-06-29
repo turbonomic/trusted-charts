@@ -263,7 +263,7 @@
     }
 
   ALERT K8SSchedulerDown
-    IF absent(up{job="kube-scheduler"}) or (count by(cluster) (up{job="kube-scheduler"} == 1) == 0)
+    IF absent(kube_pod_container_status_ready{container="kube-scheduler", namespace="kube-system"})
     FOR 5m
     LABELS {
       service = "k8s",
@@ -275,7 +275,7 @@
     }
 
   ALERT K8SControllerManagerDown
-    IF absent(up{job="kube-controller-manager"}) or (count by(cluster) (up{job="kube-controller-manager"} == 1) == 0)
+    IF absent(kube_pod_container_status_ready{container="kube-controller-manager", namespace="kube-system"})
     FOR 5m
     LABELS {
       service = "k8s",

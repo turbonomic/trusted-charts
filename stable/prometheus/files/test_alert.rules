@@ -1,0 +1,11 @@
+  ALERT TestAlert
+    IF count(kube_pod_container_status_running{namespace="default",container="test-alert"} == 1) > 0
+    FOR 5s
+    LABELS {
+      service = "alerting",
+      severity = "critical",
+    }
+    ANNOTATIONS {
+      summary = "TestAlert pod is running",
+      description = "A pod with the name <<test-alert>> is running",
+    }

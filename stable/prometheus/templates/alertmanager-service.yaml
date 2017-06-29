@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     alertmanager: {{ template "fullname" . }}
-  name: {{ template "fullname" . }}-alertmanager
+  name: alertmanager-{{ template "fullname" . }}
 spec:
   type: NodePort
   ports:

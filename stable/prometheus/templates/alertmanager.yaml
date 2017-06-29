@@ -6,5 +6,5 @@ metadata:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     alertmanager: {{ template "fullname" . }}
 spec:
-  replicas: 3
-  version: v0.6.2
+  replicas: {{ .Values.alertmanager.replicas }}
+  version: {{ .Values.alertmanager.version }}

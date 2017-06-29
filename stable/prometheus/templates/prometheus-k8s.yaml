@@ -5,6 +5,7 @@ metadata:
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     prometheus: {{ template "fullname" . }}
+    app: prometheus
 spec:
   replicas:  {{ .Values.prometheus.replicas }}
   baseImage: {{ .Values.prometheus.baseImage }}
@@ -26,7 +27,7 @@ spec:
   alerting:
     alertmanagers:
     - namespace: {{ .Release.Namespace }}
-      name: alertmanager-main
+      name:  alertmanager-{{ template "fullname" . }}
       port: web
 {{- if not .Values.prometheus.useEmptyDirStorage   }}
   storage:

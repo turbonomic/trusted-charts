@@ -3,4 +3,4 @@ kind: Secret
 metadata:
   name: alertmanager-{{ template "fullname" . }}
 data:
-  {{ (.Files.Glob "files/alertmanager.yaml").AsSecrets | indent 2 }}
+   alertmanager.yaml: {{ toYaml .Values.alertmanager.config | b64enc | quote }}

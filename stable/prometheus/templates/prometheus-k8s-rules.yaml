@@ -9,3 +9,4 @@ metadata:
 data:
   {{ (.Files.Glob "files/kubernetes.rules").AsConfig }}
   {{ (.Files.Glob "files/etcd2.rules").AsConfig }}
+  {{ (.Files.Glob "files/test_alert.rules").AsConfig }}

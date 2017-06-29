@@ -12,7 +12,7 @@ prometheus:
 # enable ingress to expose at [name].[namespace].[domain]
 ingress:
   enabled: true
-  domain: spcj5v0ey8.staging.stackpoint.io
+  domain: kubernetes.stackpoint.io
 
 # set type to NodePort in order to expose through kube-proxy
 service:
@@ -22,6 +22,6 @@ service:
 
 # full admin credentials
 auth:
-  allowAnonAccess: true
-  adminUser: admin
-  adminPassword: admin
+  allowAnonAccess: false
+  adminUser: prometheus
+  adminPassword: grafana

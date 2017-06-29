@@ -16,6 +16,7 @@ spec:
              "name": "{{ template "fullname" . }}-check-prometheus",
              "command": [ "curl",  "-vvv",  "{{ .Values.prometheus.name }}.{{ .Release.Namespace }}.svc:9090"],
              "image": "appropriate/curl",
+             "imagePullPolicy": "IfNotPresent",
              "restartPolicy": "never"
            }
         ]'

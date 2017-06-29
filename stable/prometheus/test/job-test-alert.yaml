@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: test-alert
+spec:
+  activeDeadlineSeconds: 100
+  template:
+    metadata:
+      name: test-alert
+    spec:
+      containers:
+      - name: test-alert
+        image: busybox
+        command: ["sleep","120"]
+      restartPolicy: Never
