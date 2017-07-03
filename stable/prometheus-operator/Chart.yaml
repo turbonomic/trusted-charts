@@ -1,10 +1,11 @@
 apiVersion: v1
-description: Forked from coreos/prometheus-operator.  Provides easy monitoring definitions for Kubernetes services, and deployment and management of Prometheus instances.
+description: Forked from coreos/prometheus-operator.  Provides easy monitoring definitions
+  for Kubernetes services, and deployment and management of Prometheus instances.
 engine: gotpl
 maintainers:
-  - name: Nate Franzen
-    email: nate@stackpointcloud.com
+- email: nate@stackpointcloud.com
+  name: Nate Franzen
 name: prometheus-operator
 sources:
-  - https://github.com/coreos/prometheus-operator
-version: 0.0.4
+- https://github.com/coreos/prometheus-operator
+version: 0.0.5
