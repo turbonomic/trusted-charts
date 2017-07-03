@@ -1,7 +1,7 @@
 ##  Docker image and tag version
 ##
 image: quay.io/stackpoint/spc-state-backup
-imageTag: 0.1.10
+imageTag: 0.1.11
 
 ## Specify a imagePullPolicy
 ## 'Always' if imageTag is 'latest', else set to 'IfNotPresent'
@@ -45,6 +45,14 @@ gcs:
   bucket: ""
   # multi-regional storage class: us/eu/asia
   region: ""
+
+## Backup to Azure blob storage
+##
+azure:
+  enabled: false
+  storageAccount: ""
+  storageAccessKey: ""
+  storageContainer: ""
 
 ## Kubernetes resources type
 ##

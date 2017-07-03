@@ -57,6 +57,22 @@ spec:
             - name: BUCKET
               value: "{{ .Values.gcs.bucket }}"
 {{- end }}
+{{- if .Values.azure.enabled }}
+            - name: STORAGE
+              value: "azure"
+            - name: CONTAINER
+              value: "{{ .Values.azure.storageContainer }}"
+            - name: AZURE_STORAGE_ACCOUNT
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "fullname" . }}-azure
+                  key: storageAccount
+            - name: AZURE_STORAGE_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "fullname" . }}-azure
+                  key: storageAccessKey
+{{- end }}
             resources:
 {{ toYaml .Values.resources | indent 14 }}
             volumeMounts:

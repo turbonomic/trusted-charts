@@ -13,6 +13,13 @@ helm upgrade --install spc-kube-backup spc/spc-state-backup --namespace stackpoi
     --set gcs.bucket="my-kube-state-backup",gcs.region="europe-west1" \
     --set jobCleanup.enabled="true" # set it only for k8s v1.5
 
+### Azure
+helm upgrade --install spc-kube-backup spc/spc-state-backup --namespace stackpoint-system \
+    --set schedule="*/50 * * * *",azure.enabled="true",azure.storageAccount="azure_storage_account" \
+    --set azure.storageAccessKey="AFSDJJDUEIEOOEOEOOEOEO" \
+    --set azure.storageContainer="my-kube-state-backup-container" \
+    --set jobCleanup.enabled="true" # set it only for k8s v1.5
+
 # run upgrades e.g. for schedule or docker image change
 helm upgrade spc-kube-backup spc/spc-state-backup --reuse-values --set schedule="*/30 * * * *"
 helm upgrade spc-kube-backup spc/spc-state-backup --reuse-values --set imageTag="0.1.11"
