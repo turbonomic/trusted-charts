@@ -2,10 +2,10 @@
 ## ref: https://hub.docker.com/r/gitlab/gitlab-ce/tags/
 ##
 ## CE
-image: gitlab/gitlab-ce:9.2.2-ce.0
+image: gitlab/gitlab-ce:9.3.0-ce.0
 
 ## EE
-##image: gitlab/gitlab-ce:9.2.2-ee.0
+##image: gitlab/gitlab-ce:9.3.0-ee.0
 
 ## Specify a imagePullPolicy
 ## 'Always' if imageTag is 'latest', else set to 'IfNotPresent'
@@ -52,7 +52,7 @@ resources:
   ## ref: https://docs.gitlab.com/ce/install/requirements.html#hardware-requirements
   requests:
     memory: 1Gi
-    cpu: 500m
+    cpu: 800m
   limits:
     memory: 2Gi
     cpu: 1
