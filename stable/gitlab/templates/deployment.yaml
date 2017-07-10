@@ -164,6 +164,10 @@ spec:
           mountPath: /gitlab-registry
         resources:
 {{ toYaml .Values.resources | indent 10 }}
+      initContainers:
+      - name: init-{{ template "postgresql.fullname" . }}
+        image: alpine
+        command: ['sh', '-c', 'until nc -z -w 5 {{ template "postgresql.fullname" . }} 5432; do echo waiting for {{ template "postgresql.fullname" . }}; sleep 2; done;']
       volumes:
       - name: gitlab-config
       {{- if .Values.persistence.gitlabConfig.enabled }}
