@@ -135,26 +135,26 @@ spec:
           containerPort: 8105
         - name: prometheus
           containerPort: 9090
-        # livenessProbe:
-        #   httpGet:
-        #     path: /help
-        #     port: 8005
-        #   # This pod takes a very long time to start up. Be cautious when
-        #   # lowering this value to avoid Pod death during startup.
-        #   initialDelaySeconds: 200
-        #   timeoutSeconds: 1
-        #   periodSeconds: 10
-        #   successThreshold: 1
-        #   failureThreshold: 10
-        # readinessProbe:
-        #   httpGet:
-        #     path: /help
-        #     port: 8005
-        #   initialDelaySeconds: 30
-        #   timeoutSeconds: 1
-        #   periodSeconds: 10
-        #   successThreshold: 1
-        #   failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /help
+            port: 8005
+          # This pod takes a very long time to start up. Be cautious when
+          # lowering this value to avoid Pod death during startup.
+          initialDelaySeconds: 200
+          timeoutSeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 10
+        readinessProbe:
+          httpGet:
+            path: /help
+            port: 8005
+          initialDelaySeconds: 30
+          timeoutSeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
         volumeMounts:
         - name: gitlab-config
           mountPath: /etc/gitlab
