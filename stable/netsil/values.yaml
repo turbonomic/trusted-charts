@@ -1,0 +1,7 @@
+version: stable-1.5.0
+
+deployment:
+  repository: netsil/netsil
+
+collector:
+  repository: netsil/collectors
