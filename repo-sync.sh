@@ -7,6 +7,7 @@ REPO_URL="http://trusted-charts.stackpoint.io/"
 function gen_packages() {
   echo "Packaging charts from source code"
   mkdir -p temp
+  # generating charts from stable folder
   for d in stable/*
   do
    if [[ -d $d ]]
@@ -17,6 +18,19 @@ function gen_packages() {
       mv *.tgz temp/
     fi
   done
+
+  # generating charts from incubator folder
+  for d in incubator/*
+  do
+   if [[ -d $d ]]
+   then
+      # Will generate a helm package per chart in a folder
+      echo $d
+      helm package $d
+      mv *.tgz temp/
+    fi
+  done
+
 }
 
 function index() {
