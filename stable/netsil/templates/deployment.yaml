@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: {{ .Chart.Name }}
-        image: "{{ .Values.deployment.repository }}:{{ .Values.version }}"
+        image: "{{ .Values.deployment.image }}:{{ .Values.deployment.tag }}"
         command:
         - /root/startup.sh
         ports:

@@ -1,7 +1,9 @@
-version: stable-1.5.0
-
 deployment:
-  repository: netsil/netsil
+  image: netsil/netsil
+  pullPolicy: ifNotPresent
+  tag: stable-1.5.0
 
 collector:
-  repository: netsil/collectors
+  image: netsil/collectors
+  pullPolicy: ifNotPresent
+  tag: stable-1.5.0
