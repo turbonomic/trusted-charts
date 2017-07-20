@@ -26,7 +26,7 @@ The command deploys _netsil_ on the Kubernetes cluster in the default configurat
 
 ## Uninstalling the Chart
 
-To uninstall/delete the my-release deployment:
+To uninstall/delete the _netsil_ deployment:
 
 ```console
 $ helm delete --purge netsil
