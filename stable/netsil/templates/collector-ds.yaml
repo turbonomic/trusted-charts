@@ -1,17 +1,19 @@
 apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
-  namespace: {{ .Chart.Name }}
-  name: collector
+  name: {{ template "fullname" . }}-collector
   labels:
-    app: {{ .Chart.Name }}
-    component: collector
+    app: {{ template "name" . }}-netsil
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    component: {{ template "fullname" . }}-collector
 spec:
   template:
     metadata:
       labels:
-        app: {{ .Chart.Name }}
-        component: collector
+        app: {{ template "name" . }}-netsil
+        component: {{ template "name" . }}-collector
     spec:
       hostNetwork: true
       containers:

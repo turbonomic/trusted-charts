@@ -1,3 +1,5 @@
+# Netsil default settings
+
 deployment:
   image: netsil/netsil
   pullPolicy: ifNotPresent

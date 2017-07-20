@@ -1,7 +1,6 @@
 apiVersion: apps/v1beta1 # for versions before 1.6.0 use extensions/v1beta1
 kind: Deployment
 metadata:
-  namespace: {{ .Chart.Name }}
   name: {{ .Chart.Name }}
 spec:
   replicas: 1
@@ -14,7 +13,7 @@ spec:
         version: stable
     spec:
       containers:
-      - name: {{ .Chart.Name }}
+      - name: netsil
         image: "{{ .Values.deployment.image }}:{{ .Values.deployment.tag }}"
         command:
         - /root/startup.sh
