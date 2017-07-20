@@ -1,0 +1,10 @@
+1. The {{ .Chart.Name }} is getting provisioned in your cluster. After a few minutes, you can run the following to verify.
+
+To verify that {{ .Chart.Name }} has started, run:
+
+  kubectl --namespace={{ .Release.Namespace }} get pods -l "app={{ .Chart.Name }}"
+
+2. Get the application URL by running these commands:
+  export NODE_PORT=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.spec.ports[0].nodePort}" services {{ .Chart.Name }})
+  export NODE_IP=$(kubectl get nodes --namespace {{ .Release.Namespace }} -o jsonpath="{.items[0].status.addresses[0].address}")
+  echo http://$NODE_IP:$NODE_PORT
