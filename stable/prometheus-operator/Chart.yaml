@@ -9,3 +9,4 @@ name: prometheus-operator
 sources:
 - https://github.com/coreos/prometheus-operator
 version: 0.0.6
+icon: https://stackpoint.io/images/logo-prometheus-gallery@2x.png
