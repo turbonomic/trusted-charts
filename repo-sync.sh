@@ -43,6 +43,8 @@ function index() {
   else
     helm repo index --url ${REPO_URL} ./temp
   fi
+  ## add index.html
+  cp -f .web/index.html ./temp
 }
 
 function upload() {
