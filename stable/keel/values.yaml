@@ -14,7 +14,7 @@ polling:
 
 # Helm provider support
 helmProvider:
-  enabled: false
+  enabled: true
 
 # Google Container Registry
 # GCP Project ID
