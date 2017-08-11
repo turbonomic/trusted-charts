@@ -26,6 +26,7 @@ function gen_packages() {
    then
       # Will generate a helm package per chart in a folder
       echo $d
+      helm dep up $d
       helm package $d
       mv *.tgz temp/
     fi
