@@ -14,13 +14,14 @@ function gen_packages() {
    then
       # Will generate a helm package per chart in a folder
       echo $d
+      helm dep up $d
       helm package $d
       mv *.tgz temp/
     fi
   done
 
   # generating charts from incubator folder
-  for d in incubator/*
+  for d in experimental/*
   do
    if [[ -d $d ]]
    then
