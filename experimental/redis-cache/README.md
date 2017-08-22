@@ -1,5 +1,7 @@
 ## Redis-cache
 
+**It is based on Helm community chart [redis-cache](https://github.com/kubernetes/charts/tree/master/incubator/redis-cache)**
+
 This chart will allow us to use redis as a pure in-memory cache, this uses a special utility to perform master-slave promotion which overcomes this [problem](https://redis.io/topics/replication#safety-of-replication-when-master-has-persistence-turned-off), K8s could restart the master way before it is detected and agreed among the redis-sentinels.  
 
 ### Prerequisites
@@ -32,7 +34,7 @@ Here is a sample demo of master slave promotion.
 
 Install this chart
 ```
-$ helm install -n dev spc/redis-cache/
+$ helm install -n dev tc/redis-cache
 NAME:   dev
 LAST DEPLOYED: Wed Apr 12 23:25:56 2017
 NAMESPACE: default

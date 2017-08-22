@@ -1,11 +1,13 @@
 # kube-lego
 
+**It is based on Helm community chart [kube-lego](https://github.com/kubernetes/charts/tree/master/stable/kube-lego)**
+
 [kube-lego](https://github.com/jetstack/kube-lego) automatically requests certificates for Kubernetes Ingress resources from Let's Encrypt.
 
 ## TL;DR;
 
 ```console
-$ helm install spc/kube-lego
+$ helm install tc/kube-lego
 ```
 
 ## Introduction
@@ -20,7 +22,7 @@ This chart bootstraps a kube-lego deployment on a [Kubernetes](http://kubernetes
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install --name my-release spc/kube-lego
+$ helm install --name my-release tc/kube-lego
 ```
 
 The command deploys kube-lego on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -59,13 +61,13 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set config.LEGO_EMAIL=you@domain.tld \
-    spc/kube-lego
+    tc/kube-lego
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name my-release -f values.yaml spc/kube-lego
+$ helm install --name my-release -f values.yaml tc/kube-lego
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)

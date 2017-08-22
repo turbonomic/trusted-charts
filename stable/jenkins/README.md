@@ -1,5 +1,7 @@
 # Jenkins Helm Chart
 
+**It is based on Helm community chart [jenkins](https://github.com/kubernetes/charts/tree/master/stable/jenkins)**
+
 Jenkins master and slave cluster utilizing the Jenkins Kubernetes plugin
 
 * https://wiki.jenkins-ci.org/display/JENKINS/Kubernetes+Plugin
@@ -17,7 +19,7 @@ This chart will do the following:
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install --name my-release spc/jenkins
+$ helm install --name my-release tc/jenkins
 ```
 
 ## Configuration
@@ -41,6 +43,7 @@ The following tables lists the configurable parameters of the Jenkins chart and 
 | `Master.ContainerPort`            | Master listening port                | `8080`                                                                       |
 | `Master.SlaveListenerPort`        | Listening port for agents            | `50000`                                                                      |
 | `Master.LoadBalancerSourceRanges` | Allowed inbound IP addresses         | `0.0.0.0/0`                                                                  |
+| `Master.LoadBalancerIP`           | Optional fixed external IP           | Not set                                                                      |
 | `Master.JMXPort`                  | Open a port, for JMX stats           | Not set                                                                      |
 | `Master.CustomConfigMap`          | Use a custom ConfigMap               | `false`                                                                      |
 | `Master.Ingress.Annotations`      | Ingress annotations                  | `{}`                                                                         |
@@ -72,7 +75,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```bash
-$ helm install --name my-release -f values.yaml spc/jenkins
+$ helm install --name my-release -f values.yaml tc/jenkins
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
@@ -128,7 +131,7 @@ It is possible to mount several volumes using `Persistence.volumes` and `Persist
 1. Create the PersistentVolumeClaim
 1. Install the chart
 ```bash
-$ helm install --name my-release --set Persistence.ExistingClaim=PVC_NAME spc/jenkins
+$ helm install --name my-release --set Persistence.ExistingClaim=PVC_NAME tc/jenkins
 ```
 
 ## Custom ConfigMap
@@ -148,6 +151,6 @@ jenkins:
 
 If running upon a cluster with RBAC enabled you will need to do the following:
 
-* `helm install spc/jenkins --set rbac.install=true`
+* `helm install tc/jenkins --set rbac.install=true`
 * Create a Jenkins credential of type Kubernetes service account with service account name provided in the `helm status` output.
 * Under configure Jenkins -- Update the credentials config in the cloud section to use the service account credential you created in the step above.

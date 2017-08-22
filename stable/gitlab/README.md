@@ -1,6 +1,6 @@
 # GitLab Community/Enterprise Edition
 
-[GitLab](https://about.gitlab.com/) is an application to code, test, and deploy code together. It provides Git repository management with fine grained access controls, code reviews, issue tracking, activity feeds, wikis, and continuous integration. 
+[GitLab](https://about.gitlab.com/) is an application to code, test, and deploy code together. It provides Git repository management with fine grained access controls, code reviews, issue tracking, activity feeds, wikis, and continuous integration.
 
 ## Introduction
 
@@ -23,7 +23,7 @@ To install the chart with the release name `my-release` run:
 
 ```bash
 $ helm install --name my-release \
-    --set externalUrl=http://your-domain.com/ spc/gitlab
+    --set externalUrl=http://your-domain.com/ tc/gitlab
 ```
 
 Note that you _must_ pass in externalUrl, or you'll end up with a non-functioning release.
@@ -49,13 +49,13 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```bash
 $ helm install --name my-release \
     --set externalUrl=http://your-domain.com/,gitlabRootPassword=pass1234 \
-    stable/gitlab
+    tc/gitlab
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```bash
-$ helm install --name my-release -f values.yaml stable/gitlab-ce
+$ helm install --name my-release -f values.yaml tc/gitlab-ce
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)

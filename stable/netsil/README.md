@@ -19,7 +19,7 @@ This chart adds the Netsil AOC to all nodes in your cluster via a DaemonSet. It 
 To install the chart with the release name `netsil`:
 
 ```console
-$ helm upgrade --install netsil spc/netsil --namespace netsil
+$ helm upgrade --install netsil tc/netsil --namespace netsil
 ```
 
 The command deploys _netsil_ on the Kubernetes cluster in the default configuration.

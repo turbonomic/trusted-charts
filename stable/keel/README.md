@@ -29,7 +29,7 @@ Keel provides several key features:
 Docker image _polling_ and _Kubernetes_ provider are set by default, then Kubernetes _deployments_ can be upgraded when new Docker image is available:
 
 ```console
-helm upgrade --install keel spc/keel"
+helm upgrade --install keel tc/keel"
 ```
 
 ## Installing the Chart with Helm provider support
@@ -37,7 +37,7 @@ helm upgrade --install keel spc/keel"
 Docker image _polling_ is set by default, but we need to enable _Helm provider_ support, then Helm _releases_ can be upgraded when new Docker image is available:
 
 ```console
-helm upgrade --install keel spc/keel --set helmProvider.enabled="true"
+helm upgrade --install keel tc/keel --set helmProvider.enabled="true"
 ```
 
 ### Setting up Helm release to be automatically updated by Keel
@@ -112,6 +112,6 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name keel -f values.yaml spc/keel
+$ helm install --name keel -f values.yaml tc/keel
 ```
 > **Tip**: You can use the default [values.yaml](values.yaml)

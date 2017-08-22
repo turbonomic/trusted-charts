@@ -5,7 +5,7 @@ Installs [prometheus-operator](https://github.com/coreos/prometheus-operator) to
 ## TL;DR;
 
 ```console
-$ helm install spc/prometheus-operator
+$ helm install tc/prometheus-operator
 ```
 
 ## Introduction

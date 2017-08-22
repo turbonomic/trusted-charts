@@ -1,5 +1,7 @@
 # Weave Cloud Agents
 
+**It is based on Helm community chart [weave-scope](https://github.com/kubernetes/charts/tree/master/stable/weave-cloud)**
+
 > ***NOTE: This chart is for Kubernetes version 1.6 and later.***
 
 Weave Cloud is a add-on to Kubernetes which provides Continuous Delivery, along with hosted Prometheus Monitoring and a visual dashboard for exploring & debugging microservices.
@@ -15,7 +17,7 @@ You will need a service token which you can get from [cloud.weave.works](https:/
 To install the chart:
 
 ```console
-$ helm install --name weave-cloud --namespace kube-system --set ServiceToken=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN> spc/weave-cloud
+$ helm install --name weave-cloud --namespace kube-system --set ServiceToken=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN> tc/weave-cloud
 ```
 
 To view the pods installed:
@@ -25,7 +27,7 @@ $ kubectl get pods -n kube-system -l weave-cloud-component
 
 To upgrade the chart:
 ```console
-$ helm upgrade --reuse-values weave-cloud spc/weave-cloud
+$ helm upgrade --reuse-values weave-cloud tc/weave-cloud
 ```
 
 ## Uninstalling the Chart

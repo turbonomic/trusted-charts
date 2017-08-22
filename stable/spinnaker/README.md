@@ -1,5 +1,7 @@
 # Spinnaker Chart
 
+**It is based on Helm community chart [spinnaker](https://github.com/kubernetes/charts/tree/master/stable/spinnaker)**
+
 [Spinnaker](http://spinnaker.io/) is an open source, multi-cloud continuous delivery platform.
 
 ## Chart Details
@@ -15,7 +17,7 @@ For more information on Spinnaker and its capabilities, see it's [documentation]
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install --name my-release spc/spinnaker
+$ helm install --name my-release tc/spinnaker
 ```
 
 Note that this chart pulls in many different Docker images so can take a while to fully install.
@@ -29,7 +31,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```bash
-$ helm install --name my-release -f values.yaml spc/spinnaker
+$ helm install --name my-release -f values.yaml tc/spinnaker
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)

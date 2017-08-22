@@ -20,9 +20,9 @@ This chart bootstraps a [Kubeless](http://kubeless.io) deployment on a [Kubernet
 To install the chart with the release name `kubeless`:
 
 ```console
-$ helm repo add spc http://trusted-charts.stackpoint.io/
+$ helm repo add tc http://trusted-charts.stackpoint.io/
 $ helm repo up
-$ helm install --name kubeless --namespace kubeless spc/kubeless
+$ helm install --name kubeless --namespace kubeless tc/kubeless
 ```
 
 The command deploys Kubeless on the Kubernetes cluster in the default configuration.

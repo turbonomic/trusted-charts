@@ -1,11 +1,13 @@
 # Redis
 
+**It is based on Helm community chart [redis](https://github.com/kubernetes/charts/tree/master/stable/redis)**
+
 [Redis](http://redis.io/) is an advanced key-value cache and store. It is often referred to as a data structure server since keys can contain strings, hashes, lists, sets, sorted sets, bitmaps and hyperloglogs.
 
 ## TL;DR;
 
 ```bash
-$ helm install spc/redis
+$ helm install tc/redis
 ```
 
 ## Introduction
@@ -22,7 +24,7 @@ This chart bootstraps a [Redis](https://github.com/bitnami/bitnami-docker-redis)
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install --name my-release spc/redis
+$ helm install --name my-release tc/redis
 ```
 
 The command deploys Redis on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -49,6 +51,7 @@ The following tables lists the configurable parameters of the Redis chart and th
 | `imagePullPolicy`          | Image pull policy                     | `IfNotPresent`                                            |
 | `usePassword`              | Use password                          | `true`                                         |
 | `redisPassword`            | Redis password                        | Randomly generated                                        |
+| `args`                     | Redis command-line args               | []                                                        |
 | `persistence.enabled`      | Use a PVC to persist data             | `true`                                                    |
 | `persistence.existingClaim`| Use an existing PVC to persist data   | `nil`                                                     |
 | `persistence.storageClass` | Storage class of backing PVC          | `generic`                                                 |
@@ -70,7 +73,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```bash
 $ helm install --name my-release \
   --set redisPassword=secretpassword \
-    spc/redis
+    tc/redis
 ```
 
 The above command sets the Redis server password to `secretpassword`.
@@ -78,7 +81,7 @@ The above command sets the Redis server password to `secretpassword`.
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```bash
-$ helm install --name my-release -f values.yaml spc/redis
+$ helm install --name my-release -f values.yaml tc/redis
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
