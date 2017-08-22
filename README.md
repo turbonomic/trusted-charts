@@ -14,4 +14,4 @@ $ helm repo add tc http://trusted-charts.stackpoint.io/
 $ helm repo up
 ```
 
-**Note** follow install instructions in charts _readme_ when you want to install charts.
+**Note:** how to install charts follow install instructions in charts _readme_.
