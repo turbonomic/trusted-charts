@@ -7,7 +7,7 @@ icon: http://trusted-charts-logos.stackpoint.io/keel.png
 keywords:
 - kubernetes deployment
 - helm release
-- continuous deployment
+- cd
 home: https://keel.sh
 sources:
 - https://github.com/rusenask/keel

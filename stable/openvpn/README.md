@@ -10,7 +10,7 @@ The primary purpose of this chart was to make it easy to access kubernetes servi
 ## Usage
 
 ```bash
-helm install tc/openvpn
+helm install tc/openvpn --name openvpn
 ```
 
 Wait for the external load balancer IP to become available.  Check service status via: `kubectl get svc`

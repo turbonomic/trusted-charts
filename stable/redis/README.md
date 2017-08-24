@@ -4,12 +4,6 @@
 
 [Redis](http://redis.io/) is an advanced key-value cache and store. It is often referred to as a data structure server since keys can contain strings, hashes, lists, sets, sorted sets, bitmaps and hyperloglogs.
 
-## TL;DR;
-
-```bash
-$ helm install tc/redis
-```
-
 ## Introduction
 
 This chart bootstraps a [Redis](https://github.com/bitnami/bitnami-docker-redis) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
@@ -21,10 +15,10 @@ This chart bootstraps a [Redis](https://github.com/bitnami/bitnami-docker-redis)
 
 ## Installing the Chart
 
-To install the chart with the release name `my-release`:
+To install the chart with the release name `redis`:
 
 ```bash
-$ helm install --name my-release tc/redis
+$ helm install tc/redis --name redis --namespace=redis
 ```
 
 The command deploys Redis on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -33,10 +27,10 @@ The command deploys Redis on the Kubernetes cluster in the default configuration
 
 ## Uninstalling the Chart
 
-To uninstall/delete the `my-release` deployment:
+To uninstall/delete the `redis` deployment:
 
 ```bash
-$ helm delete my-release
+$ helm delete redis
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
@@ -71,9 +65,8 @@ The above parameters map to the env variables defined in [bitnami/redis](http://
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```bash
-$ helm install --name my-release \
-  --set redisPassword=secretpassword \
-    tc/redis
+$ helm install tc/redis --name redis --namespace=redis \
+  --set redisPassword=secretpassword
 ```
 
 The above command sets the Redis server password to `secretpassword`.
@@ -81,7 +74,8 @@ The above command sets the Redis server password to `secretpassword`.
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```bash
-$ helm install --name my-release -f values.yaml tc/redis
+$ helm install tc/redis --name redis --namespace=redis \
+  -f values.yaml
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
@@ -98,7 +92,8 @@ By default, the chart mounts a [Persistent Volume](http://kubernetes.io/docs/use
 1. Create the PersistentVolumeClaim
 1. Install the chart
 ```bash
-$ helm install --set persistence.existingClaim=PVC_NAME redis
+$ helm install tc/redis --name redis --namespace=redis \
+  --set persistence.existingClaim=PVC_NAME
 ```
 
 ## Metrics

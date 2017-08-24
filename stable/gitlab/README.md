@@ -19,11 +19,11 @@ This chart stands up a GitLab Community Edition install by default. This include
 
 ## Installing the Chart
 
-To install the chart with the release name `my-release` run:
+To install the chart with the release name `gitlab` run:
 
 ```bash
-$ helm install --name my-release \
-    --set externalUrl=http://your-domain.com/ tc/gitlab
+$ helm install --name gitlab \
+    --set externalUrl=http://your-domain.com/ tc/gitlab --namespace=gitlab
 ```
 
 Note that you _must_ pass in externalUrl, or you'll end up with a non-functioning release.
@@ -32,10 +32,10 @@ Note that you _must_ pass in externalUrl, or you'll end up with a non-functionin
 
 ## Uninstalling the Chart
 
-To uninstall/delete the `my-release` deployment:
+To uninstall/delete the `gitlab` deployment:
 
 ```bash
-$ helm delete my-release
+$ helm delete gitlab
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
@@ -47,15 +47,15 @@ Refer to [values.yaml](values.yaml) for the full run-down on defaults. These are
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```bash
-$ helm install --name my-release \
+$ helm install --name gitlab \
     --set externalUrl=http://your-domain.com/,gitlabRootPassword=pass1234 \
-    tc/gitlab
+    tc/gitlab --namespace=gitlab
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```bash
-$ helm install --name my-release -f values.yaml tc/gitlab-ce
+$ helm install --name gitlab -f values.yaml tc/gitlab-ce
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)

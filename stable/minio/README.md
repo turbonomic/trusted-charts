@@ -19,23 +19,13 @@ Prerequisites
 -   Kubernetes 1.5+ with Beta APIs enabled to run Minio in [distributed mode](#distributed-minio).
 -	PV provisioner support in the underlying infrastructure.
 
-Installing the Chart
+### Installing the Chart
 --------------------
 
-Install this chart using:
+The command deploys Minio on the Kubernetes cluster with the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation:
 
 ```bash
-$ helm install tc/minio
-```
-
-The command deploys Minio on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
-
-### Release name
-
-An instance of a chart running in a Kubernetes cluster is called a release. Each release is identified by a unique name within the cluster. Helm automatically assigns a unique release name after installing the chart. You can also set your preferred name by:
-
-```bash
-$ helm install --name my-release tc/minio
+$ helm install tc/minio --name minio --namespace=minio
 ```
 
 ### Access and Secret keys
@@ -43,8 +33,8 @@ $ helm install --name my-release tc/minio
 By default a pre-generated access and secret key will be used. To override the default keys, pass the access and secret keys as arguments to helm install.
 
 ```bash
-$ helm install --set accessKey=myaccesskey,secretKey=mysecretkey \
-    tc/minio
+$ helm install tc/minio --name minio --namespace=minio \
+  --set accessKey=myaccesskey,secretKey=mysecretkey
 ```
 ### Updating Minio configuration via Helm
 
@@ -61,10 +51,10 @@ You can also check the history of upgrades to a release using `helm history my-r
 Uninstalling the Chart
 ----------------------
 
-Assuming your release is named as `my-release`, delete it using the command:
+Assuming your release is named as `minio`, delete it using the command:
 
 ```bash
-$ helm delete my-release
+$ helm delete minio
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
@@ -98,9 +88,8 @@ Some of the parameters above map to the env variables defined in the [Minio Dock
 You can specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```bash
-$ helm install --name my-release \
-  --set persistence.size=100Gi \
-    tc/minio
+$ helm install tc/minio --name minio --namespace=minio \
+  --set persistence.size=100Gi
 ```
 
 The above command deploys Minio server with a 100Gi backing persistent volume.
@@ -108,7 +97,8 @@ The above command deploys Minio server with a 100Gi backing persistent volume.
 Alternately, you can provide a YAML file that specifies parameter values while installing the chart. For example,
 
 ```bash
-$ helm install --name my-release -f values.yaml tc/minio
+$ helm install tc/minio --name minio --namespace=minio \
+  -f values.yaml
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
@@ -119,13 +109,15 @@ Distributed Minio
 This chart provisions a Minio server in standalone mode, by default. To provision Minio server in [distributed mode](https://docs.minio.io/docs/distributed-minio-quickstart-guide), set the `mode` field to `distributed`,
 
 ```bash
-$ helm install --set mode=distributed tc/minio
+$ helm install tc/minio --name minio --namespace=minio \
+  --set mode=distributed
 ```
 
 This provisions Minio server in distributed mode with 4 nodes. To change the number of nodes in your distributed Minio server, set the `replicas` field,
 
 ```bash
-$ helm install --set mode=distributed,replicas=8 tc/minio
+$ helm install tc/minio --name minio --namespace=minio \
+  --set mode=distributed,replicas=8
 ```
 
 This provisions Minio server in distributed mode with 8 nodes. Note that the `replicas` value should be an integer between 4 and 16 (inclusive).
@@ -148,13 +140,15 @@ outlines steps to create a NFS PV in Kubernetes cluster.
 To provision Minio servers in [shared mode](https://github.com/minio/minio/blob/master/docs/shared-backend/README.md), set the `mode` field to `shared`,
 
 ```bash
-$ helm install --set mode=shared tc/minio
+$ helm install tc/minio --name minio --namespace=minio \
+  --set mode=shared
 ```
 
 This provisions 4 Minio server nodes backed by single storage. To change the number of nodes in your shared Minio deployment, set the `replicas` field,
 
 ```bash
-$ helm install --set mode=shared,replicas=8 tc/minio
+$ helm install tc/minio --name minio --namespace=minio \
+  --set mode=shared,replicas=8
 ```
 
 This provisions Minio server in shared mode with 8 nodes.
@@ -165,7 +159,8 @@ Persistence
 This chart provisions a PersistentVolumeClaim and mounts corresponding persistent volume to default location `/export`. You'll need physical storage available in the Kubernetes cluster for this to work. If you'd rather use `emptyDir`, disable PersistentVolumeClaim by:
 
 ```bash
-$ helm install --set persistence.enabled=false tc/minio
+$ helm install tc/minio --name minio --namespace=minio \
+  --set persistence.enabled=false
 ```
 
 > *"An emptyDir volume is first created when a Pod is assigned to a Node, and exists as long as that Pod is running on that node. When a Pod is removed from a node for any reason, the data in the emptyDir is deleted forever."*

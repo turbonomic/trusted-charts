@@ -3,6 +3,7 @@ home: https://about.gitlab.com
 keywords:
 - git
 - ci
+- cd
 - deploy
 - issue tracker
 - code review
@@ -14,4 +15,4 @@ name: gitlab
 sources:
 - https://hub.docker.com/r/gitlab/gitlab-ce/
 - https://docs.gitlab.com/omnibus/
-version: 0.1.7
+version: 0.1.8

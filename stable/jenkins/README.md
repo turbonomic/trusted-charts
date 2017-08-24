@@ -16,10 +16,10 @@ This chart will do the following:
 
 ## Installing the Chart
 
-To install the chart with the release name `my-release`:
+To install the chart with the release name `jenkins`:
 
 ```bash
-$ helm install --name my-release tc/jenkins
+$ helm install tc/jenkins --name jenkins --namespace jenkins
 ```
 
 ## Configuration
@@ -75,7 +75,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```bash
-$ helm install --name my-release -f values.yaml tc/jenkins
+$ helm install tc/jenkins --name jenkins --namespace jenkins -f values.yaml
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
@@ -131,7 +131,7 @@ It is possible to mount several volumes using `Persistence.volumes` and `Persist
 1. Create the PersistentVolumeClaim
 1. Install the chart
 ```bash
-$ helm install --name my-release --set Persistence.ExistingClaim=PVC_NAME tc/jenkins
+$ helm install tc/jenkins --name jenkins --namespace jenkins --set Persistence.ExistingClaim=PVC_NAME
 ```
 
 ## Custom ConfigMap
