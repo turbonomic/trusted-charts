@@ -1,0 +1,23 @@
+steps:
+
+# Install Helm and generate Helm packages
+- name: 'ubuntu'
+  args: ['bash', './.scripts/gen_packages.sh']
+  id: 'gen_packages'
+
+# Fetch charts and index.yaml from GCS bucket
+- name: gcr.io/cloud-builders/gsutil
+  args: ['rsync', 'gs://trusted-charts.stackpoint.io', 'temp/']
+  id: 'fetch_charts_index'
+
+# Index repository
+- name: 'ubuntu'
+  env:
+  - 'REPO_URL=http://trusted-charts.stackpoint.io'
+  args: ['bash', './.scripts/index_repo.sh']
+  id: 'index_repo'
+
+# Upload charts to GCS bucket
+- name: gcr.io/cloud-builders/gsutil
+  args: ['rsync', 'temp/', 'gs://trusted-charts.stackpoint.io']
+  id: 'upload_charts'

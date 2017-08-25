@@ -1,12 +1,13 @@
 name: weave-cloud
 version: 0.1.1
-description: |
-    Weave Cloud Agents
-
-    Weave Cloud is a add-on to Kubernetes which provides Continuous Delivery, along with hosted Prometheus Monitoring and a visual dashboard for exploring & debugging microservices
+description: Weave Cloud Agents
 home: https://weave.works
 maintainers:
   - name: Ilya Dmitrichenko
     email: ilya@weave.works
 engine: gotpl
 icon: http://trusted-charts-logos.stackpoint.io/weave.png
+keywords:
+- scope
+- flux
+- prometheus
