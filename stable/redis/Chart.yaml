@@ -7,7 +7,7 @@ keywords:
 - keyvalue
 - database
 home: http://redis.io/
-icon: https://bitnami.com/assets/stacks/redis/img/redis-stack-220x234.png
+icon: http://trusted-charts-logos.stackpoint.io/redis.png
 sources:
 - https://github.com/bitnami/bitnami-docker-redis
 maintainers:

@@ -6,7 +6,7 @@ keywords:
 - dns
 - kubedns
 home: https://coredns.io
-icon: https://raw.githubusercontent.com/coredns/logo/master/Icon/CoreDNS_Colour_Icon.png
+icon: http://trusted-charts-logos.stackpoint.io/coredns.png
 sources:
 - https://github.com/coredns/coredns
 maintainers:

@@ -5,7 +5,7 @@ keywords:
 - memcached
 - cache
 home: http://memcached.org/
-icon: https://upload.wikimedia.org/wikipedia/en/thumb/2/27/Memcached.svg/1024px-Memcached.svg.png
+icon: http://trusted-charts-logos.stackpoint.io/memcached.png
 sources:
 - https://github.com/docker-library/memcached
 maintainers:

@@ -8,7 +8,7 @@ keywords:
   - alerting
   - metric
 home: https://netsil.com/
-icon: https://s3.amazonaws.com/docs.netsil.com/logos/Netsil_640x640-blue.jpg
+icon: http://trusted-charts-logos.stackpoint.io/netsil.png
 sources:
   - https://github.com/netsil/manifests/tree/master/kubernetes
 maintainers:

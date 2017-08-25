@@ -1,6 +1,6 @@
 description: An nginx Ingress controller that uses ConfigMap to store the nginx configuration.
 engine: gotpl
-icon: https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Nginx_logo.svg/500px-Nginx_logo.svg.png
+icon: http://trusted-charts-logos.stackpoint.io/nginx.png
 keywords:
 - ingress
 - nginx

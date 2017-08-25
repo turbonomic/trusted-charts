@@ -12,3 +12,4 @@ name: kube-lego
 sources:
 - https://github.com/jetstack/kube-lego/tree/master/examples/nginx
 version: 0.1.10
+icon: http://trusted-charts-logos.stackpoint.io/kube-lego.png

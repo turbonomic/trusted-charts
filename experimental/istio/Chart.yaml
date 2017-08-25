@@ -4,7 +4,7 @@ name: istio
 version: 0.3.3
 appVersion: 0.1.6
 home: https://istio.io/
-icon: https://raw.githubusercontent.com/istio/istio.github.io/master/favicons/mstile-150x150.png
+icon: http://trusted-charts-logos.stackpoint.io/istio.png
 sources:
   - https://github.com/istio/istio
 maintainers:

@@ -2,7 +2,7 @@ apiVersion: v1
 description: A pure in-memory redis cache, using statefulset and redis-sentinel-micro
 name: redis-cache
 version: 0.1.2
-icon: https://redis.io/images/redis-white.png
+icon: http://trusted-charts-logos.stackpoint.io/redis.png
 sources:
   - https://github.com/antirez/redis
   - https://github.com/dhilipkumars/redis-sentinel-micro/tree/k8s

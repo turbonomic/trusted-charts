@@ -11,7 +11,7 @@ maintainers:
     email: lachlan.evenson@microsoft.com
   - name: viglesiasce
     email: viglesias@google.com
-icon: https://wiki.jenkins-ci.org/download/attachments/2916393/logo.png
+icon: http://trusted-charts-logos.stackpoint.io/jenkins.png
 keywords:
 - CI
 - CD

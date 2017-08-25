@@ -3,12 +3,12 @@ description: Buildkite agent chart
 name: buildkite
 version: 0.1.2
 appVersion: 3.0
-icon: https://s3-us-west-2.amazonaws.com/trusted-charts-logos.stackpoint.io/buildkite.png
+icon: http://trusted-charts-logos.stackpoint.io/buildkite.png
 keywords:
 - kubernetes deployment
 - helm release
-- cd
-- ci
+- CD
+- CI
 home: https://buildkite.com
 sources:
 - https://github.com/buildkite/agent
