@@ -13,7 +13,7 @@ steps:
 # Index repository
 - name: 'ubuntu'
   env:
-  - 'REPO_URL=http://trusted-charts.stackpoint.io'
+  - 'REPO_URL=trusted-charts.stackpoint.io'
   args: ['bash', './.scripts/index_repo.sh']
   id: 'index_repo'
 
