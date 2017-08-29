@@ -1,6 +1,6 @@
 # MongoDB Helm Chart
 
-**It is based on Helm community chart [mongodb-replicaset](https://github.com/kubernetes/charts/tree/master/stable/mongodb-replicasett)**
+**It is based on Helm community chart [mongodb-replicaset](https://github.com/kubernetes/charts/tree/master/stable/mongodb-replicaset)**
 
 ## Prerequisites Details
 * Kubernetes 1.6+ with Beta APIs enabled.
