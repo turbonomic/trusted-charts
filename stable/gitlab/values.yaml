@@ -2,10 +2,10 @@
 ## ref: https://hub.docker.com/r/gitlab/gitlab-ce/tags/
 ##
 ## CE
-image: gitlab/gitlab-ce:9.3.0-ce.0
+image: gitlab/gitlab-ce:9.5.2-ce.0
 
 ## EE
-##image: gitlab/gitlab-ce:9.3.0-ee.0
+##image: gitlab/gitlab-ee:9.5.2-ee.0
 
 ## Specify a imagePullPolicy
 ## 'Always' if imageTag is 'latest', else set to 'IfNotPresent'
@@ -34,6 +34,9 @@ image: gitlab/gitlab-ce:9.3.0-ce.0
 ## ref: https://docs.gitlab.com/ce/ci/runners/README.html#creating-and-registering-a-runner
 ##
 #runnerRegistrationToken=""
+
+## Service type
+serviceType: ClusterIP
 
 ## Configure service ports
 ## ref: http://kubernetes.io/docs/user-guide/services/
