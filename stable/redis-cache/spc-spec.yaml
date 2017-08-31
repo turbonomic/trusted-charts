@@ -1,15 +1,15 @@
 requirements:
   ## Set nodes spec
   node: # {} if nothing set
-    count: 4
-    cpu: 2
+    count: 3
+#    cpu: 2
 #    ram: 2GB
 
   ## Set app spec
   app:
     rbac: false
-    namespace: kafka
-    storage: true
+    namespace: redis
+    storage: false
     loadbalancer: false
 
     ## List of required values key names from values.yaml
