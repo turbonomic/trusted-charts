@@ -1,11 +1,19 @@
+## GitLab Edition
+## ref: https://about.gitlab.com/products/
+## - CE - Community Edition
+## - EE - Enterprise Edition - (requires license issued by GitLab Inc)
+##
+edition: CE
+
 ## GitLab CE image
 ## ref: https://hub.docker.com/r/gitlab/gitlab-ce/tags/
 ##
-## CE
-image: gitlab/gitlab-ce:9.5.2-ce.0
+ceImage: gitlab/gitlab-ce:9.5.2-ce.0
 
-## EE
-##image: gitlab/gitlab-ee:9.5.2-ee.0
+## GitLab EE image
+## ref: https://hub.docker.com/r/gitlab/gitlab-ee/tags/
+##
+eeImage: gitlab/gitlab-ee:9.5.2-ee.0
 
 ## Specify a imagePullPolicy
 ## 'Always' if imageTag is 'latest', else set to 'IfNotPresent'
@@ -36,6 +44,7 @@ image: gitlab/gitlab-ce:9.5.2-ce.0
 #runnerRegistrationToken=""
 
 ## Service type
+## Default on is ClusterIP, also LoadBalancer or NodePort can be used as well
 serviceType: ClusterIP
 
 ## Configure service ports

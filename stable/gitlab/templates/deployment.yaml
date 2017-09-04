@@ -1,5 +1,5 @@
 {{- if default "" .Values.instanceId }}
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: {{ template "fullname" . }}
@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: {{ template "fullname" . }}
-        image: {{ .Values.image }}
+        image: {{ template "gitlab.image" . }}
         imagePullPolicy: {{ default "" .Values.imagePullPolicy | quote }}
 #        command: ["/bin/bash", "-c",
 #          "sed -i \"s/environment ({'GITLAB_ROOT_PASSWORD' => initial_root_password }) if initial_root_password/environment ({'GITLAB_ROOT_PASSWORD' => initial_root_password, 'GITLAB_SHARED_RUNNERS_REGISTRATION_TOKEN' => node['gitlab']['gitlab-rails']['initial_shared_runners_registration_token'] })/g\" /opt/gitlab/embedded/cookbooks/gitlab/recipes/database_migrations.rb && exec /assets/wrapper"]

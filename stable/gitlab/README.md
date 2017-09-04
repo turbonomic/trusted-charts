@@ -19,11 +19,22 @@ This chart stands up a GitLab Community Edition install by default. This include
 
 ## Installing the Chart
 
-To install the chart with the release name `gitlab` run:
+To install the chart of GitLab CE edition with the release name `gitlab-ce` run:
 
 ```bash
-$ helm install --name gitlab \
-    --set externalUrl=http://your-domain.com/ tc/gitlab --namespace=gitlab
+$  helm upgrade gitlab-ce tc/gitlab --namespace gitlab \
+>   --set instanceId="spcxxxxxx",env=".staging",runnerRegistrationToken="xxxxxxxxx" \
+>   --set gitlabRootPassword="pass1234",runners.namespace="gitlab" \
+>   -i
+```
+
+To install the chart of GitLab EE edition with the release name `gitlab-ee` run:
+
+```bash
+$  helm upgrade gitlab-ee tc/gitlab --namespace gitlab \
+>   --set instanceId="spcxxxxxx",env=".staging",runnerRegistrationToken="xxxxxxxxx" \
+>   --set gitlabRootPassword="pass1234",runners.namespace="gitlab" \
+>   -i
 ```
 
 Note that you _must_ pass in externalUrl, or you'll end up with a non-functioning release.

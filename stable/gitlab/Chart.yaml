@@ -15,5 +15,5 @@ name: gitlab
 sources:
 - https://hub.docker.com/r/gitlab/gitlab-ce/
 - https://docs.gitlab.com/omnibus/
-version: 0.1.9
+version: 0.1.10
 icon: http://trusted-charts-logos.stackpoint.io/gitlab.png

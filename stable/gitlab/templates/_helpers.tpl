@@ -30,3 +30,16 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- define "redis.fullname" -}}
 {{- printf "%s-%s" .Release.Name "redis" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{/*
+Return the container image to use based on the edition being used (CE or EE)
+If edition=EE then use eeImage value
+Otherise use the ceImage
+*/}}
+{{- define "gitlab.image" -}}
+{{- if eq (upper .Values.edition) "EE" -}}
+{{- .Values.eeImage | quote -}}
+{{- else -}}
+{{- .Values.ceImage | quote -}}
+{{- end -}}
+{{- end -}}
