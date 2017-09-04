@@ -23,18 +23,19 @@ To install the chart of GitLab CE edition with the release name `gitlab-ce` run:
 
 ```bash
 $  helm upgrade gitlab-ce tc/gitlab --namespace gitlab \
->   --set instanceId="spcxxxxxx",env=".staging",runnerRegistrationToken="xxxxxxxxx" \
->   --set gitlabRootPassword="pass1234",runners.namespace="gitlab" \
->   -i
+   --set instanceId="spcxxxxxx",env=".staging",runnerRegistrationToken="xxxxxxxxx" \
+   --set gitlabRootPassword="pass1234",runners.namespace="gitlab" \
+   -i
 ```
 
 To install the chart of GitLab EE edition with the release name `gitlab-ee` run:
 
 ```bash
 $  helm upgrade gitlab-ee tc/gitlab --namespace gitlab \
->   --set instanceId="spcxxxxxx",env=".staging",runnerRegistrationToken="xxxxxxxxx" \
->   --set gitlabRootPassword="pass1234",runners.namespace="gitlab" \
->   -i
+   --set edition="EE" \
+   --set instanceId="spcxxxxxx",env=".staging",runnerRegistrationToken="xxxxxxxxx" \
+   --set gitlabRootPassword="pass1234",runners.namespace="gitlab" \
+   -i
 ```
 
 Note that you _must_ pass in externalUrl, or you'll end up with a non-functioning release.
