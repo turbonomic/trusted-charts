@@ -4,6 +4,9 @@ kind: Service
 metadata:
   name: {{ template "fullname" . }}
   labels:
+    app: {{ template "fullname" . }}
+    heritage: {{ .Release.Service | quote }}
+    release: {{ .Release.Name | quote }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
   type: {{ .Values.service.type }}

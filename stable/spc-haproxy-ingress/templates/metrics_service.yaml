@@ -4,8 +4,11 @@ kind: Service
 metadata:
   name: {{ template "fullname" . }}-metrics
   labels:
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    app: {{ template "fullname" . }}
     k8s-apps: {{ template "fullname" . }}
+    heritage: {{ .Release.Service | quote }}
+    release: {{ .Release.Name | quote }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     {{ .Values.metrics.servicemonitor.label }}: {{ .Values.metrics.servicemonitor.value }}
 spec:
   type: ClusterIP
