@@ -8,11 +8,14 @@ image:
   tag: 0.1.7
   pullPolicy: IfNotPresent
 
+rbac:
+  enabled: true
+
 deployment:
   # Whether to expose the service ports 80/443 on the host
   hostNetwork: true
   nodeSelector:
-    master: "true"
+    node-role.kubernetes.io/master: ""
   # if bound to the master and hostNetwork=true, replicas must be < master count
   replicas: 1
   resources:
@@ -27,7 +30,7 @@ deployment:
 # If service.enabled == false, no service will be defined, and the ingressController
 # will only be available on the pod hostPorts
 service:
-  enabled: true
+  enabled: false
   name: spc-balancer
   type: NodePort
   nodePort: 30080
@@ -35,9 +38,11 @@ service:
 
 # Install prometheus metrics service
 metrics:
-  enabled: true
-  image: quay.io/prometheus/haproxy-exporter
-  tag: v0.7.1
+  enabled: false
+  image: 
+    repository: quay.io/prometheus/haproxy-exporter
+    tag: v0.7.1
+    pullPolicy: IfNotPresent
   servicemonitor:
     label: metrics
     value: enabled

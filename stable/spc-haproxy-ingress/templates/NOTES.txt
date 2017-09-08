@@ -1,0 +1,21 @@
+You've got an ingress controller runnning now!  Add ingress objects and use 
+`kubectl get ingress` to find the details how the services can be reached.
+{{ if .Values.service.enabled }}
+By enabling the ingress controller service {{ .Values.service.name }} 
+in {{ .Release.Namespace }}, the ingress endpoint is exposed through kube-proxy at 
+nodeports {{ .Values.service.nodePort }} for http and {{ .Values.service.nodeTlsPort }} for https.
+
+With this configuration, manual configuration of an external load-balancer can forward through 
+to the nodes of this cluster at those ports, keeping the Host header, and let the ingress
+controller proxy through to the appropriate pods as necessary. 
+{{ end }}
+{{ if .Values.rbac.enabled }}
+Since RBAC is enabled, a clusterrole and a role have been configured in the {{ .Release.Namespace}}
+namespace so that the ingress controller can observe events throughout the cluster, and 
+modify configurations in its own namespace to create, modify or delete ingress routes.
+{{ end }}
+{{ if .Values.metrics.enabled }}
+Metrics are enabled, with a sidecar haproxy-exporter container exposing basic metrics 
+to prometheus. If prometheus is configured with a servicemonitor to lookup labels 
+{{ .Values.metrics.servicemonitor.label}}={{ .Values.metrics.servicemonitor.value}}, these metrics will be discovered automatically.
+{{ end }}

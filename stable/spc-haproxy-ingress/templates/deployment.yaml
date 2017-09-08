@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: {{ template "fullname" . }}
   labels:
+    app: {{ template "fullname" .}}
+    heritage: {{ .Release.Service | quote }}
+    release: {{ .Release.Name | quote }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
   replicas: {{ .Values.replicaCount }}
@@ -13,10 +16,20 @@ spec:
     metadata:
       labels:
         app: {{ template "fullname" . }}
+        heritage: {{ .Release.Service | quote }}
+        release: {{ .Release.Name | quote }}
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     spec:
       nodeSelector:
 {{ toYaml .Values.deployment.nodeSelector | indent 8 }}
+      tolerations:
+      - key: CriticalAddonsOnly
+        operator: Exists
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/master
+        operator: Exists
       hostNetwork: {{ .Values.deployment.hostNetwork }}
+      serviceAccountName: {{ template "fullname" . }}
       containers:
       - name: {{ .Chart.Name }}
         securityContext:
@@ -72,7 +85,8 @@ spec:
 {{ toYaml .Values.deployment.resources | indent 10 -}}
 {{- if .Values.metrics.enabled }}
       - name: {{ .Chart.Name }}-metrics
-        image: quay.io/prometheus/haproxy-exporter
+        image: "{{ .Values.metrics.image.repository }}:{{ .Values.metrics.image.tag }}"
+        imagePullPolicy: {{ .Values.metrics.image.pullPolicy }}
         ports:
         - containerPort: 9101
           name: metrics
