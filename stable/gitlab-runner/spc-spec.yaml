@@ -1,0 +1,18 @@
+requirements:
+  ## Set nodes spec
+  node: {} # {} if nothing set
+#    count: 2
+#    cpu: 2
+#    ram: 2GB
+
+  ## Set app spec
+  app:
+    rbac: false
+    namespace: gitlab
+    storage: false
+    loadbalancer: false
+
+    ## List of required values key names from values.yaml
+    valuesEditRequired: # [] if nothing set
+      - gitlabRootPassword
+      - runnerRegistrationToken

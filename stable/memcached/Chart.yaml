@@ -1,0 +1,14 @@
+name: memcached
+version: 1.2.2
+description: Free & open source, high-performance, distributed memory object caching system.
+keywords:
+- memcached
+- cache
+home: http://memcached.org/
+icon: http://trusted-charts-logos.stackpoint.io/memcached.png
+sources:
+- https://github.com/docker-library/memcached
+maintainers:
+- name: Greg Taylor
+  email: gtaylor@gc-taylor.com
+engine: gotpl

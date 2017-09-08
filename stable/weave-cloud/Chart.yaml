@@ -1,0 +1,13 @@
+name: weave-cloud
+version: 0.1.2
+description: Weave Cloud Agents
+home: https://weave.works
+maintainers:
+  - name: Ilya Dmitrichenko
+    email: ilya@weave.works
+engine: gotpl
+icon: http://trusted-charts-logos.stackpoint.io/weave.png
+keywords:
+- scope
+- flux
+- prometheus

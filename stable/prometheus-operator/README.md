@@ -5,8 +5,7 @@ Installs [prometheus-operator](https://github.com/coreos/prometheus-operator) to
 ## TL;DR;
 
 ```console
-$ helm repo add opsgoodness http://charts.opsgoodness.com
-$ helm install opsgoodness/prometheus-operator
+$ helm install tc/prometheus-operator
 ```
 
 ## Introduction

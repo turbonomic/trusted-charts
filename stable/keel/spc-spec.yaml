@@ -1,0 +1,17 @@
+requirements:
+  ## Set nodes spec
+  node: {} # {} if nothing set
+#    count: 3
+#    cpu: 2
+#    ram: 2GB
+
+  ## Set app spec
+  app:
+    rbac: false
+    namespace: kube-system
+    storage: false
+    loadbalancer: false
+
+    ## List of required values key names from values.yaml
+    valuesEditRequired: [] # [] if nothing set
+#      - some_key

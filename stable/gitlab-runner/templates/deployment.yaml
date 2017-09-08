@@ -85,6 +85,10 @@ spec:
           mountPath: /scripts
         resources:
 {{ toYaml .Values.resources | indent 10 }}
+      initContainers:
+      - name: init-gitlab-ee
+        image: alpine
+        command: ['sh', '-c', 'apk update; apk add curl; until curl -m 5 {{ default "" .Values.gitlabUrl | quote }}; do echo waiting for {{ default "" .Values.gitlabUrl | quote }}; sleep 2; done;']
       volumes:
       - name: scripts
         configMap:

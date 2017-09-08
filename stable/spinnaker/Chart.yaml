@@ -1,0 +1,16 @@
+apiVersion: v1
+description: Open source, multi-cloud continuous delivery platform for releasing software changes with high velocity and confidence.
+name: spinnaker
+version: 0.3.3
+appVersion: 1.1.0
+home: http://spinnaker.io/
+sources:
+- https://github.com/spinnaker
+- https://github.com/viglesiasce/images
+icon: http://trusted-charts-logos.stackpoint.io/spinnaker.png
+maintainers:
+- name: viglesiasce
+  email: viglesias@google.com
+keywords:
+- CI
+- CD

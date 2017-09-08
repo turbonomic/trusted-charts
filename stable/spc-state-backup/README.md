@@ -3,9 +3,12 @@
 This chart will schedule [Kubernetes Cron Job](https://kubernetes.io/docs/user-guide/cron-jobs/) to backup Kubernetes state to cloud storage.
 
 ## Install for the first time
+
+Installing/upgrading the chart kicks the backup, then the scheduled one will kick in.
+
 ### AWS S3
 ```bash
-helm upgrade --install spc-kube-backup spc/spc-state-backup --namespace stackpoint-system \
+helm upgrade --install spc-kube-backup tc/spc-state-backup --namespace stackpoint-system \
     --set schedule="*/50 * * * *",aws.enabled="true" \
     --set aws.accessKeyId="UNF37N93MG374B27",aws.secretAccessKey="AvgjbYndf9TMF8Y3F3J993TMTJ2309T" \
     --set aws.bucket="my-kube-state-backup-bucket",aws.region="eu-west-2" \
@@ -14,7 +17,7 @@ helm upgrade --install spc-kube-backup spc/spc-state-backup --namespace stackpoi
 
 ### GCS
 ```bash
-helm upgrade --install spc-kube-backup spc/spc-state-backup --namespace stackpoint-system \
+helm upgrade --install spc-kube-backup tc/spc-state-backup --namespace stackpoint-system \
     --set schedule="*/50 * * * *",gcs.enabled="true",gcs.projectId="project-123" \
     --set gcs.serviceAccountKey="$(cat sa.json | base64)" \
     --set gcs.bucket="my-kube-state-backup-bucket",gcs.region="europe-west1" \
@@ -23,7 +26,7 @@ helm upgrade --install spc-kube-backup spc/spc-state-backup --namespace stackpoi
 
 ### Azure
 ```bash
-helm upgrade --install spc-kube-backup spc/spc-state-backup --namespace stackpoint-system \
+helm upgrade --install spc-kube-backup tc/spc-state-backup --namespace stackpoint-system \
     --set schedule="*/50 * * * *",azure.enabled="true",storageAccount="azure_storage_account" \
     --set azure.storageAccessKey="AFSDJJDUEIEOOEOEOOEOEO" \
     --set azure.storageContainer="my-kube-state-backup-container" \
@@ -32,8 +35,8 @@ helm upgrade --install spc-kube-backup spc/spc-state-backup --namespace stackpoi
 
 ### Run upgrades e.g. for schedule or docker image change
 ```bash
-helm upgrade spc-kube-backup spc/spc-state-backup --reuse-values --set schedule="*/30 * * * *"
-helm upgrade spc-kube-backup spc/spc-state-backup --reuse-values --set imageTag="0.1.11"
+helm upgrade spc-kube-backup tc/spc-state-backup --reuse-values --set schedule="*/30 * * * *"
+helm upgrade spc-kube-backup tc/spc-state-backup --reuse-values --set imageTag="0.1.11"
 ```
 
 ### Restore state

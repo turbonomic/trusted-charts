@@ -1,5 +1,7 @@
 # nginx-ingress
 
+**It is based on Helm community chart [nginx-ingress](https://github.com/kubernetes/charts/tree/master/stable/nginx-ingress)**
+
 [nginx-ingress](https://github.com/kubernetes/ingress/tree/master/controllers/nginx) is an Ingress controller that uses ConfigMap to store the nginx configuration.
 
 To use, add the `kubernetes.io/ingress.class: nginx` annotation to your Ingress resources.
@@ -7,7 +9,7 @@ To use, add the `kubernetes.io/ingress.class: nginx` annotation to your Ingress 
 ## TL;DR;
 
 ```console
-$ helm install stable/nginx-ingress
+$ helm install tc/nginx-ingress
 ```
 
 ## Introduction
@@ -22,7 +24,7 @@ This chart bootstraps an nginx-ingress deployment on a [Kubernetes](http://kuber
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install --name my-release stable/nginx-ingress
+$ helm install --name my-release tc/nginx-ingress
 ```
 
 The command deploys nginx-ingress on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -109,14 +111,14 @@ Parameter | Description | Default
 `udp` | UDP service key:value pairs | `{}`
 
 ```console
-$ helm install stable/nginx-ingress --name my-release \
+$ helm install tc/nginx-ingress --name my-release \
     --set controller.stats.enabled=true
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install stable/nginx-ingress --name my-release -f values.yaml
+$ helm install tc/nginx-ingress --name my-release -f values.yaml
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)

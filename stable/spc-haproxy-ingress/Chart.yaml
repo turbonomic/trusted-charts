@@ -6,3 +6,7 @@ sources:
   - https://github.com/StackPointCloud/haddock
   - quay.io/stackpoint/haproxy-ingress-controller
 version: 0.2.0
+icon: http://trusted-charts-logos.stackpoint.io/haproxy.png
+keywords:
+- ingress
+- haproxy

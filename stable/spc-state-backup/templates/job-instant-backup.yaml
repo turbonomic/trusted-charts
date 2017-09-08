@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ template "fullname" . }}-{{ randAlpha 6 | lower }}"
+  labels:
+    app: {{ template "fullname" . }}-run-backup
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+spec:
+  template:
+    metadata:
+      name: {{ template "fullname" . }}-run-backup
+    spec:
+{{ include "podspec" . | indent 6 }}
