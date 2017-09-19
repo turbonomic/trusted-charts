@@ -5,7 +5,7 @@ rbac:
 
 istioRelease: 0.1.6
 
-## Enable Istio auth feature 
+## Enable Istio auth feature
 ## This deploys a CA in the namespace and enables mTLS between the services
 auth:
   enabled: true
@@ -77,6 +77,10 @@ pilot:
 ## Ingress configuration
 ingress:
 
+# enable ingress to expose at [name].[namespace].[domain]
+  enabled: true
+  domain: kubernetes.stackpoint.io
+
   service:
     type: LoadBalancer
     externalHttpPort: 80
@@ -142,7 +146,7 @@ ca:
 ## Addons configuration
 ## Each addon may be disabled
 addons:
-  
+
   zipkin:
 
     enabled: true
@@ -150,7 +154,7 @@ addons:
     service:
       type: ClusterIP
       externalPort: 9411
-    
+
     deployment:
       name: zipkin
       annotations:
@@ -166,17 +170,17 @@ addons:
         requests:
           cpu: 100m
           memory: 128Mi
-  
+
   prometheus:
-    
+
     enabled: true
-    
+
     service:
       type: ClusterIP
       externalPort: 9090
       annotations:
         prometheus.io/scrape: 'true'
-    
+
     deployment:
       name: prometheus
       annotations:
@@ -192,15 +196,15 @@ addons:
         requests:
           cpu: 100m
           memory: 128Mi
-  
+
   grafana:
-    
+
     enabled: true
-    
+
     service:
-      type: ClusterIP
+      type: NodePort
       externalPort: 3000
-    
+
     deployment:
       name: grafana
       annotations:
@@ -217,13 +221,13 @@ addons:
           memory: 128Mi
 
   servicegraph:
-    
+
     enabled: true
-    
+
     service:
-      type: ClusterIP
+      type: NodePort
       externalPort: 8088
-    
+
     deployment:
       name: servicegraph
       annotations:
