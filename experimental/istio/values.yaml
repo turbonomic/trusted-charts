@@ -77,7 +77,7 @@ pilot:
 ## Ingress configuration
 ingress:
 
-# enable ingress to expose at [name].[namespace].[domain]
+# Enable ingress for grafana and servicegraph to expose at [name].[namespace].[domain]
   enabled: true
   domain: kubernetes.stackpoint.io
 
