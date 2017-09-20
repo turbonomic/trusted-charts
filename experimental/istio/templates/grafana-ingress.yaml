@@ -8,7 +8,7 @@ metadata:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
   rules:
-  - host:  {{ .Values.addons.grafana.deployment.name }}.{{ template "fullname" . }}.{{ .Values.ingress.domain }}
+  - host:  {{ .Values.addons.grafana.deployment.name }}.istio.{{ .Values.ingress.domain }}
     http:
       paths:
       - backend:
