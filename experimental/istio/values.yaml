@@ -152,7 +152,7 @@ addons:
     enabled: true
 
     service:
-      type: ClusterIP
+      type: NodePort
       externalPort: 9411
 
     deployment:
