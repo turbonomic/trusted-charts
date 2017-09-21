@@ -9,7 +9,9 @@
 > **Note**: Istio pilot currently looks for hardcoded configmap of name "istio" in the installed namespace which means that you can only install the chart once per namespace.
 
 ```console
-$ helm install tc/istio
+$ helm repo add tc http://trusted-charts.stackpoint.io/
+$ helm repo up
+$ helm install --name istio tc/istio
 ```
 
 ## Introduction
@@ -33,7 +35,7 @@ to download and extract the latest release automatically (on MacOS and Ubuntu), 
 By default the chart is installed without associated RBAC roles and rolebindings. If you would like to install the provided roles and rolebindings please do the following:
 
 ```
-$ helm install tc/istio --set rbac.install=true
+$ helm install --name istio tc/istio --set rbac.install=true
 ```
 
 This will install the associated RBAC roles and rolebindings using beta annotations.
@@ -57,7 +59,7 @@ If the output contains "beta" or both "alpha" and "beta" you can proceed with no
 By default the RBAC resources are generated with the "v1beta1" apiVersion. To use "v1alpha1" do the following:
 
 ```console
-$ helm install --name my-release tc/istio --set rbac.install=true,rbac.apiVersion=v1alpha1
+$ helm install --name istio tc/istio --set rbac.install=true,rbac.apiVersion=v1alpha1
 ```
 
 If it does not. Follow the steps below to disable.
@@ -67,17 +69,17 @@ If it does not. Follow the steps below to disable.
 If you don't want the RBAC roles and bindings to be created by the installation of this chart simply install the default chart.
 
 ```console
-$ helm install --name my-release tc/istio
+$ helm install --name istio tc/istio
 ```
 
 ## Installing the Chart
 
-To install the chart with the release name `my-release`:
+To install the chart with the release name `istio`:
 
 ```console
 $ helm repo add tc http://trusted-charts.stackpoint.io/
 $ helm repo up
-$ helm install --name my-release tc/istio
+$ helm install --name istio tc/istio
 ```
 
 The command deploys Istio on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -86,10 +88,10 @@ The command deploys Istio on the Kubernetes cluster in the default configuration
 
 ## Uninstalling the Chart
 
-To uninstall/delete the `my-release` deployment:
+To uninstall/delete the `istio` deployment:
 
 ```console
-$ helm delete my-release
+$ helm delete istio
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
@@ -107,14 +109,14 @@ Parameter | Description | Default
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
-$ helm install tc/istio --name my-release \
+$ helm install tc/istio --name istio \
     --set auth.enabled=flase
 ```
 
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install tc/istio --name my-release -f values.yaml
+$ helm install tc/istio --name istio -f values.yaml
 ```
 
 ## Custom ConfigMap

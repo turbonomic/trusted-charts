@@ -10,7 +10,7 @@ requirements:
     rbac: false
     namespace: default
     storage: false
-    loadbalancer: false
+    loadbalancer: true
 
     ## List of required values key names from values.yaml
     valuesEditRequired: [] # [] if nothing set
