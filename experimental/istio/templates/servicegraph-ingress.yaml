@@ -11,8 +11,7 @@ spec:
   - host:  {{ .Values.addons.servicegraph.deployment.name }}.istio.{{ .Values.ingress.domain }}
     http:
       paths:
-      - path: /dotviz
-        backend:
+      - backend:
           serviceName: {{ $serviceName }}-{{ .Values.addons.servicegraph.deployment.name }}
           servicePort: http
 {{ end }}
