@@ -1,17 +1,18 @@
+
 # GitLab Runner
 
 [GitLab Runner](https://docs.gitlab.com/runner) is the open source project that is used to run your jobs and send the results back to GitLab. It is used in conjunction with [GitLab CI](https://about.gitlab.com/gitlab-ci/), the open-source continuous integration service included with GitLab that coordinates the jobs.
+For more information, please review [our documentation](http://docs.gitlab.com/ee/install/kubernetes/gitlab_runner_chart.html).
 
 ## Introduction
 
 This chart deploys a GitLab Runner instance configured to run using the [Kubernetes executor](https://docs.gitlab.com/runner/install/kubernetes.html)
 
-For each new job it recieves from [GitLab CI](https://about.gitlab.com/gitlab-ci/), it will provision a new pod within the specified namespace to run it.
+For each new job it receives from [GitLab CI](https://about.gitlab.com/gitlab-ci/), it will provision a new pod within the specified namespace to run it.
 
 ## Prerequisites
 
 - _At least_ 2 vCPUs available on your cluster
-- Kubernetes 1.4+ with Beta APIs enabled
 - Your GitLab Server's API is reachable from the cluster
 
 ## Installing the Chart
