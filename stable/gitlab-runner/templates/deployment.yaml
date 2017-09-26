@@ -1,4 +1,4 @@
-{{- if and (default "" .Values.gitlabUrl) (default "" .Values.runnerRegistrationToken) }}
+{{- if and (include "gitlabUrl" .) (default "" .Values.runnerRegistrationToken) }}
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -17,8 +17,12 @@ spec:
       annotations:
         # Automatically Roll Deployments When ConfigMaps or Secrets change
         checksum/config: {{ include (print $.Template.BasePath "/secrets.yaml") . | sha256sum }}
-        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}  
     spec:
+      initContainers:
+      - name: init-gitlab
+        image: alpine
+        command: ['sh', '-c', 'apk update; apk add curl; until curl -m 5 {{ default "" .Values.gitlabUrl | quote }}; do echo waiting for {{ default "" .Values.gitlabUrl | quote }}; sleep 2; done;']
       containers:
       - name: {{ template "fullname" . }}
         image: {{ .Values.image }}
@@ -26,7 +30,7 @@ spec:
         command: ["/bin/bash", "/scripts/entrypoint"]
         env:
         - name: GITLAB_URL
-          value: {{ default "" .Values.gitlabUrl | quote }}
+          value: {{ template "gitlabUrl" . }}
         - name: REGISTRATION_TOKEN
           valueFrom:
             secretKeyRef:
@@ -66,7 +70,7 @@ spec:
           value: {{ default "" .Values.runners.helpers.memoryRequests| quote }}
         livenessProbe:
           exec:
-            command: ["/usr/bin/pgrep","gitlab-ci-multi"]
+            command: ["/usr/bin/pgrep","gitlab.*runner"]
           initialDelaySeconds: 60
           timeoutSeconds: 1
           periodSeconds: 10
@@ -74,7 +78,7 @@ spec:
           failureThreshold: 3
         readinessProbe:
           exec:
-            command: ["/usr/bin/pgrep","gitlab-ci-multi"]
+            command: ["/usr/bin/pgrep","gitlab.*runner"]
           initialDelaySeconds: 10
           timeoutSeconds: 1
           periodSeconds: 10
@@ -83,13 +87,24 @@ spec:
         volumeMounts:
         - name: scripts
           mountPath: /scripts
+        {{- if .Values.certsSecretName }}
+        - name: custom-certs
+          readOnly: true
+          mountPath: /etc/gitlab-runner/certs/
+        {{- end }}
         resources:
 {{ toYaml .Values.resources | indent 10 }}
-      initContainers:
-      - name: init-gitlab-ee
-        image: alpine
-        command: ['sh', '-c', 'apk update; apk add curl; until curl -m 5 {{ default "" .Values.gitlabUrl | quote }}; do echo waiting for {{ default "" .Values.gitlabUrl | quote }}; sleep 2; done;']
       volumes:
+      {{ if .Values.runners.privileged }}
+      - name: var-run-docker-sock
+        hostPath:
+          path: /var/run/docker.sock
+      {{ end }}
+      {{- if .Values.certsSecretName }}
+      - name: custom-certs
+        secret:
+          secretName: {{ .Values.certsSecretName }}
+      {{- end }}
       - name: scripts
         configMap:
           name: {{ template "fullname" . }}

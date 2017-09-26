@@ -26,4 +26,3 @@ data:
   config.toml: |
     concurrent = {{ .Values.concurrent }}
     check_interval = {{ .Values.checkInterval }}
-    metrics_server = '0.0.0.0:9090'

@@ -8,7 +8,7 @@ requirements:
   ## Set app spec
   app:
     rbac: false
-    namespace: kube-system
+    namespace: buildkite
     storage: false
     loadbalancer: false
 

@@ -1,6 +1,6 @@
 name: gitlab-runner
-version: 0.1.6
-description: GitLab Runner is the open source project that is used to run your jobs and send the results back to GitLab.
+version: 0.1.13
+description: GitLab Runner
 keywords:
 - git
 - ci
@@ -9,9 +9,9 @@ keywords:
 sources:
 - https://hub.docker.com/r/gitlab/gitlab-runner/
 - https://docs.gitlab.com/runner/
+icon: http://trusted-charts-logos.stackpoint.io/gitlab-runner.png
 maintainers:
 - name: GitLab Inc.
   email: support@gitlab.com
 - name: DJ Mountney
   email: dj@gitlab.com
-icon: http://trusted-charts-logos.stackpoint.io/gitlab-runner.png
