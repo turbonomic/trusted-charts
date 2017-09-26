@@ -12,11 +12,13 @@ rbac:
   enabled: true
 
 deployment:
-  # Whether to expose the service ports 80/443 on the host
+  # Whether to expose the service ports 80/443 on the host, hostPort requires a modern CNI
+  useHostPort: true
+  # hostnetworking avoids CNI problems, but must be false for use with networkpolicy
   hostNetwork: true
   nodeSelector:
     node-role.kubernetes.io/master: ""
-  # if bound to the master and hostNetwork=true, replicas must be < master count
+  # if bound to the master and (hostNetwork|hostPort)=true, replicas must be < master count
   replicas: 1
   resources:
     limits:

@@ -5,7 +5,7 @@ home: https://quay.io/application/stackpoint/spc-haproxy-ingress
 sources:
   - https://github.com/StackPointCloud/haddock
   - quay.io/stackpoint/haproxy-ingress-controller
-version: 0.2.0
+version: 0.2.1
 icon: http://trusted-charts-logos.stackpoint.io/haproxy.png
 keywords:
 - ingress

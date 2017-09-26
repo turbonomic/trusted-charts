@@ -19,6 +19,7 @@ spec:
         heritage: {{ .Release.Service | quote }}
         release: {{ .Release.Name | quote }}
         chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+        networkpolicy_ingress: controller
     spec:
       nodeSelector:
 {{ toYaml .Values.deployment.nodeSelector | indent 8 }}
@@ -62,13 +63,13 @@ spec:
         - containerPort: 80
           name: http
           protocol: TCP
-{{- if .Values.deployment.hostNetwork }}
+{{- if or .Values.deployment.hostNetwork .Values.deployment.useHostPort }}
           hostPort: 80
 {{- end }}
         - containerPort: 443
           name: https
           protocol: TCP
-{{- if .Values.deployment.hostNetwork }}
+{{- if or .Values.deployment.hostNetwork .Values.deployment.useHostPort }}
           hostPort: 443
 {{- end }}
         livenessProbe:

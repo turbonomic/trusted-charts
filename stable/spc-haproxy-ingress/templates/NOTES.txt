@@ -19,3 +19,5 @@ Metrics are enabled, with a sidecar haproxy-exporter container exposing basic me
 to prometheus. If prometheus is configured with a servicemonitor to lookup labels 
 {{ .Values.metrics.servicemonitor.label}}={{ .Values.metrics.servicemonitor.value}}, these metrics will be discovered automatically.
 {{ end }}
+This ingress controller is deployed with a pod label of "networkpolicy_ingress=controller"
+and ingress access from it can be granted with a podSelector to match that label.
