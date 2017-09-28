@@ -2,14 +2,14 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: {{ template "fullname" . }}
-  namespace: kube-system
+  namespace: {{ .Release.Namespace }}
   labels:
     app: {{ template "name" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
   annotations:
-    kubernetes.io/service-account.name: keel
+    kubernetes.io/service-account.name: {{ template "fullname" . }}
 spec:
   replicas: 1
   template:
@@ -18,6 +18,8 @@ spec:
         app: {{ template "name" . }}
         release: {{ .Release.Name }}
     spec:
+      serviceAccount: {{ template "fullname" . }}
+      serviceAccountName: {{ template "fullname" . }}
       containers:
         - name: keel
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
