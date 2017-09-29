@@ -19,6 +19,7 @@ spec:
         app: {{ template "name" . }}
         release: {{ .Release.Name }}
     spec:
+      serviceAccountName: {{ if .Values.rbac.create }}{{ template "fullname" . }}{{ else }}"{{ .Values.rbac.serviceAccountName }}"{{ end }}
       containers:
         - name: {{ template "name" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -32,6 +33,7 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP
+          # {{ required "config.LEGO_EMAIL is a required field" .Values.config.LEGO_EMAIL }}
           {{- range $key, $value := .Values.config }}
             - name: "{{ $key }}"
               value: "{{ $value }}"

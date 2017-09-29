@@ -19,10 +19,10 @@ This chart bootstraps a kube-lego deployment on a [Kubernetes](http://kubernetes
 
 ## Installing the Chart
 
-To install the chart with the release name `my-release`:
+To install the chart with the release name `kube-lego`:
 
 ```console
-$ helm install --name my-release tc/kube-lego
+$ helm install --name kube-lego tc/kube-lego
 ```
 
 The command deploys kube-lego on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -31,10 +31,10 @@ The command deploys kube-lego on the Kubernetes cluster in the default configura
 
 ## Uninstalling the Chart
 
-To uninstall/delete the `my-release` deployment:
+To uninstall/delete the `kube-lego` deployment:
 
 ```console
-$ helm delete my-release
+$ helm delete kube-lego
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
@@ -55,11 +55,13 @@ Parameter | Description | Default
 `podAnnotations` | annotations to be added to pods | `{}`
 `replicaCount` | desired number of pods | `1`
 `resources` | kube-lego resource requests and limits (YAML) |`{}`
+`rbac.create` | Create a role and serviceaccount | `false`
+`rbac.serviceAccountName` | serviceaccount name to use if `rbac.create` is false | `default`
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
-$ helm install --name my-release \
+$ helm install --name kube-lego \
   --set config.LEGO_EMAIL=you@domain.tld \
     tc/kube-lego
 ```
@@ -67,7 +69,7 @@ $ helm install --name my-release \
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name my-release -f values.yaml tc/kube-lego
+$ helm install --name kube-lego -f values.yaml tc/kube-lego
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
