@@ -14,7 +14,7 @@ data:
   proxy-send-imeout: "600"
   hsts-include-subinstance_ids: "false"
   body-size: "512m"
-  server-name-hash-bucket-size: "256"
+  server-name-hash-bucket-size: "256"  
   enable-vts-status: "{{ .Values.controller.stats.enabled }}"
 {{- if .Values.controller.config }}
 {{ toYaml .Values.controller.config | indent 2 }}

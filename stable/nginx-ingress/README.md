@@ -21,10 +21,10 @@ This chart bootstraps an nginx-ingress deployment on a [Kubernetes](http://kuber
 
 ## Installing the Chart
 
-To install the chart with the release name `my-release`:
+To install the chart with the release name `nginx-ingress`:
 
 ```console
-$ helm install --name my-release tc/nginx-ingress
+$ helm install --name nginx-ingress tc/nginx-ingress
 ```
 
 The command deploys nginx-ingress on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -33,10 +33,10 @@ The command deploys nginx-ingress on the Kubernetes cluster in the default confi
 
 ## Uninstalling the Chart
 
-To uninstall/delete the `my-release` deployment:
+To uninstall/delete the `nginx-ingress` deployment:
 
 ```console
-$ helm delete my-release
+$ helm delete nginx-ingress
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
@@ -52,20 +52,28 @@ Parameter | Description | Default
 `controller.image.tag` | controller container image tag | `0.8.3`
 `controller.image.pullPolicy` | controller container image pull policy | `IfNotPresent`
 `controller.config` | nginx ConfigMap entries | none
+`controller.hostNetwork` | If the nginx deployment / daemonset should run on the host's network namespace | false
 `controller.defaultBackendService` | default 404 backend service; required only if `defaultBackend.enabled = false` | `""`
+`controller.electionID` | election ID to use for the status update | `ingress-controller-leader`
+`controller.ingressClass` | name of the ingress class to route through this controller | `nginx`
 `controller.scope.enabled` | limit the scope of the ingress controller | `false` (watch all namespaces)
 `controller.scope.namespace` | namespace to watch for ingress | `""` (use the release namespace)
 `controller.extraArgs` | Additional controller container arguments | `{}`
 `controller.kind` | install as Deployment or DaemonSet | `Deployment`
+`controller.tolerations` | node taints to tolerate (requires Kubernetes >=1.6) | `[]`
 `controller.nodeSelector` | node labels for pod assignment | `{}`
 `controller.podAnnotations` | annotations to be added to pods | `{}`
 `controller.replicaCount` | desired number of controller pods | `1`
 `controller.resources` | controller pod resource requests & limits | `{}`
 `controller.service.annotations` | annotations for controller service | `{}`
+`controller.publishService.enabled` | if true, the controller will set the endpoint records on the ingress objects to reflect those on the service | `false`
+`controller.publishService.pathOverride` | override of the default publish-service name | `""`
 `controller.service.clusterIP` | internal controller cluster service IP | `""`
 `controller.service.externalIPs` | controller service external IP addresses | `[]`
 `controller.service.loadBalancerIP` | IP address to assign to load balancer (if supported) | `""`
 `controller.service.loadBalancerSourceRanges` | list of IP CIDRs allowed access to load balancer (if supported) | `[]`
+`controller.service.targetPorts.http` | Sets the targetPort that maps to the Ingress' port 80 | `80`
+`controller.service.targetPorts.https` | Sets the targetPort that maps to the Ingress' port 443 | `443`
 `controller.service.type` | type of controller service to create | `LoadBalancer`
 `controller.service.nodePorts.http` | If `controller.service.type` is `NodePort` and this is non-empty, it sets the nodePort that maps to the Ingress' port 80 | `""`
 `controller.service.nodePorts.https` | If `controller.service.type` is `NodePort` and this is non-empty, it sets the nodePort that maps to the Ingress' port 443 | `""`
@@ -81,6 +89,7 @@ Parameter | Description | Default
 `defaultBackend.image.tag` | default backend container image tag | `1.2`
 `defaultBackend.image.pullPolicy` | default backend container image pull policy | `IfNotPresent`
 `defaultBackend.extraArgs` | Additional default backend container arguments | `{}`
+`defaultBackend.tolerations` | node taints to tolerate (requires Kubernetes >=1.6) | `[]`
 `defaultBackend.nodeSelector` | node labels for pod assignment | `{}`
 `defaultBackend.podAnnotations` | annotations to be added to pods | `{}`
 `defaultBackend.replicaCount` | desired number of default backend pods | `1`
@@ -91,9 +100,11 @@ Parameter | Description | Default
 `defaultBackend.service.loadBalancerIP` | IP address to assign to load balancer (if supported) | `""`
 `defaultBackend.service.loadBalancerSourceRanges` | list of IP CIDRs allowed access to load balancer (if supported) | `[]`
 `defaultBackend.service.type` | type of default backend service to create | `ClusterIP`
+`rbac.create` | If true, create & use RBAC resources | `false`
+`rbac.serviceAccountName` | ServiceAccount to be used (ignored if rbac.create=true) | `default`
 `statsExporter.name` | name of the Prometheus metrics exporter component | `stats-exporter`
-`statsExporter.image.repository` | Prometheus metrics exporter container image repository | `quay.io/cy-play/vts-nginx-exporter`
-`statsExporter.image.tag` | Prometheus metrics exporter image tag | `v0.0.3`
+`statsExporter.image.repository` | Prometheus metrics exporter container image repository | `sophos/nginx-vts-exporter`
+`statsExporter.image.tag` | Prometheus metrics exporter image tag | `v0.6`
 `statsExporter.image.pullPolicy` | Prometheus metrics exporter image pull policy | `IfNotPresent`
 `statsExporter.endpoint` | path at which Prometheus metrics are exposed | `/metrics`
 `statsExporter.extraArgs` | Additional Prometheus metrics exporter container arguments | `{}`
@@ -111,14 +122,14 @@ Parameter | Description | Default
 `udp` | UDP service key:value pairs | `{}`
 
 ```console
-$ helm install tc/nginx-ingress --name my-release \
+$ helm install tc/nginx-ingress --name nginx-ingress \
     --set controller.stats.enabled=true
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install tc/nginx-ingress --name my-release -f values.yaml
+$ helm install tc/nginx-ingress --name nginx-ingress -f values.yaml
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
