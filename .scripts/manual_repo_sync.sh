@@ -7,6 +7,7 @@ REPO_URL=trusted-charts.stackpoint.io
 function gen_packages() {
   echo "Packaging charts from source code"
   mkdir -p temp
+  rm temp/*
   # generating charts from stable & experimental folders
   for d in stable/* experimental/*
   do
@@ -27,7 +28,6 @@ function index() {
 
   echo "Indexing repository"
   if [ -f ./temp/index.yaml ]; then
-    echo "zzzz"
     helm repo index --url http://${REPO_URL} --merge ./temp/index.yaml ./temp
   else
     helm repo index --url http://${REPO_URL} ./temp
