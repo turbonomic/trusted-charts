@@ -232,7 +232,7 @@ addons:
       name: servicegraph
       annotations:
         alpha.istio.io/sidecar: ignore
-      image: gcr.io/istio-testing/servicegraph
+      image: gcr.io/istio-testing/servicegraph:0.1.6
       imageTag: latest
       imagePullPolicy: Always
       replicas: 1
