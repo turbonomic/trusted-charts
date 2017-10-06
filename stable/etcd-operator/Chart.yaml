@@ -1,0 +1,20 @@
+apiVersion: v1
+appVersion: 0.6.0
+description: CoreOS etcd-operator
+keywords:
+- key-value
+- store
+- raft
+home: https://github.com/coreos/etcd-operator
+icon: http://trusted-charts-logos.stackpoint.io/etcd.png
+maintainers:
+- email: chance.zibolski@coreos.com
+  name: chancez
+- email: lachlan@deis.com
+  name: lachie83
+- email: rimas@stackpoint.io
+  name: rimusz
+name: etcd-operator
+sources:
+- https://github.com/coreos/etcd-operator
+version: 0.5.1
