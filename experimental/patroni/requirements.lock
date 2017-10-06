@@ -1,0 +1,6 @@
+dependencies:
+- name: etcd-operator
+  repository: http://trusted-charts.stackpoint.io
+  version: 0.5.1
+digest: sha256:c1bf55f355934e6e0183c07f626d18ca3b13f9ea2479b7c106c39818b2ac6784
+generated: 2017-10-06T17:32:19.743092+01:00
