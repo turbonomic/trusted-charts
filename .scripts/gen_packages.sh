@@ -10,6 +10,7 @@ echo "Installing helm"
 curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
 helm init -c
 helm repo add incubator	https://kubernetes-charts-incubator.storage.googleapis.com
+helm repo add tc http://trusted-charts.stackpoint.io
 helm repo update
 
 # Package charts
