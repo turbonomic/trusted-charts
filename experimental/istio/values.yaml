@@ -232,8 +232,8 @@ addons:
       name: servicegraph
       annotations:
         alpha.istio.io/sidecar: ignore
-      image: gcr.io/istio-testing/servicegraph:0.1.6
-      imageTag: latest
+      image: gcr.io/istio-testing/servicegraph
+      imageTag: 0.1.6
       imagePullPolicy: Always
       replicas: 1
       resources:
