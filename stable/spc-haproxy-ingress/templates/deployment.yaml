@@ -9,6 +9,9 @@ metadata:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
   replicas: {{ .Values.replicaCount }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryCount }}
+  strategy:
+    type: "Recreate"
   selector:
     matchLabels:
       app: {{ template "fullname" . }}
@@ -20,6 +23,8 @@ spec:
         release: {{ .Release.Name | quote }}
         chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
         networkpolicy_ingress: controller
+      annotations:
+        scheduler.alpha.kubernetes.io/critical-pod: ""
     spec:
       nodeSelector:
 {{ toYaml .Values.deployment.nodeSelector | indent 8 }}
