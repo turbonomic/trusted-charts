@@ -20,6 +20,7 @@ deployment:
     node-role.kubernetes.io/master: ""
   # if bound to the master and (hostNetwork|hostPort)=true, replicas must be < master count
   replicas: 1
+  revisionHistoryCount: 2
   resources:
     limits:
       cpu: 400m
@@ -41,7 +42,7 @@ service:
 # Install prometheus metrics service
 metrics:
   enabled: false
-  image: 
+  image:
     repository: quay.io/prometheus/haproxy-exporter
     tag: v0.7.1
     pullPolicy: IfNotPresent
