@@ -2,7 +2,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "name" -}}
+{{- define "istio.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -15,21 +15,17 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "fullname" -}}
-{{- printf "%s" .Release.Name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
 {{- /*
 Credit: @technosophos
 https://github.com/technosophos/common-chart/
 labels.standard prints the standard Helm labels.
 The standard labels are frequently used in metadata.
 */ -}}
-{{- define "labels.standard" -}}
-app: {{ template "name" . }}
+{{- define "istio.labels.standard" -}}
+app: {{ template "istio.name" . }}
 heritage: {{ .Release.Service | quote }}
 release: {{ .Release.Name | quote }}
-chart: {{ template "chartref" . }}
+chart: {{ template "istio.chartref" . }}
 {{- end -}}
 
 {{- /*
@@ -41,6 +37,6 @@ Example output:
   zookeeper-1.2.3
   wordpress-3.2.1_20170219
 */ -}}
-{{- define "chartref" -}}
+{{- define "istio.chartref" -}}
   {{- replace "+" "_" .Chart.Version | printf "%s-%s" .Chart.Name -}}
 {{- end -}}

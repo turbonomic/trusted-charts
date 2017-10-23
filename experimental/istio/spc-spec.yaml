@@ -1,14 +1,14 @@
 requirements:
   ## Set nodes spec
-  node: {} # {} if nothing set
-#    count: 3
-#    cpu: 2
+  node: # {} if nothing set
+    count: 3
+    cpu: 2
 #    ram: 2GB
 
   ## Set app spec
   app:
     rbac: false
-    namespace: default
+    namespace: istio-system
     storage: false
     loadbalancer: true
 
