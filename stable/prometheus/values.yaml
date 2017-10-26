@@ -1,7 +1,7 @@
 # Default values for prometheus.
 
 rbac:
-  enabled: false
+  enabled: true
 
 prometheus:
   baseImage: quay.io/prometheus/prometheus

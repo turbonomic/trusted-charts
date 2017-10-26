@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   labels:
@@ -25,7 +25,11 @@ spec:
           {{- if .Values.kubeletService.enable }}
             - --kubelet-service={{ .Values.kubeletService.namespace }}/{{ .Values.kubeletService.name }}
           {{- end }}
-            - --analytics={{ .Values.sendAnalytics }}
+            - --prometheus-config-reloader={{ .Values.prometheusConfigReloader.repository }}:{{ .Values.prometheusConfigReloader.tag }}
+            - --config-reloader-image={{ .Values.configmapReload.repository }}:{{ .Values.configmapReload.tag }}
+          ports:
+            - containerPort: 8080
+              name: http
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- if .Values.nodeSelector }}
