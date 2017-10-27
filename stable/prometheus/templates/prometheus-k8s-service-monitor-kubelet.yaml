@@ -17,3 +17,7 @@ spec:
   - port: http-metrics
     interval: 15s
     honorLabels: true
+  - port: http-metrics
+    path: /metrics/cadvisor
+    interval: 15s
+    honorLabels: true
