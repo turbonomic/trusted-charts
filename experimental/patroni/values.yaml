@@ -10,11 +10,11 @@ Spilo:
   Version: 1.2-p17
 
 # How many postgres containers to spawn
-Replicas: 3
+Replicas: 5
 
 # Resource limits per replica
 Resources:
-  Cpu: 200m
+  Cpu: 100m
   Memory: 512Mi
 
 # Node selector for Patroni pods
@@ -44,7 +44,7 @@ WalE:
   Backup_Threshold_Percentage: 30
 
 persistentVolume:
-  size: 10G
+  size: 20G
   storageClass: ""
   subPath: ""
   mountPath: "/home/postgres/pgdata"
