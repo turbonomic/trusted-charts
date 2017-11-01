@@ -38,7 +38,7 @@ function index() {
 
 function upload() {
   echo "Upload charts to GCS bucket"
-  gsutil rsync ./temp/ gs://${REPO_URL}
+  gsutil rsync -x "test|staging" ./temp/ gs://${REPO_URL}
 }
 
 # generate helm chart packages

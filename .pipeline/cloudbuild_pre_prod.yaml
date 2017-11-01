@@ -7,17 +7,17 @@ steps:
 
 # Fetch index.yaml from GCS bucket
 - name: gcr.io/cloud-builders/gsutil
-  args: ['cp', 'gs://trusted-charts.stackpoint.io/index.yaml', 'temp/']
+  args: ['cp', 'gs://trusted-charts.stackpoint.io/$BRANCH_NAME/index.yaml', 'temp/']
   id: 'fetch_index'
 
 # Index repository
 - name: 'ubuntu'
   env:
-  - 'REPO_URL=trusted-charts.stackpoint.io'
+  - 'REPO_URL=trusted-charts.stackpoint.io/$BRANCH_NAME'
   args: ['bash', './.scripts/index_repo.sh']
   id: 'index_repo'
 
 # Upload charts and index to GCS bucket
 - name: gcr.io/cloud-builders/gsutil
-  args: ['rsync', '-x', '"test|staging"', 'temp/', 'gs://trusted-charts.stackpoint.io']
+  args: ['rsync', 'temp/', 'gs://trusted-charts.stackpoint.io/$BRANCH_NAME']
   id: 'upload_charts'
