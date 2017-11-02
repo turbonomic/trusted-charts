@@ -1,5 +1,5 @@
-apiVersion: "monitoring.coreos.com/v1alpha1"
-kind: "Alertmanager"
+apiVersion: monitoring.coreos.com/v1
+kind: Alertmanager
 metadata:
   name: {{ template "fullname" . }}
   labels:

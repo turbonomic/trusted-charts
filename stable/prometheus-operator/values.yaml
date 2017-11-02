@@ -3,14 +3,26 @@ global:
   ##
   hyperkube:
     repository: quay.io/coreos/hyperkube
-    tag: v1.6.6_coreos.1
+    tag: v1.7.6_coreos.0
     pullPolicy: IfNotPresent
+
+## Prometheus-config-reloader image to use for config and rule reloading
+##
+prometheusConfigReloader:
+  repository: quay.io/coreos/prometheus-config-reloader
+  tag: v0.0.2
+
+## Configmap-reload image to use for reloading configmaps
+##
+configmapReload:
+  repository: quay.io/coreos/configmap-reload
+  tag: v0.0.1
 
 ## Prometheus-operator image
 ##
 image:
   repository: quay.io/coreos/prometheus-operator
-  tag: v0.9.0
+  tag: v0.13.0
   pullPolicy: IfNotPresent
 
 ## If enabled, prometheus-operator will create a service for scraping kubelets
@@ -44,3 +56,5 @@ resources:
   requests:
     cpu: 100m
     memory: 50Mi
+
+jobLabel: prometheus-operator
