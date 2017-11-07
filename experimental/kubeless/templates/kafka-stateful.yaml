@@ -2,6 +2,7 @@ apiVersion: apps/v1beta1
 kind: StatefulSet
 metadata:
   name: {{ template "fullname" . }}-kafka
+  namespace: kubeless
   labels:
 {{ include "labels.standard" . | indent 4 }}
 spec:
@@ -10,13 +11,23 @@ spec:
   template:
     metadata:
       labels:
-        kubeless: {{ template "fullname" . }}-kafka
+        kubeless: kafka
     spec:
       terminationGracePeriodSeconds: 10
+      initContainers:
+        - name: "fix-non-root-permissions"
+          image: "busybox"
+          imagePullPolicy: "Always"
+          command: [ "chmod", "-R", "g+rwX", "/bitnami" ]
+          volumeMounts:
+            - name: datadir
+              mountPath: /bitnami
       containers:
       - name: broker
         image: "{{ .Values.kafka.statefulSet.image.repository }}:{{ .Values.kafka.statefulSet.image.tag }}"
         imagePullPolicy: {{ .Values.kafka.statefulSet.image.pullPolicy }}
+        resources:
+{{ toYaml .Values.kafka.resources | indent 10 }}
         env:
         - name: KAFKA_ADVERTISED_HOST_NAME
           value: broker.kubeless
@@ -30,10 +41,20 @@ spec:
           value: "yes"
         ports:
         - containerPort: 9092
-        resources: {}
+          name: kafka-port
+        readinessProbe:
+          tcpSocket:
+            port: kafka-port
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: kafka-port
+          initialDelaySeconds: 30
+          periodSeconds: 20
         volumeMounts:
         - name: datadir
-          mountPath: /bitnami/kafka/data
+          mountPath: /bitnami/kafka
   volumeClaimTemplates:
   - metadata:
       name: datadir

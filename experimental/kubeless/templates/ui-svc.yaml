@@ -1,7 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "fullname" . }}-ui
+  name: ui
+  namespace: kubeless
   labels:
 {{ include "labels.standard" . | indent 4 }}
     controller: {{ template "fullname" . }}-ui

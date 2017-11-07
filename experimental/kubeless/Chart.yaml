@@ -1,9 +1,18 @@
-apiVersion: v1
-description: A Helm chart for Kubeless
 name: kubeless
-version: 0.1.7
-keywords:
-- serverless
-- function
-- experimental
+version: 0.2.0
+appVersion: v0.2.3
+description: Kubeless is a Kubernetes-native serverless framework. It runs on top of your Kubernetes cluster and allows you to deploy small unit of code without having to build container images.
 icon: http://trusted-charts-logos.stackpoint.io/kubeless.png
+apiVersion: v1
+home: http://kubeless.io/
+engine: gotpl
+sources:
+- https://github.com/kubeless/kubeless
+keywords:
+  - kubeless
+  - serverless
+  - function-as-a-service
+  - experimental
+maintainers:
+- name: Bitnami
+  email: containers@bitnami.com
