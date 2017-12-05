@@ -5,7 +5,7 @@ rbac:
 
 prometheus:
   baseImage: quay.io/prometheus/prometheus
-  version: v1.7.1
+  version: v2.0.0
   replicas: 2
   retention: 24h
   # enable ingress to expose promethues at [name].[namespace].[domain]
@@ -42,7 +42,7 @@ prometheus:
       memory: 3000Mi
 
 alertmanager:
-  version: v0.7.1
+  version: v0.11.0
   replicas: 2
   # full contents of the alertmanager.yml configuration packaged into a secret
   config:
