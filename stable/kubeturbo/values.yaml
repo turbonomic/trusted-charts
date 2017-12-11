@@ -1,0 +1,26 @@
+# Default values for kubeturbo.
+
+kubeturbo:
+  image:
+    repository: vmturbo/kubeturbo
+    tag: 6.0
+  replicaCount: 1
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+kubeconfig:
+  secretName: kubeconfig
+
+vmturboconfig:
+  secretName: vmturboconfig
+  turbonomic_server_api_version: ""
+  turbonomic_url: ""
+  turbonomic_user: ""
+  turbonomic_password: ""
+  instance_id: ""
