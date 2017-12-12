@@ -3,7 +3,7 @@
 kubeturbo:
   image:
     repository: vmturbo/kubeturbo
-    tag: 6.0
+    tag: "6.0"
   replicaCount: 1
 
   resources:
