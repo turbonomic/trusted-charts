@@ -111,4 +111,4 @@ rbac:
   # RBAC api version (currently either v1beta1 or v1alpha1)
   apiVersion: v1beta1
   # Cluster role reference
-roleRef: cluster-admin
+  roleRef: cluster-admin
