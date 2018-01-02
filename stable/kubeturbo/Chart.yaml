@@ -1,0 +1,8 @@
+apiVersion: v1
+name: kubeturbo
+version: 0.1.0
+home: https://turbonomic.com/
+description: Intelligent Workload
+maintainers:
+  - name: Stackpoint Cloud
+    email: questions@stackpointcloud.com

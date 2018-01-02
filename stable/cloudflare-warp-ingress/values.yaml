@@ -1,0 +1,21 @@
+# Default values for cloudflare-warp-ingress.
+
+replicaCount: 1
+
+image:
+  repository: quay.io/stackpoint/warp-controller
+  tag: beta
+  pullPolicy: Always
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+rbac:
+  install: true
+  serviceAccount: cloudflare-warp
+  roleName: cloudflare-warp

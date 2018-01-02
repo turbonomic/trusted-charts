@@ -19,7 +19,7 @@ helm upgrade --install spc-kube-backup tc/spc-state-backup --namespace stackpoin
 ```bash
 helm upgrade --install spc-kube-backup tc/spc-state-backup --namespace stackpoint-system \
     --set schedule="*/50 * * * *",gcs.enabled="true",gcs.projectId="project-123" \
-    --set gcs.serviceAccountKey="$(cat sa.json | base64)" \
+    --set gcs.serviceAccountKey="$(cat sa.json | base64 -w 0)" \
     --set gcs.bucket="my-kube-state-backup-bucket",gcs.region="europe-west1" \
     --set jobCleanup.enabled="true" # set it only for k8s v1.5
 ```
