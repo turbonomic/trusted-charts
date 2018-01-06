@@ -4,7 +4,7 @@ replicaCount: 1
 
 image:
   repository: quay.io/stackpoint/warp-controller
-  tag: beta
+  tag: v0.3.0
   pullPolicy: Always
 
 resources:
@@ -19,3 +19,13 @@ rbac:
   install: true
   serviceAccount: cloudflare-warp
   roleName: cloudflare-warp
+
+# The secret contains the base64-encoded origin certificate for your cloudflare domain.
+# Set the domain to a valid domain string in order to populate the secret
+# If not set, it can be configured manually in the cluster later.
+# See https://warp.cloudflare.com/quickstart/quickstart/ for information on
+# obtaining the origin certificate
+secret:
+  name: cloudflare-warp-cert
+  domain: ""
+  certificate_b64: LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0...example only
