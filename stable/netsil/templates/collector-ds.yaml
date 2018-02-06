@@ -32,6 +32,9 @@ spec:
           value: "yes"
         - name: SD_BACKEND
           value: docker
+      resources:
+        requests:
+          memory: 400Mi
         volumeMounts:
         - name: cgroup
           mountPath: /host/sys/fs/cgroup/
