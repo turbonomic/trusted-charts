@@ -1,0 +1,7 @@
+
+
+serverNamespace: heptio-ark-server
+configNamespace: heptio-ark
+
+
+cloudCredentials: ""
