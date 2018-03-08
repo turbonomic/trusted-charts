@@ -1,0 +1,42 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  namespace: {{ .Values.serverNamespace }}
+  name: ark
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        component: ark
+    spec:
+      restartPolicy: Always
+      serviceAccountName: ark
+      containers:
+        - name: ark
+          image: {{ .Values.image }}
+          command:
+            - /ark
+          args:
+            - server
+            - --namespace
+            - {{ .Values.configNamespace }}
+          volumeMounts:
+            - name: cloud-credentials
+              mountPath: /credentials
+            - name: plugins
+              mountPath: /plugins
+          env:
+            {{- if eq .Values.cloudProvider "aws" }}
+            - name: AWS_SHARED_CREDENTIALS_FILE
+              value: /credentials/cloud
+            {{- else if eq .Values.cloudProvider "gcp" }}
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /credentials/cloud
+            {{- end }}
+      volumes:
+        - name: cloud-credentials
+          secret:
+            secretName: cloud-credentials
+        - name: plugins
+          emptyDir: {}

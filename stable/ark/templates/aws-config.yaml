@@ -1,0 +1,20 @@
+{{- if .Values.aws.enabled }}
+apiVersion: ark.heptio.com/v1
+kind: Config
+metadata:
+  namespace: {{ .Values.configNamespace }}
+  name: default
+persistentVolumeProvider:
+  name: aws
+  config:
+    region: {{ .Values.region }}
+backupStorageProvider:
+  name: aws
+  bucket: {{ .Values.bucket }}
+  config:
+    region: {{ .Values.region }}
+backupSyncPeriod: 30m
+gcSyncPeriod: 30m
+scheduleSyncPeriod: 1m
+restoreOnlyMode: false
+{{- end }}
