@@ -1,18 +1,14 @@
-{{- if eq .Values.cloudProvider "aws" }}
+{{- if eq .Values.cloudProvider "gcp" }}
 apiVersion: ark.heptio.com/v1
 kind: Config
 metadata:
   namespace: {{ .Values.configNamespace }}
   name: default
 persistentVolumeProvider:
-  name: aws
-  config:
-    region: {{ .Values.region }}
+  name: gcp
 backupStorageProvider:
-  name: aws
+  name: gcp
   bucket: {{ .Values.bucket }}
-  config:
-    region: {{ .Values.region }}
 backupSyncPeriod: 30m
 gcSyncPeriod: 30m
 scheduleSyncPeriod: 1m

@@ -6,4 +6,5 @@ image: gcr.io/heptio-images/ark:latest
 
 cloudProvider: ""
 region: ""
+bucket: ""
 cloudCredentials: ""
