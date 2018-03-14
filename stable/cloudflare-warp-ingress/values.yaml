@@ -1,10 +1,10 @@
 # Default values for cloudflare-warp-ingress.
 
-replicaCount: 1
+replicaCount: 2
 
 image:
   repository: quay.io/stackpoint/warp-controller
-  tag: v0.3.1
+  tag: 0.4.0
   pullPolicy: Always
 
 resources:
@@ -21,11 +21,10 @@ rbac:
   roleName: cloudflare-warp
 
 # The secret contains the base64-encoded origin certificate for your cloudflare domain.
-# Set the domain to a valid domain string in order to populate the secret
-# If not set, it can be configured manually in the cluster later.
+# Set the install flag false to configure manually in the cluster later.
 # See https://warp.cloudflare.com/quickstart/quickstart/ for information on
 # obtaining the origin certificate
 secret:
-  name: cloudflare-warp-cert
-  domain: ""
-  certificate_b64: LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0...example only
+  install: false
+  domain: example.co
+  certificate_b64: LS0tLS1CRUdJT...insert base64-encoded certificate here
