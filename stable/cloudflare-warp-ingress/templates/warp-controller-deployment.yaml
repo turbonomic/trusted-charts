@@ -15,6 +15,18 @@ spec:
         app: {{ template "cloudflare-warp-ingress.name" . }}
         release: {{ .Release.Name }}
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - {{ template "cloudflare-warp-ingress.name" . }}
+              topologyKey: kubernetes.io/hostname
       containers:
         - name: {{ .Chart.Name }}
           command:
@@ -32,4 +44,3 @@ spec:
     {{- end }}
       serviceAccount: {{ .Values.rbac.serviceAccount }}
       serviceAccountName: {{ .Values.rbac.serviceAccount }}
-
