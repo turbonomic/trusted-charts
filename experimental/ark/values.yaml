@@ -6,7 +6,7 @@ image: gcr.io/heptio-images/ark:latest
 
 # ****** Backup parameters
 objectStore:
-  # aws-s3, gcp, azure
+  # aws-s3, google-cloud-storage, azure-storage
   provider: ""
   region: ""
   bucket: ""

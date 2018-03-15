@@ -1,4 +1,4 @@
-{{- if eq .Values.objectStore.provider "azure" }}
+{{- if eq .Values.objectStore.provider "azure-storage" }}
 apiVersion: ark.heptio.com/v1
 kind: Config
 metadata:
