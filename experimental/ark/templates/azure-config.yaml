@@ -1,18 +1,18 @@
-{{- if eq .Values.objectStoreProvider "azure" }}
+{{- if eq .Values.objectStore.provider "azure" }}
 apiVersion: ark.heptio.com/v1
 kind: Config
 metadata:
   namespace: {{ .Values.configNamespace }}
   name: default
 persistentVolumeProvider:
-  name: {{ .Values.clusterProvider }}
+  name: {{ .Values.cluster.provider }}
   config:
-    region: {{ .Values.region }}
+    region: {{ .Values.cluster.region }}
 backupStorageProvider:
   name: azure
-  bucket: {{ .Values.objectStoreBucket }}
+  bucket: {{ .Values.objectStore.bucket }}
   config:
-    region: {{ .Values.region }}
+    region: {{ .Values.objectStore.region }}
 backupSyncPeriod: {{ .Values.backupSyncPeriod }}
 gcSyncPeriod: {{ .Values.gcSyncPeriod }}
 scheduleSyncPeriod: {{ .Values.scheduleSyncPeriod }}

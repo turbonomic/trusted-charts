@@ -4,15 +4,25 @@ serverNamespace: heptio-ark-server
 configNamespace: heptio-ark
 image: gcr.io/heptio-images/ark:latest
 
-# Backup parameters
-# aws-s3, gcp, azure
-objectStoreProvider: ""
-objectStoreRegion: ""
-objectStoreBucket: ""
-objectStoreCloudCredentials: ""
+# ****** Backup parameters
+objectStore:
+  # aws-s3, gcp, azure
+  provider: ""
+  region: ""
+  bucket: ""
+  cloudCredentials: ""
+  # gcp only
+  project: ""
+
+  backupSyncPeriod: 60m0s
+  gcSyncPeriod: 60m0s
+  scheduleSyncPeriod: 1m0s
 
 # Cluster paramerters
 
-# aws, gcp, azure
-clusterProvider: ""
-clusterRegion: ""
+# Values: aws, gcp, azure
+cluster:
+  provider: ""
+  region: ""
+
+#

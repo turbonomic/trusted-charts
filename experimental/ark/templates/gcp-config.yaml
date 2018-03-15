@@ -1,14 +1,15 @@
-{{- if eq .Values.objectStoreProvider "gcp" }}
+{{- if eq .Values.objectStore.provider "gcp" }}
 apiVersion: ark.heptio.com/v1
 kind: Config
 metadata:
   namespace: {{ .Values.configNamespace }}
   name: default
 persistentVolumeProvider:
-  name: {{ .Values.clusterProvider }}
+  name: {{ .Values.cluster.provider }}
+  project: {{ .Values.objectStore.project }}
 backupStorageProvider:
   name: gcp
-  bucket: {{ .Values.objectStoreBucket }}
+  bucket: {{ .Values.objectStore.bucket }}
 backupSyncPeriod: {{ .Values.backupSyncPeriod }}
 gcSyncPeriod: {{ .Values.gcSyncPeriod }}
 scheduleSyncPeriod: {{ .Values.scheduleSyncPeriod }}
