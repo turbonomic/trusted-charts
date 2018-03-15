@@ -10,7 +10,7 @@ objectStore:
   provider: ""
   region: ""
   bucket: ""
-  cloudCredentials: ""
+  cloudCredentialsB64: ""
   # gcp only
   project: ""
 

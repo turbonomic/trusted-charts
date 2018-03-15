@@ -27,10 +27,10 @@ spec:
             - name: plugins
               mountPath: /plugins
           env:
-            {{- if eq .Values.cloudObjectStore "aws-s3" }}
+            {{- if eq .Values.objectStore.provider "aws-s3" }}
             - name: AWS_SHARED_CREDENTIALS_FILE
               value: /credentials/cloud
-            {{- else if eq .Values.cloudObjectStore "gcp" }}
+            {{- else if eq .Values.objectStore.provider "google-cloud-storage" }}
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: /credentials/cloud
             {{- end }}
