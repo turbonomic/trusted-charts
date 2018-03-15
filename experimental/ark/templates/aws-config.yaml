@@ -1,4 +1,4 @@
-{{- if eq .Values.cloudProvider "aws" }}
+{{- if eq .Values.cloudObjectStore "aws-s3" }}
 apiVersion: ark.heptio.com/v1
 kind: Config
 metadata:

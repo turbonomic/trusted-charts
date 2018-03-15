@@ -4,7 +4,7 @@ serverNamespace: heptio-ark-server
 configNamespace: heptio-ark
 image: gcr.io/heptio-images/ark:latest
 
-cloudProvider: ""
+cloudObjectStore: ""
 region: ""
 bucket: ""
 cloudCredentials: ""

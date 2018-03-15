@@ -1,4 +1,4 @@
-{{- if eq .Values.cloudProvider "gcp" }}
+{{- if eq .Values.cloudObjectStore "gcp" }}
 apiVersion: ark.heptio.com/v1
 kind: Config
 metadata:
