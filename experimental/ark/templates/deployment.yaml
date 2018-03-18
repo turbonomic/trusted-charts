@@ -21,6 +21,14 @@ spec:
             - server
             - --namespace
             - {{ .Values.configNamespace }}
+          {{- if eq .Values.objectStore.provider "azure" }}
+          volumeMounts:
+            - name: plugins
+              mountPath: /plugins
+          envFrom:
+            - secretRef:
+                name: cloud-credentials
+          {{- else }}
           volumeMounts:
             - name: cloud-credentials
               mountPath: /credentials
@@ -29,14 +37,16 @@ spec:
           env:
             {{- if eq .Values.objectStore.provider "aws-s3" }}
             - name: AWS_SHARED_CREDENTIALS_FILE
-              value: /credentials/cloud
             {{- else if eq .Values.objectStore.provider "google-cloud-storage" }}
             - name: GOOGLE_APPLICATION_CREDENTIALS
-              value: /credentials/cloud
             {{- end }}
+              value: /credentials/cloud
+          {{- end }}
       volumes:
+        {{- if ne .Values.objectStore.provider "azure" }}
         - name: cloud-credentials
           secret:
             secretName: cloud-credentials
+        {{- end }}
         - name: plugins
           emptyDir: {}

@@ -6,7 +6,7 @@ metadata:
   name: default
 persistentVolumeProvider:
   name: {{ .Values.cluster.provider }}
-  project: {{ .Values.objectStore.project }}
+  project: {{ .Values.cluster.project }}
 backupStorageProvider:
   name: gcp
   bucket: {{ .Values.objectStore.bucket }}

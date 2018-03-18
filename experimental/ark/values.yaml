@@ -10,9 +10,16 @@ objectStore:
   provider: ""
   region: ""
   bucket: ""
+  # aws and gcp
   cloudCredentialsB64: ""
-  # gcp only
-  project: ""
+  #azure
+  azureSubscriptionID: ""
+  azureTenantID: ""
+  azureResourceGroup: ""
+  azureClientID: ""
+  azureClientSecret: ""
+  azureStorageAccountID: ""
+  azureStorageKey: ""
 
   backupSyncPeriod: 60m0s
   gcSyncPeriod: 60m0s
@@ -23,6 +30,10 @@ objectStore:
 # Values: aws, gcp, azure
 cluster:
   provider: ""
+  # aws only
   region: ""
-
-#
+  # gcp only
+  project: ""
+  # azure only
+  apiTimeout: ""
+  location: ""

@@ -7,12 +7,11 @@ metadata:
 persistentVolumeProvider:
   name: {{ .Values.cluster.provider }}
   config:
-    region: {{ .Values.cluster.region }}
+    location: {{ .Values.cluster.location }}
+    apiTimeout: {{ .Values.cluster.apiTimeout }}
 backupStorageProvider:
   name: azure
   bucket: {{ .Values.objectStore.bucket }}
-  config:
-    region: {{ .Values.objectStore.region }}
 backupSyncPeriod: {{ .Values.backupSyncPeriod }}
 gcSyncPeriod: {{ .Values.gcSyncPeriod }}
 scheduleSyncPeriod: {{ .Values.scheduleSyncPeriod }}
