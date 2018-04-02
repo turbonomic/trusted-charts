@@ -88,12 +88,11 @@ Parameter | Description | Default
 `nodeSelector` | Node labels for pod assignment | `{}`
 `rbac.enabled` | If true, create & use RBAC resources | `true`
 `resources` | Pod resource requests & limits | `{}`
-`sendAnalytics` | Collect & send anonymous usage statistics | `true`
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
-$ helm install --name my-release opsgoodness/prometheus-operator --set sendAnalytics=true
+$ helm install --name my-release opsgoodness/prometheus-operator 
 ```
 
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,
