@@ -2,7 +2,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "istio.name" -}}
+{{- define "security.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -10,7 +10,7 @@ Expand the name of the chart.
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
-{{- define "istio.fullname" -}}
+{{- define "security.fullname" -}}
 {{- $name := default .Chart.Name .Values.nameOverride -}}
 {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
@@ -18,24 +18,10 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{/*
 Service account name.
 */}}
-{{- define "istio.serviceAccountName" -}}
+{{- define "security.serviceAccountName" -}}
 {{- if .Values.global.rbacEnabled -}}
-{{- template "istio.fullname" . -}}
+{{- template "security.fullname" . -}}-service-account
 {{- else }}
-{{- .Values.serviceAccountName | trunc 63 | trimSuffix "-" -}}
+{{- .Values.serviceAccountName | trunc 63 | trimSuffix "-" -}}-service-account
 {{- end -}}
-{{- end -}}
-
-{{/*
-Create a fully qualified configmap name.
-*/}}
-{{- define "istio.configmap.fullname" -}}
-{{- printf "%s-%s" .Release.Name "istio-mesh-config" | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-{{/*
-Configmap checksum.
-*/}}
-{{- define "istio.configmap.checksum" -}}
-{{- print $.Template.BasePath "/configmap.yaml" | sha256sum -}}
 {{- end -}}
