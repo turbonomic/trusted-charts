@@ -1,16 +1,29 @@
+
+{{ if .Values.secret.install }}
+The Cloudflare Warp Ingress Controller is configured with a
+set of credentials assigned the domain {{ .Values.secret.domain }}
+{{ else }}
 The Cloudflare Warp Ingress Controller requires a set of credentials
 installed as a secret named cloudflare-warp-cert
 
-To obtain the credentials for your cloudflare domain, go to https://www.cloudflare.com/a/warp
-which will save a certificate file to the home directory
+To obtain the credentials for your cloudflare domain, use the _cloudflared_
+executable to obtain and  save an origin certificate file to the home directory.
+See https://warp.cloudflare.com/quickstart/quickstart/ for more documentation.
 
-Create the secret with:
+Create the secret:
 
 kubectl --namespace={{ .Release.Namespace }} \
     create secret generic cloudflare-warp-cert \
-    --from-file=cert.pem=$HOME/.cloudflare-warp/cert.pe
+    --from-file=cert.pem=$HOME/.cloudflared/cert.pem
 
-To set up a warp tunnel to your service, install an ingress of this form,
+After creation, the secret should be labeled with the cloudflare domain:
+
+kubectl --namespace={{ .Release.Namespace }} \
+     label secret cloudflare-warp/domain=[example.origin.domain]
+
+{{ end }}
+
+To set up a warp tunnel to your service, install an ingress of this form:
 
     apiVersion: extensions/v1beta1
     kind: Ingress

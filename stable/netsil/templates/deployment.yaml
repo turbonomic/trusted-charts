@@ -25,6 +25,9 @@ spec:
         - containerPort: 2003
         - containerPort: 2003
           protocol: UDP
+        resources:
+          requests:
+            memory: 8Gi
         volumeMounts:
         - name: alerts
           mountPath: /opt/netsil/alerts/data
