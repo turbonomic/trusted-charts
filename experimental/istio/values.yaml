@@ -1,300 +1,284 @@
-## Install Default RBAC roles and bindings
-rbac:
-  install: false
-  apiVersion: v1
+# Use --set or additional values.yaml file to configure settings.
+# This file no longer uses sed, updateVersions.sh or istio.VERSIONS
+# TODO: evaluate if we need individual overrides for each component version, istio
+# is not typically tested with a mix of versions. Only supported case is version upgrade.
 
-istio:
-  install: false
-  release: 0.2.10
+# Common settings.
+global:
+  # Default tag for Istio images.
+  hub: docker.io/istio
 
-## Enable Istio auth feature
-## This deploys a CA in the namespace and enables mTLS between the services
-auth:
-  enabled: true
+  # Default tag for Istio images.
+  # Should track latest released version.
+  # Currently using nightly build, for testing
+  tag: 0.7.1
+  proxy:
+    image: proxy
 
-## Initializer configuration
-initializer:
-  customConfigMap: false
-  enabled: false
-  policy: enabled
+  # imagePullPolicy is applied to istio control plane components.
+  imagePullPolicy: IfNotPresent
 
-  deployment:
-    name: initializer
-    image: docker.io/istio/sidecar_initializer
-    initImage: docker.io/istio/proxy_init
-    proxyImage: docker.io/istio/proxy
-    imagePullPolicy: IfNotPresent
-    replicas: 1
-    annotations:
-      sidecar.istio.io/inject: "false"
-    ## Node labels for pod assignment
-    ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
-    ##
-    nodeSelector: {}
-    resources: {}
-    #  limits:
-    #   cpu: 100m
-    #   memory: 128Mi
-    # requests:
-    #   cpu: 100m
-    #   memory: 128Mi
+  # Not recommended for user to configure this. Hyperkube image to use when creating custom resources
+  hyperkube:
+    repository: quay.io/coreos/hyperkube
+    tag: v1.7.6_coreos.0
 
-## Mixer configuration
-mixer:
-  customConfigMap: false
+  # Install istio CA.
+  securityEnabled: true
 
-  service:
-    type: ClusterIP
-    annotations: {}
-    externalTcpPort: 9091
-    externalHttpHeathPort: 9093
-    externalStatsdPromPort: 9102
-    externalStatsdUdpPort: 9125
-    externalConfigApiPort: 9094
-    externalPrometheusPort: 42422
+  # controlPlaneMtls enabled. Will result in delays starting the pods while secrets are
+  # propagated, not recommended for tests.
+  controlPlaneSecurityEnabled: true
 
-  deployment:
-    name: mixer
-    image: docker.io/istio/mixer
-    imagePullPolicy: IfNotPresent
-    replicas: 1
-    annotations:
-      sidecar.istio.io/inject: "false"
-    ## Node labels for pod assignment
-    ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
-    ##
-    nodeSelector: {}
-    resources: {}
-    #  limits:
-    #    cpu: 100m
-    #    memory: 128Mi
-    #  requests:
-    #    cpu: 100m
-    #    memory: 128Mi
+  # Default mtls policy. If true, mtls between services will be enabled by default.
+  mtls:
+    # Default setting for service-to-service mtls. Can be set explicitly using
+    # destination rules or service annotations.
+    enabled: false
+    # List of fully qualified services to exclude from mtls
+    # TODO: add the templating.
+    mtlsExcludedServices:
+    - "kubernetes.default.svc.cluster.local"
 
-## Pilot configuration
-pilot:
-  name: pilot
-  customConfigMap: false
+  # create RBAC resources. Must be set for any cluster configured with rbac.
+  rbacEnabled: true
 
-  service:
-    type: ClusterIP
-    externalHttpDiscovery: 8080
-    externalAdmissionWebhookServer: 443
+  # Default is 1 second
+  refreshInterval: 10s
 
-  deployment:
-    replicas: 1
-    annotations:
-      sidecar.istio.io/inject: "false"
-    ## Node labels for pod assignment
-    ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
-    ##
-    nodeSelector: {}
-
-    discovery:
-      name: discovery
-      image: docker.io/istio/pilot
-      imagePullPolicy: IfNotPresent
-      resources: {}
-      #  limits:
-      #    cpu: 100m
-      #    memory: 128Mi
-      #  requests:
-      #    cpu: 100m
-      #    memory: 128Mi
-
-## Ingress configuration
+#
+# ingress configuration
+#
 ingress:
-
-# Enable ingress for grafana, servicegraph and zipkin to expose at [name].[namespace].[domain]
   enabled: true
-  domain: kubernetes.stackpoint.io
-
+  serviceAccountName: default
+  imagePullPolicy: IfNotPresent
+  autoscaleMin: 2
+  autoscaleMax: 8
+  resources: {}
+# limits:
+#  cpu: 100m
+#  memory: 128Mi
+# requests:
+#  cpu: 100m
+#  memory: 128Mi
+  nodeSelector: {}
   service:
-    type: LoadBalancer
-    externalHttpPort: 80
-    externalHttpsPort: 443
+    nodePort:
+      enabled: false
+      port: 32000
 
-  deployment:
-    name: ingress
-    annotations:
-      sidecar.istio.io/inject: "false"
-    image: docker.io/istio/proxy_debug
+#
+# sidecar-injector configuration
+#
+sidecar-injector:
+  enabled: false
+  serviceAccountName: default # used only if RBAC is not enabled
+  replicaCount: 1
+  imagePullPolicy: IfNotPresent
+  resources: {}
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+  nodeSelector: {}
+
+  # istio egress capture whitelist
+  # https://istio.io/docs/tasks/traffic-management/egress.html#calling-external-services-directly
+  # example: includeIPRanges: "172.30.0.0/16,172.20.0.0/16"
+  # would only capture egress traffic on those two IP Ranges, all other outbound traffic would
+  # be allowed by the sidecar
+  includeIPRanges: {}
+
+#
+# mixer configuration
+#
+mixer:
+  enabled: true
+  serviceAccountName: default # used only if RBAC is not enabled
+  replicaCount: 1
+  imagePullPolicy: IfNotPresent
+  resources: {}
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+  nodeSelector: {}
+
+  prometheusStatsdExporter:
+    repository: prom/statsd-exporter
+    tag: latest
     imagePullPolicy: IfNotPresent
-    replicas: 1
-    ## Node labels for pod assignment
-    ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
-    ##
-    nodeSelector: {}
-    resources:
-    #  limits:
-    #    cpu: 100m
-    #    memory: 128Mi
-    #  requests:
-    #    cpu: 100m
-    #    memory: 128Mi
+    resources: {}
 
-## Engress configuration
-egress:
+#
+# pilot configuration
+#
+pilot:
+  enabled: true
+  serviceAccountName: default # used only if RBAC is not enabled
+  replicaCount: 1
+  imagePullPolicy: IfNotPresent
+  resources: {}
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+  nodeSelector: {}
 
+#
+# security configuration
+#
+security:
+  serviceAccountName: default # used only if RBAC is not enabled
+  replicaCount: 1
+  imagePullPolicy: IfNotPresent
+  resources: {}
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+  nodeSelector: {}
+
+#
+# addons configuration
+#
+grafana:
+  enabled: true
+  replicaCount: 1
+  imagePullPolicy: IfNotPresent
   service:
-    type: ClusterIP
-    externalHttpPort: 80
-
-  deployment:
-    name: egress
+    name: http
+    type: NodePort
+    externalPort: 3000
+    internalPort: 3000
+  ingress:
+    enabled: true
+    # Used to create an Ingress record.
+    hosts:
+      - grafana.local
     annotations:
-      sidecar.istio.io/inject: "false"
-    image: docker.io/istio/proxy_debug
-    imagePullPolicy: IfNotPresent
-    replicas: 1
-    ## Node labels for pod assignment
-    ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
-    ##
-    nodeSelector: {}
-    resources: {}
-    #  limits:
-    #    cpu: 100m
-    #    memory: 128Mi
-    #  requests:
-    #    cpu: 100m
-    #    memory: 128Mi
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    tls:
+      # Secrets must be manually created in the namespace.
+      # - secretName: grafana-tls
+      #   hosts:
+      #     - grafana.local
 
-## CA configuration
-## Only installed if auth.enabled
-ca:
+  resources: {}
+    # limits:
+    #  cpu: 100m
+    #  memory: 128Mi
+    # requests:
+    #  cpu: 100m
+    #  memory: 128Mi
+  nodeSelector: {}
 
-  deployment:
-    name: ca
+prometheus:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: docker.io/prom/prometheus
+    tag: latest
+    pullPolicy: IfNotPresent
+  ingress:
+    enabled: false
+    # Used to create an Ingress record.
+    hosts:
+      - prometheus.local
     annotations:
-      sidecar.istio.io/inject: "false"
-    image: docker.io/istio/istio-ca
-    imagePullPolicy: IfNotPresent
-    replicas: 1
-    ## Node labels for pod assignment
-    ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
-    ##
-    nodeSelector: {}
-    resources: {}
-    #  limits:
-    #    cpu: 100m
-    #    memory: 128Mi
-    #  requests:
-    #    cpu: 100m
-    #    memory: 128Mi
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    tls:
+      # Secrets must be manually created in the namespace.
+      # - secretName: prometheus-tls
+      #   hosts:
+      #     - prometheus.local
+  resources: {}
+    # limits:
+    #  cpu: 100m
+    #  memory: 128Mi
+    # requests:
+    #  cpu: 100m
+    #  memory: 128Mi
+  nodeSelector: {}
+  service:
+    nodePort:
+      enabled: true
+      port: 32090
 
-## Addons configuration
-## Each addon may be disabled
-addons:
-
-  zipkin:
-
+servicegraph:
+  enabled: true
+  replicaCount: 1
+  imagePullPolicy: IfNotPresent
+  service:
+    name: http
+    type: NodePort
+    externalPort: 8088
+    internalPort: 8088
+  ingress:
     enabled: true
+    # Used to create an Ingress record.
+    hosts:
+      - servicegraph.local
+    annotations:
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    tls:
+      # Secrets must be manually created in the namespace.
+      # - secretName: servicegraph-tls
+      #   hosts:
+      #     - servicegraph.local
+  resources: {}
+    # limits:
+    #  cpu: 100m
+    #  memory: 128Mi
+    # requests:
+    #  cpu: 100m
+    #  memory: 128Mi
+  nodeSelector: {}
+  # prometheus addres
+  prometheusAddr: http://prometheus:9090
 
-    service:
-      type: NodePort
-      externalPort: 9411
-
-    deployment:
-      name: zipkin
-      annotations:
-        sidecar.istio.io/inject: "false"
-      image: docker.io/openzipkin/zipkin
-      imageTag: latest
-      imagePullPolicy: IfNotPresent
-      replicas: 1
-      ## Node labels for pod assignment
-      ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
-      ##
-      nodeSelector: {}
-      resources: {}
-      #  limits:
-      #    cpu: 100m
-      #    memory: 128Mi
-      #  requests:
-      #    cpu: 100m
-      #    memory: 128Mi
-
-  prometheus:
-
+zipkin:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: docker.io/openzipkin/zipkin
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    name: http
+    type: NodePort
+    externalPort: 9411
+    internalPort: 9411
+  ingress:
     enabled: true
-
-    service:
-      type: NodePort
-      externalPort: 9090
-      annotations:
-        prometheus.io/scrape: 'true'
-
-    deployment:
-      name: prometheus
-      annotations:
-        sidecar.istio.io/inject: "false"
-      image: quay.io/coreos/prometheus
-      imageTag: v1.1.1
-      imagePullPolicy: IfNotPresent
-      replicas: 1
-      ## Node labels for pod assignment
-      ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
-      ##
-      nodeSelector: {}
-      resources: {}
-      #  limits:
-      #    cpu: 100m
-      #    memory: 128Mi
-      #  requests:
-      #    cpu: 100m
-      #    memory: 128Mi
-
-  grafana:
-
-    enabled: true
-
-    service:
-      type: NodePort
-      externalPort: 3000
-
-    deployment:
-      name: grafana
-      annotations:
-        sidecar.istio.io/inject: "false"
-      image: docker.io/istio/grafana
-      imagePullPolicy: IfNotPresent
-      replicas: 1
-      ## Node labels for pod assignment
-      ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
-      ##
-      nodeSelector: {}
-      resources: {}
-      #  limits:
-      #    cpu: 100m
-      #    memory: 128Mi
-      #  requests:
-      #    cpu: 100m
-      #    memory: 128Mi
-
-  servicegraph:
-
-    enabled: true
-
-    service:
-      type: NodePort
-      externalPort: 8088
-
-    deployment:
-      name: servicegraph
-      annotations:
-        sidecar.istio.io/inject: "false"
-      image: docker.io/istio/servicegraph
-      imagePullPolicy: IfNotPresent
-      replicas: 1
-      ## Node labels for pod assignment
-      ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
-      ##
-      nodeSelector: {}
-      resources: {}
-      #  limits:
-      #    cpu: 100m
-      #    memory: 128Mi
-      #  requests:
-      #    cpu: 100m
-      #    memory: 128Mi
+    # Used to create an Ingress record.
+    hosts:
+      - zipkin.local
+    annotations:
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    tls:
+      # Secrets must be manually created in the namespace.
+      # - secretName: zipkin-tls
+      #   hosts:
+      #     - zipkin.local
+  resources: {}
+    # limits:
+    #  cpu: 100m
+    #  memory: 128Mi
+    # requests:
+    #  cpu: 100m
+    #  memory: 128Mi
+  nodeSelector: {}
