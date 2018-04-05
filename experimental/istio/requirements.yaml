@@ -1,37 +1,37 @@
 dependencies:
   - name: sidecar-injector
     version: 0.5.0
-    repository: file://./istio/charts/sidecar-injector
+    repository: file://./helm-charts/sidecar-injector
     condition: sidecar-injector.enabled
   - name: ingress
     version: 0.5.0
-    repository: file://./istio/charts/ingress
+    repository: file://./helm-charts/ingress
     condition: ingress.enabled
   - name: mixer
     version: 0.5.0
-    repository: file://./istio/charts/mixer
+    repository: file://./helm-charts/mixer
     condition: mixer.enabled
   - name: pilot
     version: 0.5.0
-    repository: file://./istio/charts/pilot
+    repository: file://./helm-charts/pilot
     condition: pilot.enabled
   - name: security
     version: 0.5.0
-    repository: file://./istio/charts/security
+    repository: file://./helm-charts/security
     condition: global.securityEnabled
   - name: grafana
     version: 0.1.0
-    repository: file://./istio/charts/grafana
+    repository: file://./helm-charts/grafana
     condition: grafana.enabled
   - name: prometheus
     version: 0.1.0
-    repository: file://./istio/charts/prometheus
+    repository: file://./helm-charts/prometheus
     condition: prometheus.enabled
   - name: servicegraph
     version: 0.1.0
-    repository: file://./istio/charts/servicegraph
+    repository: file://./helm-charts/servicegraph
     condition: servicegraph.enabled
   - name: zipkin
     version: 0.1.0
-    repository: file://./istio/charts/zipkin
+    repository: file://./helm-charts/zipkin
     condition: zipkin.enabled
