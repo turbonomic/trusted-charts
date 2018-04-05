@@ -1,37 +1,37 @@
 dependencies:
   - name: sidecar-injector
     version: 0.5.0
-    repository: file://./charts/sidecar-injector
+    repository: file://./istio/charts/sidecar-injector
     condition: sidecar-injector.enabled
   - name: ingress
     version: 0.5.0
-    repository: file://./charts/ingress
+    repository: file://./istio/charts/ingress
     condition: ingress.enabled
   - name: mixer
     version: 0.5.0
-    repository: file://./charts/mixer
+    repository: file://./istio/charts/mixer
     condition: mixer.enabled
   - name: pilot
     version: 0.5.0
-    repository: file://./charts/pilot
+    repository: file://./istio/charts/pilot
     condition: pilot.enabled
   - name: security
     version: 0.5.0
-    repository: file://./charts/security
+    repository: file://./istio/charts/security
     condition: global.securityEnabled
   - name: grafana
     version: 0.1.0
-    repository: file://./charts/grafana
+    repository: file://./istio/charts/grafana
     condition: grafana.enabled
   - name: prometheus
     version: 0.1.0
-    repository: file://./charts/prometheus
+    repository: file://./istio/charts/prometheus
     condition: prometheus.enabled
   - name: servicegraph
     version: 0.1.0
-    repository: file://./charts/servicegraph
+    repository: file://./istio/charts/servicegraph
     condition: servicegraph.enabled
   - name: zipkin
     version: 0.1.0
-    repository: file://./charts/zipkin
+    repository: file://./istio/charts/zipkin
     condition: zipkin.enabled
