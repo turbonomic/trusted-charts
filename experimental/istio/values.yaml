@@ -152,16 +152,16 @@ security:
 # addons configuration
 #
 grafana:
-  enabled: false
+  enabled: true
   replicaCount: 1
   imagePullPolicy: IfNotPresent
   service:
     name: http
-    type: ClusterIP
+    type: NodePort
     externalPort: 3000
     internalPort: 3000
   ingress:
-    enabled: false
+    enabled: true
     # Used to create an Ingress record.
     hosts:
       - grafana.local
@@ -184,7 +184,7 @@ grafana:
   nodeSelector: {}
 
 prometheus:
-  enabled: false
+  enabled: true
   replicaCount: 1
   image:
     repository: docker.io/prom/prometheus
@@ -213,20 +213,20 @@ prometheus:
   nodeSelector: {}
   service:
     nodePort:
-      enabled: false
+      enabled: true
       port: 32090
 
 servicegraph:
-  enabled: false
+  enabled: true
   replicaCount: 1
   imagePullPolicy: IfNotPresent
   service:
     name: http
-    type: ClusterIP
+    type: NodePort
     externalPort: 8088
     internalPort: 8088
   ingress:
-    enabled: false
+    enabled: true
     # Used to create an Ingress record.
     hosts:
       - servicegraph.local
@@ -250,7 +250,7 @@ servicegraph:
   prometheusAddr: http://prometheus:9090
 
 zipkin:
-  enabled: false
+  enabled: true
   replicaCount: 1
   image:
     repository: docker.io/openzipkin/zipkin
@@ -258,11 +258,11 @@ zipkin:
     pullPolicy: IfNotPresent
   service:
     name: http
-    type: ClusterIP
+    type: NodePort
     externalPort: 9411
     internalPort: 9411
   ingress:
-    enabled: false
+    enabled: true
     # Used to create an Ingress record.
     hosts:
       - zipkin.local

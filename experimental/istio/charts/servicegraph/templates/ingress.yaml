@@ -1,5 +1,5 @@
 {{- if .Values.ingress.enabled -}}
-{{- $serviceName := include "servicegraph.fullname" . -}}
+{{- $serviceName := include "servicegraph.name" . -}}
 {{- $servicePort := .Values.service.externalPort -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -17,7 +17,7 @@ metadata:
 spec:
   rules:
     {{- range $host := .Values.ingress.hosts }}
-    - host: {{ $host }}
+    - host: servicegraph.istio.{{ $host }}
       http:
         paths:
           - path: /
