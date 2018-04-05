@@ -16,10 +16,11 @@ kubectl --namespace={{ .Release.Namespace }} \
     create secret generic cloudflare-warp-cert \
     --from-file=cert.pem=$HOME/.cloudflared/cert.pem
 
-After creation, the secret should be labeled with the cloudflare domain:
+After creation, the secret should be labeled with the actual cloudflare domain:
 
 kubectl --namespace={{ .Release.Namespace }} \
-     label secret cloudflare-warp/domain=[example.origin.domain]
+     label secret cloudflare-warp-cert \
+     cloudflare-warp/domain={{ .Values.secret.domain }}
 
 {{ end }}
 
