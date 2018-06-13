@@ -1,19 +1,23 @@
+{{- if .Values.ui.enabled }}
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ template "fullname" . }}-ui
-  namespace: kubeless
+  name: {{ template "kubeless.fullname" . }}-ui
   labels:
 {{ include "labels.standard" . | indent 4 }}
-    controller: {{ template "fullname" . }}-ui
+    component: ui
 spec:
   replicas: {{ .Values.controller.deployment.replicaCount }}
   template:
     metadata:
-      namespace: kubeless
       labels:
-        controller: {{ template "fullname" . }}-ui
+        component: ui
+        app: {{ template "kubeless.name"  . }}
+        release: {{ .Release.Name | quote }}
     spec:
+{{- if .Values.rbac.create }}
+      serviceAccountName: kubeless-ui
+{{- end }}
       containers:
       - name: ui
         image: "{{ .Values.ui.deployment.ui.image.repository }}:{{ .Values.ui.deployment.ui.image.tag }}"
@@ -23,12 +27,14 @@ spec:
           name: http
           protocol: TCP
         readinessProbe:
-          tcpSocket:
+          httpGet:
+            path: /
             port: http
           initialDelaySeconds: 5
           periodSeconds: 10
         livenessProbe:
-          tcpSocket:
+          httpGet:
+            path: /
             port: http
           initialDelaySeconds: 10
           periodSeconds: 20
@@ -39,3 +45,4 @@ spec:
         - proxy
         - "-p"
         - "8080"
+{{- end }}
