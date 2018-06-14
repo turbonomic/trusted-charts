@@ -5,8 +5,7 @@
 ## TL;DR;
 
 ```bash
-$ helm repo add incubator https://kubernetes-charts-incubator.storage.googleapis.com/
-$ helm install --namespace kubeless incubator/kubeless
+$ helm install --name kubeless tc/kubeless --namespace kubeless
 ```
 
 ## Introduction
@@ -22,7 +21,7 @@ This chart bootstraps a [Kubeless](https://github.com/kubeless/kubeless) and a [
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install --name my-release --namespace kubeless incubator/kubeless
+$ helm install --name kubeless tc/kubeless --namespace kubeless
 ```
 
 > **NOTE**

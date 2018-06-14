@@ -1,7 +1,7 @@
 # Default values for kubeless.
 ## RBAC configuration
 rbac:
-  create: false
+  create: true
 
 ## Controller configuration
 controller:
@@ -188,7 +188,7 @@ ui:
 
 ## Kafka Trigger configuration Configuration
 kafkaTrigger:
-  enabled: true
+  enabled: false
   deployment:
     image:
       repository: bitnami/kafka-trigger-controller
