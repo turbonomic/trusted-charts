@@ -2,6 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: istio-pilot
+  namespace: {{ .Release.Namespace }}
   # TODO: default tempate doesn't have this, which one is right ?
   labels:
     app: istio-pilot
@@ -20,19 +21,29 @@ spec:
       annotations:
         sidecar.istio.io/inject: "false"
     spec:
+{{- if .Values.global.rbacEnabled }}
       serviceAccountName: istio-pilot-service-account
+{{- end }}
       containers:
         - name: discovery
-          image: "{{ .Values.global.hub }}/pilot:{{ .Values.global.tag }}"
-          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          image: "{{ .Values.global.hub }}/{{ .Values.image }}:{{ .Values.global.tag }}"
+          imagePullPolicy: {{ .Values.global.imagePullPolicy }}
           args:
           - "discovery"
-          - "--admission-service"
-          - "istio-pilot"
+{{- if $.Values.global.oneNamespace }}
+          - "-a"
+          - {{ .Release.Namespace }}
+{{- end }}
+# TODO(sdake) remove when secrets are automagically registered
+{{- if .Values.global.multicluster.enabled }}
+          - "--clusterRegistriesConfigMap"
+          - "clusterregistry"
+          - "--clusterRegistriesNamespace"
+          - "istio-system"
+{{- end }}
           ports:
           - containerPort: 8080
           - containerPort: 15010
-          - containerPort: 443
           readinessProbe:
             httpGet:
               path: /v1/registration
@@ -52,35 +63,54 @@ spec:
                 apiVersion: v1
                 fieldPath: metadata.namespace
           - name: PILOT_THROTTLE
-            value: "200"
+            value: "500"
+          - name: PILOT_CACHE_SQUASH
+            value: "5"
           resources:
 {{ toYaml .Values.resources | indent 12 }}
           volumeMounts:
           - name: config-volume
             mountPath: /etc/istio/config
+          - name: istio-certs
+            mountPath: /etc/certs
+            readOnly: true
         - name: istio-proxy
-          image: "{{ .Values.global.hub }}/{{ .Values.global.proxy.image }}:{{ .Values.global.tag }}"
-          imagePullPolicy: {{ .Values.global.proxy.imagePullPolicy }}
+          image: "{{ .Values.global.hub }}/proxyv2:{{ .Values.global.tag }}"
+          imagePullPolicy: {{ .Values.global.imagePullPolicy }}
           ports:
           - containerPort: 15003
           - containerPort: 15005
           - containerPort: 15007
+          - containerPort: 15011
           args:
           - proxy
-          - pilot
-        {{- if .Values.global.controlPlaneSecurityEnabled }}
-          - --discoveryAddress
-          - istio-pilot:15005
+          - --serviceCluster
+          - istio-pilot
+          - --templateFile
+          - /etc/istio/proxy/envoy_pilot.yaml.tmpl
+        {{- if $.Values.global.controlPlaneSecurityEnabled}}
           - --controlPlaneAuthPolicy
           - MUTUAL_TLS
         {{- else }}
           - --controlPlaneAuthPolicy
           - NONE
-          - --discoveryAddress
-          - localhost:8080
         {{- end }}
-          - --customConfigFile
-          - /etc/istio/proxy/envoy_pilot.json
+          env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: INSTANCE_IP
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: status.podIP
           resources:
 {{ toYaml .Values.global.proxy.resources | indent 12 }}
           volumeMounts:
@@ -94,8 +124,5 @@ spec:
       - name: istio-certs
         secret:
           secretName: "istio.istio-pilot-service-account"
-          optional: true
-    {{- if .Values.nodeSelector }}
-      nodeSelector:
-{{ toYaml .Values.nodeSelector | indent 8 }}
-    {{- end }}
+      affinity:
+      {{- include "nodeaffinity" . | indent 6 }}
