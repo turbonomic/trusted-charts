@@ -1,9 +1,9 @@
-name: sidecar-injector
-version: 0.5.0
-description: Helm chart for sidecar injector deployment
+name: galley
+version: 0.8.0
+description: Helm chart for galley deployment
 keywords:
   - istio
-  - sidecar-injector
+  - galley
 sources:
   - http://github.com/istio/istio
 engine: gotpl

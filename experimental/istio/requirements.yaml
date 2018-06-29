@@ -1,24 +1,32 @@
 dependencies:
-  - name: sidecar-injector
-    version: 0.5.0
-    repository: file://./helm-charts/sidecar-injector
-    condition: sidecar-injector.enabled
+  - name: sidecarInjectorWebhook
+    version: 0.8.0
+    repository: file://./helm-charts/sidecarInjectorWebhook
+    condition: sidecarInjectorWebhook.enabled
+  - name: security
+    version: 0.8.0
+    repository: file://./helm-charts/security
+    condition: security.enabled
   - name: ingress
-    version: 0.5.0
+    version: 0.8.0
     repository: file://./helm-charts/ingress
     condition: ingress.enabled
+  - name: ingressgateway
+    version: 0.8.0
+    repository: file://./helm-charts/ingressgateway
+    condition: ingressgateway.enabled
+  - name: egressgateway
+    version: 0.8.0
+    repository: file://./helm-charts/egressgateway
+    condition: egressgateway.enabled
   - name: mixer
-    version: 0.5.0
+    version: 0.8.0
     repository: file://./helm-charts/mixer
     condition: mixer.enabled
   - name: pilot
-    version: 0.5.0
+    version: 0.8.0
     repository: file://./helm-charts/pilot
     condition: pilot.enabled
-  - name: security
-    version: 0.5.0
-    repository: file://./helm-charts/security
-    condition: global.securityEnabled
   - name: grafana
     version: 0.1.0
     repository: file://./helm-charts/grafana
@@ -31,7 +39,11 @@ dependencies:
     version: 0.1.0
     repository: file://./helm-charts/servicegraph
     condition: servicegraph.enabled
-  - name: zipkin
+  - name: tracing
     version: 0.1.0
-    repository: file://./helm-charts/zipkin
-    condition: zipkin.enabled
+    repository: file://./helm-charts/tracing
+    condition: tracing.enabled
+  - name: galley
+    version: 0.8.0
+    repository: file://./helm-charts/galley
+    condition: galley.enabled

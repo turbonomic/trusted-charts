@@ -3,6 +3,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: prometheus
+  namespace: {{ .Release.Namespace }}
   labels:
     app: prometheus
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
@@ -26,7 +27,7 @@ spec:
       containers:
         - name: prometheus
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          imagePullPolicy: {{ .Values.global.imagePullPolicy }}
           args:
             - '--storage.tsdb.retention=6h'
             - '--config.file=/etc/prometheus/prometheus.yml'
@@ -50,7 +51,5 @@ spec:
       - name: config-volume
         configMap:
           name: prometheus
-    {{- if .Values.nodeSelector }}
-      nodeSelector:
-{{ toYaml .Values.nodeSelector | indent 8 }}
-    {{- end }}
+      affinity:
+      {{- include "nodeaffinity" . | indent 6 }}
