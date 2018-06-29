@@ -1,19 +1,15 @@
 apiVersion: v1
-description: Istio Helm chart for Kubernetes
 name: istio
-version: 0.5.1
-appVersion: 0.2.10
-home: https://istio.io/
-icon: http://trusted-charts-logos.stackpoint.io/istio.png
-sources:
-- https://github.com/istio/istio
-maintainers:
-- name: lachie83
-  email: lachlan.evenson@microsoft.com
-- name: rimusz
-  email: rimas@stackpoint.io
+version: 0.8.0
+description: Helm chart for all istio components
 keywords:
-- mesh
-- routing
-- load balancing
-- experimental
+  - istio
+  - security
+  - sidecarInjectorWebhook
+  - mixer
+  - pilot
+  - galley
+sources:
+  - http://github.com/istio/istio
+engine: gotpl
+icon: https://istio.io/favicons/android-192x192.png
