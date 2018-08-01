@@ -79,4 +79,3 @@ items:
     selector:
       app: jaeger
 {{ end }}
-

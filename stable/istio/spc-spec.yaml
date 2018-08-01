@@ -3,7 +3,7 @@ requirements:
   node: # {} if nothing set
     count: 3
     cpu: 2
-#    ram: 2GB
+    ram: 4GB
 
   ## Set app spec
   app:
