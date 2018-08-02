@@ -4,10 +4,13 @@ kind: StorageClass
 metadata:
   name: openebs-standard
   labels:
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    app: {{ template "openebs.name" . }}
+    chart: {{ template "openebs.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
 provisioner: openebs.io/provisioner-iscsi
 parameters:
   openebs.io/storage-pool: "default"
-  openebs.io/jiva-replica-count: "2"
+  openebs.io/jiva-replica-count: "{{ .Values.jiva.replicas }}"
   openebs.io/volume-monitor: "true"
   openebs.io/capacity: 5G
