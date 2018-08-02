@@ -1,39 +1,63 @@
-# Default values for OpenEBS
+# Default values for openebs.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
 
-## If true, create & use RBAC resources
-##
-rbacEnable: true
+rbac:
+  # Specifies whether RBAC resources should be created
+  create: true
 
-serviceAccountName: "openebs-maya-operator"
+serviceAccount:
+  create: true
+  name:
 
 image:
   pullPolicy: IfNotPresent
 
 apiserver:
   image: "openebs/m-apiserver"
-  imageTag: "0.5.2"
-  replicas: 2
+  imageTag: "0.6.0"
+  replicas: 1
   ports:
     externalPort: 5656
     internalPort: 5656
   nodeSelector: {}
   tolerations: {}
-  antiAffinity:
-    enabled: true
-    type: Hard
+  affinity: {}
+
 
 provisioner:
   image: "openebs/openebs-k8s-provisioner"
-  imageTag: "0.5.2"
-  replicas: 2
-  mayaportalurl: "https://mayaonline.io/"
-  monitorurl: "http://127.0.0.1:32515/dashboard/db/openebs-volume-stats?orgId=1"
-  monitorvolkey: "&var-OpenEBS"
+  imageTag: "0.6.0"
+  replicas: 1
   nodeSelector: {}
   tolerations: {}
-  antiAffinity:
-    enabled: true
-    type: Hard
+  affinity: {}
+
+snapshotOperator:
+  controller:
+    image: "openebs/snapshot-controller"
+    imageTag: "0.6.0"
+  provisioner:
+    image: "openebs/snapshot-provisioner"
+    imageTag: "0.6.0"
+  replicas: 1
+  upgradeStrategy: "Recreate"
+  nodeSelector: {}
+  tolerations: {}
+  affinity: {}
+
+jiva:
+  image: "openebs/jiva"
+  imageTag: "0.6.0"
+  replicas: 3
+  replicaNodeSelector:
+    #Enable this option and specify the node label that will be used to 
+    #select the nodes where replica pods are scheduled. To use this feature,
+    #the nodes should already be labeled with the key=value. For example:
+    # `kubectl label nodes <node-name> nodetype=storage
+    enabled: false
+    value: "nodetype=storage"
+
 
 grafana:
   image: "grafana/grafana"
@@ -51,13 +75,8 @@ prometheus:
     internalPort: 9090
     nodePort: 32514
 
-jiva:
-  image: "openebs/jiva"
-  imageTag: "0.5.2"
-  replicas: 2
-
 policies:
   monitoring:
     enabled: true
     image: "openebs/m-exporter"
-    imageTag: "0.5.2"
+    imageTag: "0.6.0"
