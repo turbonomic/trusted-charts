@@ -89,4 +89,5 @@ Alternatively, a YAML file that specifies the values for the parameters can be p
 helm install --name openebs -f values.yaml openebs-charts/openebs
 ```
 
-> **Tip**: You can use the default [values.yaml](values.yaml)
+
+**Tip**: You can use the default [values.yaml](values.yaml)
