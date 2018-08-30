@@ -1,0 +1,42 @@
+dependencies:
+- name: sidecarInjectorWebhook
+  repository: file://./helm-charts/sidecarInjectorWebhook
+  version: 1.0.1
+- name: security
+  repository: file://./helm-charts/security
+  version: 1.0.1
+- name: ingress
+  repository: file://./helm-charts/ingress
+  version: 1.0.1
+- name: gateways
+  repository: file://./helm-charts/gateways
+  version: 1.0.1
+- name: mixer
+  repository: file://./helm-charts/mixer
+  version: 1.0.1
+- name: pilot
+  repository: file://./helm-charts/pilot
+  version: 1.0.1
+- name: grafana
+  repository: file://./helm-charts/grafana
+  version: 1.0.1
+- name: prometheus
+  repository: file://./helm-charts/prometheus
+  version: 1.0.1
+- name: servicegraph
+  repository: file://./helm-charts/servicegraph
+  version: 1.0.1
+- name: tracing
+  repository: file://./helm-charts/tracing
+  version: 1.0.1
+- name: galley
+  repository: file://./helm-charts/galley
+  version: 1.0.1
+- name: kiali
+  repository: file://./helm-charts/kiali
+  version: 1.0.1
+- name: certmanager
+  repository: file://./helm-charts/certmanager
+  version: 1.0.1
+digest: sha256:8a5f1bec508bf14d8f8734c6cbe62b56fdf3a234ac560508d1259562d7c45d0f
+generated: 2018-08-30T01:37:54.676422339+02:00
