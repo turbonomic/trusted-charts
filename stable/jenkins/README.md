@@ -103,7 +103,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```bash
-$ helm install --name my-release -f values.yaml stable/jenkins
+$ helm install --name my-release -f values.yaml tc/jenkins
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
@@ -135,7 +135,7 @@ the DefaultDeny namespace annotation. Note: this will enforce policy for _all_ p
 
 Install helm chart with network policy enabled:
 
-    $ helm install stable/jenkins --set NetworkPolicy.Enabled=true
+    $ helm install tc/jenkins --set NetworkPolicy.Enabled=true
 
 ## Persistence
 
@@ -163,7 +163,7 @@ It is possible to mount several volumes using `Persistence.volumes` and `Persist
 1. Install the chart
 
 ```bash
-$ helm install --name my-release --set Persistence.ExistingClaim=PVC_NAME stable/jenkins
+$ helm install --name my-release --set Persistence.ExistingClaim=PVC_NAME tc/jenkins
 ```
 
 ## Custom ConfigMap
@@ -190,7 +190,7 @@ and provide the file `templates/config.tpl` in your parent chart for your use ca
 
 If running upon a cluster with RBAC enabled you will need to do the following:
 
-* `helm install stable/jenkins --set rbac.install=true`
+* `helm install tc/jenkins --set rbac.install=true`
 * Create a Jenkins credential of type Kubernetes service account with service account name provided in the `helm status` output.
 * Under configure Jenkins -- Update the credentials config in the cloud section to use the service account credential you created in the step above.
 
