@@ -1,5 +1,7 @@
 # CockroachDB Helm Chart
 
+**It is based on Helm community chart [cockroachdb](https://github.com/kubernetes/charts/tree/master/stable/cockroachdb)**
+
 ## Prerequisites Details
 * Kubernetes 1.8
 * PV support on the underlying infrastructure
@@ -25,7 +27,7 @@ This chart will do the following:
 To install the chart with the release name `my-release`:
 
 ```shell
-helm install --name my-release stable/cockroachdb
+helm install --name my-release tc/cockroachdb
 ```
 
 If you are running in secure mode (with configuration parameter `Secure.Enabled`
@@ -102,7 +104,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```shell
-helm install --name my-release -f values.yaml stable/cockroachdb
+helm install --name my-release -f values.yaml tc/cockroachdb
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
