@@ -24,12 +24,20 @@ Keel provides several key features:
 
 **Note**: For now Keel gets installed into `kube-system` _namespace_ by default as where Helm's `Tiller` is installed.
 
-## Installing the Chart
+## Installing the Chart with Kubernetes provider support
 
-Docker image _polling_, _Kubernetes_ _Helm provider_ providers are set by default, then Kubernetes _deployments_ and Helm _releases_ can be upgraded when new Docker image is available:
+Docker image _polling_ and _Kubernetes_ provider are set by default, then Kubernetes _deployments_ can be upgraded when new Docker image is available:
 
 ```console
-helm upgrade --install keel tc/keel"
+helm upgrade --install keel stable/keel"
+```
+
+## Installing the Chart with Helm provider support
+
+Docker image _polling_ is set by default, but we need to enable _Helm provider_ support, then Helm _releases_ can be upgraded when new Docker image is available:
+
+```console
+helm upgrade --install keel stable/keel --set helmProvider.enabled="true"
 ```
 
 ### Setting up Helm release to be automatically updated by Keel
@@ -91,6 +99,8 @@ The following table lists has the main configurable parameters (polling, trigger
 | `slack.enabled`                   | Enable/disable Slack Notification      | `false`                                                   |
 | `slack.token`                     | Slack token                            |                                                           |
 | `slack.channel`                   | Slack channel                          |                                                           |
+| `slack.approvalChannel`           | Slack approval channel                 |                                                           |
+| `slack.botName`                   | Slack Bot name                         |                                                           |
 | `service.enable`                  | Enable/disable Keel service            | `false`                                                   |
 | `service.type`                    | Keel service type                      | `LoadBalancer`                                            |
 | `service.externalPort`            | Keel service port                      | `9300`                                                    |
@@ -98,13 +108,12 @@ The following table lists has the main configurable parameters (polling, trigger
 | `webhookRelay.key`                | WebhookRelay key                       |                                                           |
 | `webhookRelay.secret`             | WebhookRelay secret                    |                                                           |
 | `webhookRelay.bucket`             | WebhookRelay bucket                    |                                                           |
-| `rbac.install`                    | Enable/disable RBAC                    | `false`                                                   |
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`.
 
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name keel -f values.yaml tc/keel
+$ helm install --name keel -f values.yaml stable/keel
 ```
 > **Tip**: You can use the default [values.yaml](values.yaml)
