@@ -22,10 +22,10 @@ This chart implements a dynamically scalable [RethinkDB Cluster](https://www.ret
 
 ## Installing the Chart
 
-To install the chart with the release name `rethinkdb`:
+To install the chart with the release name `my-release`:
 
 ```console
-$ helm install tc/rethinkdb --name rethinkdb --namespace=rethinkdb
+$ helm install --name my-release stable/rethinkdb
 ```
 
 ## Configuration
@@ -47,7 +47,7 @@ Parameter | Description | Default
 `cluster.persistentVolume.enabled` | If `true`, persistent volume claims are created | `true`
 `cluster.persistentVolume.storageClass` | Persistent volume storage class | `default`
 `cluster.persistentVolume.accessMode` | Persistent volume access modes | `[ReadWriteOnce]`
-`cluster.persistentVolume.size` | Persistent volume size | `10Gi`
+`cluster.persistentVolume.size` | Persistent volume size | `1Gi`
 `cluster.persistentVolume.annotations` | Persistent volume annotations | `{}`
 `cluster.rethinkCacheSize` | RethinkDB `cache-size` value in MB | `100`
 `proxy.replicas` | Number of RethinkDB Proxy replicas | `1`
@@ -100,7 +100,7 @@ And then open up your browser to http://localhost:8080 and you should see the ad
 
 ## Cleanup orphaned Persistent Volumes
 
-Deleting a StateFul will not delete associated Persistent Volumes.
+Deleting a StatefulSet will not delete associated Persistent Volumes.
 
 Do the following after deleting the chart release to clean up orphaned Persistent Volumes.
 
