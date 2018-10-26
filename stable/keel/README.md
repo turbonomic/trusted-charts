@@ -29,7 +29,7 @@ Keel provides several key features:
 Docker image _polling_ and _Kubernetes_ provider are set by default, then Kubernetes _deployments_ can be upgraded when new Docker image is available:
 
 ```console
-helm upgrade --install keel stable/keel"
+helm upgrade --install keel tc/keel --namespace=kube-system
 ```
 
 ## Installing the Chart with Helm provider support
@@ -37,7 +37,7 @@ helm upgrade --install keel stable/keel"
 Docker image _polling_ is set by default, but we need to enable _Helm provider_ support, then Helm _releases_ can be upgraded when new Docker image is available:
 
 ```console
-helm upgrade --install keel stable/keel --set helmProvider.enabled="true"
+helm upgrade --install keel stable/keel --set helmProvider.enabled="true" --namespace=kube-system 
 ```
 
 ### Setting up Helm release to be automatically updated by Keel
@@ -61,7 +61,7 @@ keel:
 The same can be applied with `--set` flag without using `values.yaml` file:
 
 ```
-helm upgrade --install whd webhookdemo --reuse-values \
+helm upgrade --install whd webhookdemo --reuse-values --namespace=kube-system \
   --set keel.policy="all",keel.trigger="poll",keel.pollSchedule="@every 3m" \
   --set keel.images[0].repository="image.repository" \
   --set keel.images[0].tag="image.tag"
@@ -114,6 +114,6 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name keel -f values.yaml stable/keel
+$ helm install --name keel -f values.yaml tc/keel --namespace=kube-system
 ```
 > **Tip**: You can use the default [values.yaml](values.yaml)
