@@ -2,7 +2,7 @@ templates# Argo Tunnel Ingress Controller
 
 ### TL;DR;
 ```console
-$ helm install --name anydomain cloudflare/argo-tunnel
+$ helm install --name anydomain tc/argo-tunnel
 ```
 > **Tip**: See [Your First Tunnel][guide-first-tunnel].
 
@@ -24,7 +24,7 @@ and authenticated with Access if you’ve enabled those features for your accoun
 ### Installing the Chart
 To install the chart with the release name `argo-mydomain`:
 ```console
-$ helm install --name anydomain cloudflare/argo-tunnel
+$ helm install --name anydomain tc/argo-tunnel
 ```
 > **Tip**: See [Your First Tunnel][guide-first-tunnel].
 
@@ -59,7 +59,7 @@ Parameter | Description | Default
 
 A useful trick to debug issues with ingress is to increase the logLevel.
 ```console
-$ helm install --name anydomain cloudflare/argo-tunnel --set controller.logLevel=6
+$ helm install --name anydomain tc/argo-tunnel --set controller.logLevel=6
 ```
 
 > **Warn**: replicaCount >1 requires [load-balancers][argo-tunnel-load-balancing]
