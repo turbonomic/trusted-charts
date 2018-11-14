@@ -1,10 +1,9 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ template "fullname" . }}
-  namespace: kube-system
+  name: {{ template "keel.fullname" . }}
   labels:
-    app: {{ template "name" . }}
+    app: {{ template "keel.name" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -15,7 +14,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ template "name" . }}
+        app: {{ template "keel.name" . }}
         release: {{ .Release.Name }}
     spec:
       containers:
@@ -55,6 +54,10 @@ spec:
               value: "{{ .Values.slack.token }}"
             - name: SLACK_CHANNELS
               value: "{{ .Values.slack.channel }}"
+            - name: SLACK_BOT_NAME
+              value: "{{ .Values.slack.botName }}"
+            - name: SLACK_APPROVALS_CHANNEL
+              value: "{{ .Values.slack.approvalsChannel }}"
 {{- end }}
           ports:
             - containerPort: 9300
@@ -75,12 +78,12 @@ spec:
             - name: KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ template "fullname" . }}-webhookrelay
+                  name: {{ template "keel.fullname" . }}-webhookrelay
                   key: key
             - name: SECRET
               valueFrom:
                 secretKeyRef:
-                  name: {{ template "fullname" . }}-webhookrelay
+                  name: {{ template "keel.fullname" . }}-webhookrelay
                   key: secret
             - name: BUCKET
               value: "{{ .Values.webhookRelay.bucket }}"
