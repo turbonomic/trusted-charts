@@ -1,7 +1,7 @@
 # Default values for kubeless.
 ## RBAC configuration
 rbac:
-  create: false
+  create: true
 
 ## Controller configuration
 controller:
@@ -402,7 +402,7 @@ config:
 
 ## UI configuration
 ui:
-  enabled: false
+  enabled: true
   deployment:
     replicaCount: 1
     ui:
