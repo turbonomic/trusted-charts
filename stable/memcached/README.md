@@ -4,6 +4,12 @@
 
 Based on the [memcached](https://github.com/bitnami/charts/tree/master/incubator/memcached) chart from the [Bitnami Charts](https://github.com/bitnami/charts) repository.
 
+## TL;DR;
+
+```bash
+$ helm install stable/memcached
+```
+
 ## Introduction
 
 This chart bootstraps a [Memcached](https://hub.docker.com/_/memcached/) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
@@ -32,7 +38,7 @@ The command removes all the Kubernetes components associated with the chart and 
 
 ## Configuration
 
-The following tables lists the configurable parameters of the Memcached chart and their default values.
+The following table lists the configurable parameters of the Memcached chart and their default values.
 
 |      Parameter            |          Description            |                         Default                         |
 |---------------------------|---------------------------------|---------------------------------------------------------|
@@ -40,6 +46,12 @@ The following tables lists the configurable parameters of the Memcached chart an
 | `imagePullPolicy`         | Image pull policy               | `Always` if `imageTag` is `latest`, else `IfNotPresent` |
 | `memcached.verbosity`     | Verbosity level (v, vv, or vvv) | Un-set.                                                 |
 | `memcached.maxItemMemory` | Max memory for items (in MB)    | `64`                                                    |
+| `metrics.enabled`         | Expose metrics in prometheus format | false                                               |
+| `metrics.image`           | The image to pull and run for the metrics exporter | A recent official memcached tag      |
+| `metrics.imagePullPolicy` | Image pull policy               | `Always` if `imageTag` is `latest`, else `IfNotPresent` |
+| `metrics.resources`       | CPU/Memory resource requests/limits for the metrics exporter | `{}`                       |
+| `extraContainers`         | Container sidecar definition(s) as string | Un-set                                        |
+| `extraVolumes`            | Volume definitions to add as string | Un-set                                              |
 
 The above parameters map to `memcached` params. For more information please refer to the [Memcached documentation](https://github.com/memcached/memcached/wiki/ConfiguringServer).
 
