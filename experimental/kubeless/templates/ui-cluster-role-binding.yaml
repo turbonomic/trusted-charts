@@ -13,9 +13,6 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: kubeless-ui
-  namespace: {{ .Release.Namespace }}
-- kind: ServiceAccount
-  name: kubeless-ui
   namespace: default
 {{- end}}
 {{- end}}
