@@ -1,0 +1,123 @@
+kind: DaemonSet
+apiVersion: apps/v1beta2
+metadata:
+  name: csi-anf-node
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app: csi-anf-node
+  template:
+    metadata:
+      labels:
+        app: csi-anf-node
+    spec:
+      serviceAccount: csi-anf-node
+      hostNetwork: true
+      containers:
+        - name: driver-registrar
+          image: quay.io/k8scsi/driver-registrar:v1.0-canary
+          args:
+            - "--v=5"
+            - "--csi-address=$(ADDRESS)"
+            - "--mode=node-register"
+            - "--driver-requires-attachment=true"
+            - "--pod-info-mount-version=\"v1\""
+            - "--kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)"
+          env:
+            - name: ADDRESS
+              value: /csi/csi.sock
+            - name: DRIVER_REG_SOCK_PATH
+              value: /var/lib/kubelet/plugins/anf.csi.netapp.com/csi.sock
+            - name: KUBE_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          imagePullPolicy: "Always"
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
+            - name: registration-dir
+              mountPath: /registration
+        - name: csi-anf-node
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          securityContext:
+            privileged: true
+            capabilities:
+              add: ["SYS_ADMIN"]
+            allowPrivilegeEscalation: true
+          args :
+            - "--endpoint=$(CSI_ENDPOINT)"
+            - "--subscription=$(ANF_API_SUB)"
+            - "--tenant=$(ANF_API_TENANT)"
+            - "--clientkey=$(ANF_API_KEY)"
+            - "--clientsecret=$(ANF_API_SECRET)"
+          env:
+            - name: CSI_ENDPOINT
+              value: unix:///csi/csi.sock
+            - name: ANF_API_SUB
+              valueFrom:
+                secretKeyRef:
+                  name: netapp
+                  key: anf-api-sub
+            - name: ANF_API_TENANT
+              valueFrom:
+                secretKeyRef:
+                  name: netapp
+                  key: anf-api-tenant
+            - name: ANF_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: netapp
+                  key: anf-api-key
+            - name: ANF_API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: netapp
+                  key: anf-api-secret
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
+            - name: pods-mount-dir
+              mountPath: /var/lib/kubelet
+              mountPropagation: "Bidirectional"
+            - name: device-dir
+              mountPath: /dev
+      volumes:
+        - name: registration-dir
+          hostPath:
+            path: /var/lib/kubelet/plugins_registry/
+            type: DirectoryOrCreate
+        - name: kubelet-dir
+          hostPath:
+            path: /var/lib/kubelet
+            type: Directory
+        - name: socket-dir
+          hostPath:
+            path: /var/lib/kubelet/plugins/anf.csi.netapp.com
+            type: DirectoryOrCreate
+        - name: pods-mount-dir
+          hostPath:
+            path: /var/lib/kubelet
+            type: Directory
+        - name: device-dir
+          hostPath:
+            path: /dev
+        # The following mounts are required to trigger host udevadm from container
+        - name: udev-rules-etc
+          hostPath:
+            path: /etc/udev
+            type: Directory
+        - name: udev-rules-lib
+          hostPath:
+            path: /lib/udev
+            type: Directory
+        - name: udev-socket
+          hostPath:
+            path: /run/udev
+            type: Directory
+        - name: sys
+          hostPath:
+            path: /sys
+            type: Directory
