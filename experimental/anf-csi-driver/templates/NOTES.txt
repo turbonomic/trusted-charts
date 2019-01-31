@@ -1,0 +1,5 @@
+NetApp ANF CSI Driver
+
+Before you can use this driver, you will need to create a secret with your API values:
+
+kubectl -n kube-system create secret generic netapp --from-literal=anf-api-sub=<your_subscription_id> --from-literal=anf-api-tenant=<your_tenant_id> --from-literal=anf-api-key=<your_client_key> --from-literal=anf-api-secret=<your_client_secret>

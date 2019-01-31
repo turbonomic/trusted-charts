@@ -1,0 +1,14 @@
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: netapp-anf
+provisioner: anf.csi.netapp.com
+parameters:
+  resourcegroup: "{{ .Values.sc.resourcegroup }}"
+  netappaccount: "{{ .Values.sc.netappaccount }}"
+  capacitypool: "{{ .Values.sc.capacitypool }}"
+  region: "{{ .Values.sc.region }}"
+  vpcid: "{{ .Values.sc.vpcid }}"
+  subnetid: "{{ .Values.sc.subnetid }}"
+  servicelevel: "{{ .Values.sc.servicelevel }}"

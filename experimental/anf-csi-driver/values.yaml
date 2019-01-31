@@ -1,0 +1,13 @@
+image:
+  repository: gcr.io/stackpointcloud-196003/anf-csi
+  tag: latest
+  pullPolicy: Always
+
+sc: 
+  resourcegroup: ""
+  netappaccount: ""
+  capacitypool: ""
+  region: ""
+  vpcid: ""
+  subnetid: ""
+  servicelevel: "Standard"

@@ -21,6 +21,6 @@ spec:
         name: kafka-trigger-controller
         env:
         - name: KAFKA_BROKERS
-          value: {{ .Values.kafkaTrigger.kafkaBrokers }}
+          value: {{ .Values.kafkaTrigger.env.kafkaBrokers }}
       serviceAccountName: controller-acct
 {{- end }}
