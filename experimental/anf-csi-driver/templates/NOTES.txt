@@ -1,5 +1,16 @@
 NetApp ANF CSI Driver
 
-Before you can use this driver, you will need to create a secret with your API values:
+To upgrade an install through helm:
 
-kubectl -n kube-system create secret generic netapp --from-literal=anf-api-sub=<your_subscription_id> --from-literal=anf-api-tenant=<your_tenant_id> --from-literal=anf-api-key=<your_client_key> --from-literal=anf-api-secret=<your_client_secret>
+helm upgrade --install anf-csi-driver ./anf-csi-driver \
+    --namespace kube-system \
+    --set azurecreds.subscriptionid=SUBSCRIPTION_ID \
+    --set azurecreds.tenantid=TENANT_ID \
+    --set azurecreds.clientid=CLIENT_ID \
+    --set azurecreds.clientsecret=CLIENT_SECRET \
+    --set sc.region=REGION \
+    --set sc.resourcegroup=RESOURCE_GROUP \
+    --set sc.netappaccount=NETAPP_ACCOUNT \
+    --set sc.capacitypool=CAPACITY_POOL \
+    --set sc.virtualnetwork=VIRTUAL_NETWORK \
+    --set sc.subnet=SUBNET

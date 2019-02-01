@@ -15,30 +15,32 @@ spec:
       serviceAccount: csi-anf-node
       hostNetwork: true
       containers:
-        - name: driver-registrar
-          image: quay.io/k8scsi/driver-registrar:v1.0-canary
+        - name: csi-driver-registrar
+          image: quay.io/k8scsi/csi-node-driver-registrar:v1.0.2
           args:
-            - "--v=5"
-            - "--csi-address=$(ADDRESS)"
-            - "--mode=node-register"
-            - "--driver-requires-attachment=true"
-            - "--pod-info-mount-version=\"v1\""
+            - "--csi-address=/csi/csi.sock"
             - "--kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)"
           env:
-            - name: ADDRESS
-              value: /csi/csi.sock
             - name: DRIVER_REG_SOCK_PATH
               value: /var/lib/kubelet/plugins/anf.csi.netapp.com/csi.sock
-            - name: KUBE_NODE_NAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: spec.nodeName
           imagePullPolicy: "Always"
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "rm -rf /registration/anf.csi.netapp.com-reg.sock"]
           volumeMounts:
             - name: socket-dir
               mountPath: /csi
             - name: registration-dir
               mountPath: /registration
+        - name: cluster-driver-registrar
+          image: quay.io/k8scsi/csi-cluster-driver-registrar:v1.0.1
+          args:
+            - "--csi-address=/csi/csi.sock"
+            - "--pod-info-mount-version=v1"
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
         - name: csi-anf-node
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           securityContext:
@@ -48,33 +50,33 @@ spec:
             allowPrivilegeEscalation: true
           args :
             - "--endpoint=$(CSI_ENDPOINT)"
-            - "--subscription=$(ANF_API_SUB)"
-            - "--tenant=$(ANF_API_TENANT)"
-            - "--clientkey=$(ANF_API_KEY)"
-            - "--clientsecret=$(ANF_API_SECRET)"
+            - "--subscriptionid=$(AZURE_SUBSCRIPTION_ID)"
+            - "--tenantid=$(AZURE_TENANT_ID)"
+            - "--clientid=$(AZURE_CLIENT_ID)"
+            - "--clientsecret=$(AZURE_CLIENT_SECRET)"
           env:
             - name: CSI_ENDPOINT
               value: unix:///csi/csi.sock
-            - name: ANF_API_SUB
+            - name: AZURE_SUBSCRIPTION_ID
               valueFrom:
                 secretKeyRef:
-                  name: netapp
-                  key: anf-api-sub
-            - name: ANF_API_TENANT
+                  name: {{ template "anf-csi-driver.fullname" . }}
+                  key: azure-subscription-id
+            - name: AZURE_TENANT_ID
               valueFrom:
                 secretKeyRef:
-                  name: netapp
-                  key: anf-api-tenant
-            - name: ANF_API_KEY
+                  name: {{ template "anf-csi-driver.fullname" . }}
+                  key: azure-tenant-id
+            - name: AZURE_CLIENT_ID
               valueFrom:
                 secretKeyRef:
-                  name: netapp
-                  key: anf-api-key
-            - name: ANF_API_SECRET
+                  name: {{ template "anf-csi-driver.fullname" . }}
+                  key: azure-client-id
+            - name: AZURE_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: netapp
-                  key: anf-api-secret
+                  name: {{ template "anf-csi-driver.fullname" . }}
+                  key: azure-client-secret
           imagePullPolicy: "{{ .Values.image.pullPolicy }}"
           volumeMounts:
             - name: socket-dir

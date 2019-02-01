@@ -9,6 +9,6 @@ parameters:
   netappaccount: "{{ .Values.sc.netappaccount }}"
   capacitypool: "{{ .Values.sc.capacitypool }}"
   region: "{{ .Values.sc.region }}"
-  vpcid: "{{ .Values.sc.vpcid }}"
-  subnetid: "{{ .Values.sc.subnetid }}"
+  virtualnetwork: "{{ .Values.sc.virtualnetwork }}"
+  subnet: "{{ .Values.sc.subnet }}"
   servicelevel: "{{ .Values.sc.servicelevel }}"
