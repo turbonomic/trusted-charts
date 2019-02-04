@@ -42,37 +42,37 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           args :
             - "--endpoint=$(CSI_ENDPOINT)"
-            - "--subscription=$(ANF_API_SUB)"
-            - "--tenant=$(ANF_API_TENANT)"
-            - "--clientkey=$(ANF_API_KEY)"
-            - "--clientsecret=$(ANF_API_SECRET)"
+            - "--subscriptionid=$(AZURE_SUBSCRIPTION_ID)"
+            - "--tenantid=$(AZURE_TENANT_ID)"
+            - "--clientid=$(AZURE_CLIENT_ID)"
+            - "--clientsecret=$(AZURE_CLIENT_SECRET)"
           env:
             - name: CSI_ENDPOINT
               value: unix:///var/lib/csi/sockets/pluginproxy/csi.sock
-            - name: ANF_API_SUB
+            - name: AZURE_SUBSCRIPTION_ID
               valueFrom:
                 secretKeyRef:
-                  name: netapp
-                  key: anf-api-sub
-            - name: ANF_API_TENANT
+                  name: {{ template "anf-csi-driver.fullname" . }}
+                  key: azure-subscription-id
+            - name: AZURE_TENANT_ID
               valueFrom:
                 secretKeyRef:
-                  name: netapp
-                  key: anf-api-tenant
-            - name: ANF_API_KEY
+                  name: {{ template "anf-csi-driver.fullname" . }}
+                  key: azure-tenant-id
+            - name: AZURE_CLIENT_ID
               valueFrom:
                 secretKeyRef:
-                  name: netapp
-                  key: anf-api-key
-            - name: ANF_API_SECRET
+                  name: {{ template "anf-csi-driver.fullname" . }}
+                  key: azure-client-id
+            - name: AZURE_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: netapp
-                  key: anf-api-secret
+                  name: {{ template "anf-csi-driver.fullname" . }}
+                  key: azure-client-secret
           imagePullPolicy: "{{ .Values.image.pullPolicy }}"
           volumeMounts:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
       volumes:
         - name: socket-dir
-          emptyDir: {}    
+          emptyDir: {}

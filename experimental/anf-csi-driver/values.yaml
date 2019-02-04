@@ -4,10 +4,16 @@ image:
   pullPolicy: Always
 
 sc: 
-  resourcegroup: ""
-  netappaccount: ""
-  capacitypool: ""
-  region: ""
-  vpcid: ""
-  subnetid: ""
+  resourcegroup:
+  netappaccount:
+  capacitypool:
+  region:
+  virtualnetwork:
+  subnet:
   servicelevel: "Standard"
+
+azurecreds:
+  subscriptionid:
+  tenantid: 
+  clientid:
+  clientsecret:
