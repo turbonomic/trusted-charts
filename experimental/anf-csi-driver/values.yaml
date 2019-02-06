@@ -1,5 +1,5 @@
 image:
-  repository: gcr.io/stackpointcloud-196003/anf-csi
+  repository: gcr.io/stackpoint-public/anf-csi
   tag: latest
   pullPolicy: Always
 
