@@ -1,0 +1,6 @@
+global:
+  hub: docker.io/sdake
+
+  tag: sdake
+
+  imagePullPolicy: IfNotPresent

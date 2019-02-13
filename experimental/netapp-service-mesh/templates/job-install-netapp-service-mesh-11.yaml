@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: netapp-service-mesh-11
+spec:
+  template:
+    spec:
+      serviceAccountName: netapp-service-mesh-service-account
+      containers:
+      - name: netapp-service-mesh
+        image: "{{ .Values.global.hub }}/netapp-service-mesh:{{ .Values.global.tag }}"
+        imagePullPolicy: {{ .Values.global.imagePullPolicy }}
+      restartPolicy: OnFailure
