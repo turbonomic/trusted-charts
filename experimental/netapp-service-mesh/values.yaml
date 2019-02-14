@@ -1,5 +1,5 @@
 global:
-  hub: docker.io/sdake
+  hub: gcr.io/public-charts
 
   tag: sdake
 
