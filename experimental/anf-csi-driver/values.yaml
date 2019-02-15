@@ -1,0 +1,19 @@
+image:
+  repository: gcr.io/stackpoint-public/anf-csi
+  tag: latest
+  pullPolicy: Always
+
+sc: 
+  resourcegroup:
+  netappaccount:
+  capacitypool:
+  region:
+  virtualnetwork:
+  subnet:
+  servicelevel: "Standard"
+
+azurecreds:
+  subscriptionid:
+  tenantid: 
+  clientid:
+  clientsecret:

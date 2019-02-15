@@ -1,0 +1,6 @@
+global:
+  hub: gcr.io/public-charts
+
+  tag: sdake
+
+  imagePullPolicy: IfNotPresent
