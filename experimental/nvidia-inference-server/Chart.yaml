@@ -26,6 +26,7 @@
 
 apiVersion: v1
 appVersion: "1.0"
-description: A Helm chart for Kubernetes
+description: NVIDIA Inference Server for TensorFlow
 name: nvidia-inference-server
 version: 1.0.0
+icon: https://devblogs.nvidia.com/wp-content/uploads/2015/08/NVIDIA-Logo.png
