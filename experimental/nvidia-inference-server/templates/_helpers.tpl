@@ -52,6 +52,20 @@ If release name contains chart name it will be used as a full name.
 {{- end -}}
 
 {{/*
+Create a default fully qualified backend name.
+*/}}
+{{- define "nvidia-inference-server.backend.fullname" -}}
+{{- printf "%s-%s" (include "nvidia-inference-server.fullname" .) .Values.backend.name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
+Create a default fully qualified frontend name.
+*/}}
+{{- define "nvidia-inference-server.frontend.fullname" -}}
+{{- printf "%s-%s" (include "nvidia-inference-server.fullname" .) .Values.frontend.name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
 Create chart name and version as used by the chart label.
 */}}
 {{- define "nvidia-inference-server.chart" -}}

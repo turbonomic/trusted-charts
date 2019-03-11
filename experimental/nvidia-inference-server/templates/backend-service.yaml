@@ -24,59 +24,30 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
-  name: {{ template "nvidia-inference-server.fullname" . }}
+  name: {{ template "nvidia-inference-server.backend.fullname" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
     app: {{ template "nvidia-inference-server.name" . }}
     chart: {{ template "nvidia-inference-server.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+    component: {{ .Values.backend.name }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  type: {{ .Values.backend.service.type }}
+  ports:
+    - port: 8000
+      targetPort: http
+      name: http-inference-server
+    - port: 8001
+      targetPort: grpc
+      name: grpc-inference-server
+    - port: 8002
+      targetPort: metrics
+      name: metrics-inference-server
   selector:
-    matchLabels:
-      app: {{ template "nvidia-inference-server.name" . }}
-      release: {{ .Release.Name }}
-  template:
-    metadata:
-      labels:
-        app: {{ template "nvidia-inference-server.name" . }}
-        release: {{ .Release.Name }}
-
-    spec:
-      containers:
-        - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.imageName }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-
-          resources:
-            limits:
-              nvidia.com/gpu: {{ .Values.image.numGpus }}
-
-          command: ["trtserver"]
-          args: ["--model-store={{ .Values.image.modelRepositoryPath }}"]
-          env:
-            - name: GOOGLE_APPLICATION_CREDENTIALS
-              value: /secret/gcp-creds.json
-
-          ports:
-            - containerPort: 8000
-              name: http
-            - containerPort: 8001
-            - containerPort: 8002
-          livenessProbe:
-            httpGet:
-              path: /api/health/live
-              port: http
-          readinessProbe:
-            initialDelaySeconds: 5
-            periodSeconds: 5
-            httpGet:
-              path: /api/health/ready
-              port: http
-
-          securityContext:
-            runAsUser: 1000
-            fsGroup: 1000
+    app: {{ template "nvidia-inference-server.name" . }}
+    release: {{ .Release.Name }}
+    component: {{ .Values.backend.name }}

@@ -25,8 +25,23 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 apiVersion: v1
-appVersion: "1.0"
-description: NVIDIA Inference Server for TensorFlow
-name: nvidia-inference-server
-version: 1.0.1
-icon: https://devblogs.nvidia.com/wp-content/uploads/2015/08/NVIDIA-Logo.png
+kind: Service
+metadata:
+  name: {{ template "nvidia-inference-server.frontend.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ template "nvidia-inference-server.name" . }}
+    chart: {{ template "nvidia-inference-server.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    component: {{ .Values.frontend.name }}
+spec:
+  type: "LoadBalancer"
+  ports:
+    - port: 8001
+      targetPort: http
+      name: web
+  selector:
+    app: {{ template "nvidia-inference-server.name" . }}
+    release: {{ .Release.Name }}
+    component: {{ .Values.frontend.name }}
