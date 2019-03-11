@@ -24,17 +24,24 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-replicaCount: 1
-
-backend:
-  name: tensorrt
-  deployment:
-    imageName: renaudwastaken/tensorrtserver:19.02-py3
-    modelRepositoryPath: /models
-    numGpus: 1
-
-  service:
-    type: ClusterIP
-
-frontend:
-  name: frontend
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "nvidia-inference-server.frontend.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ template "nvidia-inference-server.name" . }}
+    chart: {{ template "nvidia-inference-server.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    component: {{ .Values.frontend.name }}
+spec:
+  type: "LoadBalancer"
+  ports:
+    - port: 8001
+      targetPort: http
+      name: web
+  selector:
+    app: {{ template "nvidia-inference-server.name" . }}
+    release: {{ .Release.Name }}
+    component: {{ .Values.frontend.name }}

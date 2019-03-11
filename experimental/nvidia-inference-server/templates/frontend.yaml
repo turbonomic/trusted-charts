@@ -24,27 +24,38 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-apiVersion: v1
-kind: Service
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: {{ template "nvidia-inference-server.fullname" . }}
+  name: {{ template "nvidia-inference-server.frontend.fullname" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
     app: {{ template "nvidia-inference-server.name" . }}
     chart: {{ template "nvidia-inference-server.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+    component: {{ .Values.frontend.name }}
 spec:
-  type: {{ .Values.service.type }}
-  ports:
-    - port: 8000
-      targetPort: 8000
-      name: http-inference-server
-    - port: 8001
-      targetPort: 8001
-      name: grpc-inference-server
-    - port: 8002
-      targetPort: 8002
-      name: metrics-inference-server
+  replicas: 1
   selector:
-    app: {{ template "nvidia-inference-server.name" . }}
-    release: {{ .Release.Name }}
+    matchLabels:
+      app: {{ template "nvidia-inference-server.name" . }}
+      release: {{ .Release.Name }}
+      component: {{ .Values.frontend.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "nvidia-inference-server.name" . }}
+        release: {{ .Release.Name }}
+        component: {{ .Values.frontend.name }}
+
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "renaudwastaken/tensorrt-frontend:latest"
+
+          command: ["python"]
+          args: ["main.py", "{{ template "nvidia-inference-server.backend.fullname" . }}:8000"]
+          ports:
+            - containerPort: 5000
+              name: http
