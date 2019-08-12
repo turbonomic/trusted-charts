@@ -22,3 +22,12 @@ spec:
       type: ephemeral
     - usage: data
       type: ephemeral
+  serviceExposures:
+  {{ if .Values.grafana.nodePort }}
+  - name: alameda-grafana
+    type: NodePort
+    nodePort:
+      ports:
+      - port: 3000
+        nodePort: {{ .Values.grafana.nodePort }}
+  {{ end }}

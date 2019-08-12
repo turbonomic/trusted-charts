@@ -8,12 +8,12 @@
 image:
   pullPolicy: IfNotPresent
   repository: quay.io/prophetstor/federatorai-operator-ubi
-  tag: v4.1.108
+  tag: stable
 
 ## Set default values
 ##
 alameda:
-  version: v4.1.113
+  version: stable
   ## NKS trusted-helm prometheus exposes as http://pk8s.monitoring.svc:9090
   prometheusService: http://pk8s.monitoring.svc:9090
   ## OpenShift prometheus exposes as https://prometheus-k8s.openshift-monitoring.svc:9091
@@ -24,3 +24,8 @@ alameda:
 prometheus:
   ## Deploy built-in prometheus chart
   enabled: true
+
+grafana:
+  ## Specify the nodePort value between 30000-32767 for the Grafana
+  ## Comment out the following line to disable nodePort service
+  nodePort: 31010
